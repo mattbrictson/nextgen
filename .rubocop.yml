@@ -13,6 +13,14 @@ AllCops:
     - "tmp/**/*"
     - "vendor/**/*"
 
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/ExtraSpacing:
+  AllowForAlignment: false
+  AllowBeforeTrailingComments: true
+  ForceEqualSignAlignment: false
+
 Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 
@@ -26,12 +34,13 @@ Layout/FirstMethodArgumentLineBreak:
   Enabled: true
 
 Layout/HashAlignment:
-  EnforcedColonStyle:
-    - table
-    - key
-  EnforcedHashRocketStyle:
-    - table
-    - key
+  EnforcedHashRocketStyle: key
+  EnforcedColonStyle: key
+  EnforcedLastArgumentHashStyle: always_inspect
+
+Layout/LineLength:
+  Exclude:
+    - config/initializers/content_security_policy.rb
 
 Layout/MultilineArrayLineBreaks:
   Enabled: true
@@ -45,32 +54,74 @@ Layout/MultilineMethodArgumentLineBreaks:
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
-Layout/SpaceAroundEqualsInParameterDefault:
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
+  EnforcedStyleForEmptyBraces: no_space
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+Lint/DuplicateBranch:
+  Enabled: false
+
+Lint/RedundantCopDisableDirective:
+  Exclude:
+    - template/app/helpers/inline_svg_helper.rb
 
 Metrics/AbcSize:
-  Max: 20
-  Exclude:
-    - "test/**/*"
+  Enabled: false
 
 Metrics/BlockLength:
+  Max: 25
   Exclude:
     - "*.gemspec"
-    - "Rakefile"
-
+    - config/**/*
+    - lib/generators/**/*
+    - test/**/*
 Metrics/ClassLength:
+  Max: 200
   Exclude:
-    - "test/**/*"
+    - test/**/*
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
 
 Metrics/MethodLength:
-  Max: 18
+  Max: 25
   Exclude:
-    - "test/**/*"
+    - db/migrate/*
+    - test/**/*
+
+Metrics/ModuleLength:
+  Max: 200
+  Exclude:
+    - config/**/*
 
 Metrics/ParameterLists:
   Max: 6
 
+Metrics/PerceivedComplexity:
+  Max: 8
+
+Minitest/AssertPredicate:
+  Enabled: false
+
+Minitest/AssertTruthy:
+  Enabled: false
+
 Minitest/EmptyLineBeforeAssertionMethods:
+  Enabled: false
+
+Minitest/MultipleAssertions:
+  Enabled: false
+
+Minitest/RefuteFalse:
+  Enabled: false
+
+Minitest/RefutePredicate:
   Enabled: false
 
 Naming/MemoizedInstanceVariableName:
@@ -80,10 +131,14 @@ Naming/VariableNumber:
   Enabled: false
 
 Rake/Desc:
+  Exclude:
+    - Rakefile
+
+Style/Alias:
   Enabled: false
 
-Style/BarePercentLiterals:
-  EnforcedStyle: percent_q
+Style/AsciiComments:
+  Enabled: false
 
 Style/ClassAndModuleChildren:
   Enabled: false
@@ -95,16 +150,53 @@ Style/DoubleNegation:
   Enabled: false
 
 Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+Style/FetchEnvVar:
+  Enabled: false
+
+Style/FormatStringToken:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/GuardClause:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/MixinUsage:
+  Exclude:
+    - lib/generators/**/*
+
+Style/ModuleFunction:
+  Enabled: false
+
 Style/NumericPredicate:
+  Enabled: false
+
+Style/PerlBackrefs:
+  Enabled: false
+
+Style/SingleLineMethods:
+  AllowIfMethodIsEmpty: false
+
+Style/StringConcatenation:
   Enabled: false
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+
+Style/SymbolArray:
+  Enabled: false
+
 Style/TrivialAccessors:
   AllowPredicates: true
+
+Style/YodaExpression:
+  Enabled: false

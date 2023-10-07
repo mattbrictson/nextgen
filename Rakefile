@@ -38,7 +38,7 @@ task :verify_gemspec_files do
     not, you may need to delete these files or modify the gemspec to ensure
     that they are not included in the gem by mistake:
 
-    #{ignored_by_git.join("\n").gsub(/^/, '  ')}
+    #{ignored_by_git.join("\n").gsub(/^/, "  ")}
 
   ERROR
 end
