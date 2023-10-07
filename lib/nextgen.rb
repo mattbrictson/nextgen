@@ -1,5 +1,4 @@
 require "pathname"
-require "thor"
 require "zeitwerk"
 
 loader = Zeitwerk::Loader.for_gem

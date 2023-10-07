@@ -1,3 +1,5 @@
+require "thor"
+
 module Nextgen
   class CLI < Thor
     extend ThorExtensions
