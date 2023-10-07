@@ -7,6 +7,8 @@ Gem::Specification.new do |spec|
   spec.email = ["opensource@mattbrictson.com"]
 
   spec.summary = "Generate your next Rails app interactively!"
+  spec.description = "Nextgen is an interactive and flexible alternative to `rails new` " \
+                     "that includes opt-in support for modern frontend development with Vite."
   spec.homepage = "https://github.com/mattbrictson/nextgen"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0"
@@ -32,7 +34,6 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  # Runtime dependencies
   spec.add_dependency "railties", "~> 7.1.0"
   spec.add_dependency "thor", "~> 1.2"
   spec.add_dependency "tty-prompt", "~> 0.23.1"
