@@ -1,0 +1,146 @@
+initial_git_commit:
+
+base:
+  description: "Enhance base Rails template with better docs, etc"
+
+initial_migrations:
+  description: "Install and run initial migrations"
+  requires: active_record
+
+clean_gemfile:
+  description: "Clean up Gemfile"
+
+rspec_rails:
+  description: "Install and configure rspec-rails"
+  requires: rspec
+
+rspec_system_testing:
+  description: "Install capybara + selenium-webdriver and set up system specs"
+  requires:
+    - rspec
+    - system_testing
+
+node:
+  description: "Set up Node and Yarn"
+
+vite:
+  description: "Replace the asset pipeline with Vite in app/frontend"
+  requires: vite
+  node: true
+
+action_mailer:
+  description: "Improve Action Mailer support for absolute URLs and testing"
+  requires: action_mailer
+
+annotate:
+  prompt: "Annotate Models"
+  description: "Install annotate gem to auto-generate schema annotations"
+  requires: active_record
+
+basic_auth:
+  prompt: "BasicAuth controller concern"
+  description: "Allow app to be secured with ENV-based basic auth credentials"
+
+brakeman:
+  prompt: "Brakeman"
+  description: "Install brakeman gem for security checks"
+
+bundler_audit:
+  prompt: "Bundler Audit"
+  description: "Install bundler-audit gem to detect CVEs in Ruby dependencies"
+
+capybara_lockstep:
+  prompt: "capybara-lockstep"
+  description: "Install capybara-lockstep gem for less-flaky browser testing"
+  requires: system_testing
+
+dotenv:
+  prompt: "dotenv-rails"
+  description: "Install dotenv-rails gem and add .env.sample"
+
+erb_lint:
+  prompt: "ERB Lint"
+  description: "Install erb_lint gem and correct existing issues"
+  requires: frontend
+
+eslint:
+  prompt: "ESLint"
+  description: "Install eslint + supporting packages; apply prettier format"
+  requires: frontend
+  node: true
+
+factory_bot_rails:
+  prompt: "Factory Bot"
+  description: "Install and configure factory_bot_rails gem"
+  requires: active_record
+
+git_safe:
+
+good_migrations:
+  prompt: "good_migrations"
+  description: "Install good_migrations gem"
+  requires: active_record
+
+home_controller:
+  description: "Create a controller, view, and route for the home page"
+  requires: frontend
+
+letter_opener:
+  prompt: "letter_opener"
+  description: "Install letter_opener gem to use with Action Mailer in dev"
+  requires: action_mailer
+
+open_browser_on_start:
+  prompt: "Open browser on startup"
+  description: "Configure puma to launch browser on startup in development"
+  requires: frontend
+
+pgcli_rails:
+  prompt: "pgcli_rails"
+  description: "Install pgcli_rails gem to allow easy use of pgcli"
+  requires: postgresql
+
+rack_canonical_host:
+  prompt: "rack-canonical-host"
+  description: "Install rack-canonical-host gem; use RAILS_HOSTNAME"
+
+rack_mini_profiler:
+  prompt: "rack-mini-profiler"
+  description: "Install rack-mini-profiler gem in development"
+  requires: frontend
+
+shoulda:
+  prompt: "shoulda"
+  description: "Install shoulda-matchers gem for concise model testing"
+  requires: test_framework
+
+sidekiq:
+  prompt: "Sidekiq"
+  description: "Install sidekiq gem to use in production"
+  requires: active_job
+
+stylelint:
+  prompt: "Stylelint"
+  description: "Install stylelint and apply prettier format to CSS"
+  requires: frontend
+  node: true
+
+thor:
+  prompt: "Thor"
+  description: "Configure Thor for ease of writing Rails tasks"
+
+tomo:
+  prompt: "Tomo"
+  description: "Install tomo gem for SSH-based deployment"
+
+rubocop:
+  prompt: "RuboCop"
+  description: "Install rubocop gems; apply formatting rules"
+
+overcommit:
+  prompt: "Overcommit"
+  description: "Configure overcommit pre-commit git hooks"
+
+github_actions:
+  prompt: "GitHub Actions"
+  description: "Configure GitHub Actions workflow for CI"
