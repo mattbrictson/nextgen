@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require "example"
+Example::CLI.start(ARGV)
