@@ -1,10 +1,13 @@
-require "thor"
-
 module Nextgen
   class CLI < Thor
-    extend ThorExt::Start
+    extend ThorExtensions
 
     map %w[-v --version] => "version"
+
+    desc "create APP_PATH", "Generate a Rails app interactively in APP_PATH"
+    def create(app_path)
+      Commands::Create.run(app_path, options)
+    end
 
     desc "version", "Display nextgen version", hide: true
     def version

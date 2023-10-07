@@ -1,4 +1,13 @@
 #!/usr/bin/env ruby
 
 require "nextgen"
-Nextgen::CLI.start(ARGV)
+
+# Work around an "unresolved or ambiguous specs" warning when CLI is run via `gem exec`
+# https://github.com/rubygems/rubygems/issues/6914
+at_exit do
+  Gem.finish_resolve
+rescue Exception # rubocop:disable Lint/RescueException
+  # ignore
+end
+
+Nextgen::CLI.start
