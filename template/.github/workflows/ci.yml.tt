@@ -1,0 +1,142 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+env:
+  RAILS_ENV: test
+jobs:
+<% if minitest? || rspec? -%>
+  test:
+    name: "<%= minitest? ? "Test" : "RSpec" %>"
+    runs-on: ubuntu-latest
+<% if gems.include?("pg") -%>
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/ci
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: ci
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+<% end -%>
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+<% if File.exist?("package.json") -%>
+      - uses: actions/setup-node@v3
+        with:
+<% if File.exist?(".node-version") -%>
+          node-version-file: ".node-version"
+<% else -%>
+          node-version: "lts/*"
+<% end -%>
+          cache: yarn
+      - run: npx --yes ci
+<% end -%>
+<% if gems.include?("capybara") -%>
+      - run: mkdir -p ./tmp/screenshots
+<% end -%>
+<% if File.exist?("config/database.yml") -%>
+      - run: bundle exec rake db:prepare
+<% end -%>
+<% if rspec? -%>
+      - run: bundle exec rspec
+<% else -%>
+      - run: bundle exec rake test:all
+<% end -%>
+<% if gems.include?("capybara") -%>
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: capybara-screenshots
+          path: ./tmp/screenshots/
+          retention-days: 7
+          if-no-files-found: ignore
+<% end -%>
+<% end -%>
+<% if gems.include?("erb_lint") -%>
+  erblint:
+    name: "Lint / erblint"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - run: bin/erblint --lint-all
+<% end -%>
+<% if Dir[".eslintrc*"].any? -%>
+  eslint:
+    name: "Lint / eslint"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+<% if File.exist?(".node-version") -%>
+          node-version-file: ".node-version"
+<% else -%>
+          node-version: "lts/*"
+<% end -%>
+          cache: yarn
+      - run: npx --yes ci
+      - run: yarn lint:js
+<% end -%>
+<% if gems.include?("rubocop") -%>
+  rubocop:
+    name: "Lint / rubocop"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - run: bin/rubocop
+<% end -%>
+<% if Dir[".stylelintrc*"].any? -%>
+  stylelint:
+    name: "Lint / stylelint"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+<% if File.exist?(".node-version") -%>
+          node-version-file: ".node-version"
+<% else -%>
+          node-version: "lts/*"
+<% end -%>
+          cache: yarn
+      - run: npx --yes ci
+      - run: yarn lint:css
+<% end -%>
+<% if gems.include?("brakeman") -%>
+  brakeman:
+    name: "Security / brakeman"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - run: bundle exec brakeman --exit-on-warn --no-progress --color --output /dev/stdout
+<% end -%>
+<% if gems.include?("bundler-audit") -%>
+  bundle-audit:
+    name: "Security / bundle-audit"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - run: bundle exec bundle-audit check --update -v
+<% end -%>

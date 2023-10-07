@@ -1,0 +1,86 @@
+gemfile: false
+verify_signatures: false
+
+PreCommit:
+  BundleCheck:
+    enabled: true
+
+<% if File.exist?(".erb-lint.yml") -%>
+  ErbLint:
+    enabled: true
+    required_executable: bundle
+    command: ["bundle", "exec", "erblint"]
+    include: "**/*.html.erb"
+<% end -%>
+
+<% if File.exist?(".eslintrc.cjs") -%>
+  EsLint:
+    enabled: true
+    required_executable: npx
+    command: ["npx", "--no-install", "eslint", "-f", "compact"]
+    include:
+      - app/assets/**/*.js
+      - app/assets/**/*.jsx
+      - app/components/**/*.js
+      - app/components/**/*.jsx
+      - app/frontend/**/*.js
+      - app/frontend/**/*.jsx
+      - app/javascript/**/*.js
+      - app/javascript/**/*.jsx
+      - app/assets/**/*.ts
+      - app/assets/**/*.tsx
+      - app/components/**/*.ts
+      - app/components/**/*.tsx
+      - app/frontend/**/*.ts
+      - app/frontend/**/*.tsx
+      - app/javascript/**/*.ts
+      - app/javascript/**/*.tsx
+<% end -%>
+
+  FixMe:
+    enabled: true
+    keywords: ["FIXME"]
+    exclude:
+      - .overcommit.yml
+
+  LocalPathsInGemfile:
+    enabled: true
+
+<% if File.exist?("config/database.yml") -%>
+  RailsSchemaUpToDate:
+    enabled: true
+<% end -%>
+
+<% if File.exist?(".rubocop.yml") -%>
+  RuboCop:
+    enabled: true
+    required_executable: bundle
+    command: ["bundle", "exec", "rubocop"]
+    on_warn: fail
+<% end -%>
+
+<% if File.exist?(".stylelintrc.cjs") -%>
+  Stylelint:
+    enabled: true
+    required_executable: npx
+    command: ["npx", "--no-install", "stylelint"]
+    include:
+      - app/assets/**/*.css
+      - app/components/**/*.css
+      - app/frontend/**/*.css
+      - app/javascript/**/*.css
+<% end -%>
+
+  TrailingWhitespace:
+    enabled: true
+    exclude:
+      - "**/db/structure.sql"
+
+<% if File.exist?("yarn.lock") -%>
+  YarnCheck:
+    enabled: true
+<% end -%>
+
+PostCheckout:
+  ALL:
+    quiet: true

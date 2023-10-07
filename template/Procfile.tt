@@ -1,0 +1,4 @@
+web: bundle exec puma -C config/puma.rb
+<% if File.exist?("config/database.yml") -%>
+release: bundle exec rake db:migrate
+<% end -%>
