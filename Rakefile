@@ -2,14 +2,23 @@ require "bundler/gem_tasks"
 require "rake/testtask"
 require "rubocop/rake_task"
 
-Rake::TestTask.new(:test) do |t|
+Rake::TestTask.new("test:unit") do |t|
+  t.description = "Run tests except for slow integration tests"
   t.libs << "test"
   t.libs << "lib"
-  t.test_files = FileList["test/**/*_test.rb"]
+  t.test_files = FileList["test/**/*_test.rb"] - FileList["test/**/*_integration_test.rb"]
+end
+
+Rake::TestTask.new("test:integration") do |t|
+  t.description = "Run slow integration tests"
+  t.libs << "test"
+  t.libs << "lib"
+  t.test_files = FileList["test/**/*_integration_test.rb"]
 end
 
 RuboCop::RakeTask.new
-
+desc "Run unit tests"
+task test: "test:unit"
 task default: %i[test rubocop]
 
 # == "rake release" enhancements ==============================================
