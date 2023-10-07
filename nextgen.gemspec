@@ -35,5 +35,7 @@ Gem::Specification.new do |spec|
   # Runtime dependencies
   spec.add_dependency "railties", "~> 7.1.0"
   spec.add_dependency "thor", "~> 1.2"
+  spec.add_dependency "tty-prompt", "~> 0.23.1"
+  spec.add_dependency "tty-screen", "~> 0.8.1"
   spec.add_dependency "zeitwerk", "~> 2.6"
 end
