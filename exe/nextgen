@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require "nextgen"
+Nextgen::CLI.start(ARGV)

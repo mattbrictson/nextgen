@@ -1,20 +1,20 @@
-require_relative "lib/example/version"
+require_relative "lib/nextgen/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "example"
-  spec.version = Example::VERSION
-  spec.authors = ["Example Owner"]
-  spec.email = ["owner@example.com"]
+  spec.name = "nextgen"
+  spec.version = Nextgen::VERSION
+  spec.authors = ["Matt Brictson"]
+  spec.email = ["opensource@mattbrictson.com"]
 
-  spec.summary = ""
-  spec.homepage = "https://github.com/mattbrictson/gem"
+  spec.summary = "Generate your next Rails app interactively!"
+  spec.homepage = "https://github.com/mattbrictson/nextgen"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0"
 
   spec.metadata = {
-    "bug_tracker_uri" => "https://github.com/mattbrictson/gem/issues",
-    "changelog_uri" => "https://github.com/mattbrictson/gem/releases",
-    "source_code_uri" => "https://github.com/mattbrictson/gem",
+    "bug_tracker_uri" => "https://github.com/mattbrictson/nextgen/issues",
+    "changelog_uri" => "https://github.com/mattbrictson/nextgen/releases",
+    "source_code_uri" => "https://github.com/mattbrictson/nextgen",
     "homepage_uri" => spec.homepage,
     "rubygems_mfa_required" => "true"
   }

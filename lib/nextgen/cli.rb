@@ -1,14 +1,14 @@
 require "thor"
 
-module Example
+module Nextgen
   class CLI < Thor
     extend ThorExt::Start
 
     map %w[-v --version] => "version"
 
-    desc "version", "Display example version", hide: true
+    desc "version", "Display nextgen version", hide: true
     def version
-      say "example/#{VERSION} #{RUBY_DESCRIPTION}"
+      say "nextgen/#{VERSION} #{RUBY_DESCRIPTION}"
     end
   end
 end
