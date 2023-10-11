@@ -3,10 +3,6 @@ initial_git_commit:
 base:
   description: "Enhance base Rails template with better docs, etc"
 
-initial_migrations:
-  description: "Install and run initial migrations"
-  requires: active_record
-
 clean_gemfile:
   description: "Clean up Gemfile"
 
