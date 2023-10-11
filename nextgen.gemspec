@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "railties", "~> 7.1.0"
+  spec.add_dependency "railties", "~> 7.1.1"
   spec.add_dependency "thor", "~> 1.2"
   spec.add_dependency "tty-prompt", "~> 0.23.1"
   spec.add_dependency "tty-screen", "~> 0.8.1"
