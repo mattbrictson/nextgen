@@ -6,6 +6,10 @@ gemfile: false
 verify_signatures: false
 
 PreCommit:
+  ALL:
+    exclude:
+    - "examples/**/*"
+
   BundleCheck:
     enabled: true
 
@@ -14,6 +18,8 @@ PreCommit:
     keywords: ["FIXME"]
     exclude:
       - .overcommit.yml
+      - template/.overcommit.yml.tt
+      - "examples/**/*"
 
   LocalPathsInGemfile:
     enabled: true

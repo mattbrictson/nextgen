@@ -1,0 +1,107 @@
+#!/usr/bin/env ruby
+
+# This script is a way to set up or update your development environment automatically.
+# This script is idempotent, so that you can run it at any time and get an expectable outcome.
+# Add necessary setup steps to this method.
+def setup!
+  run "bundle install" if bundle_needed?
+  run "overcommit --install" if overcommit_installable?
+  run "bin/rails db:prepare" if database_present?
+  run "yarn install" if yarn_needed?
+  run "bin/rails tmp:create" if tmp_missing?
+  env ".env", from: ".env.sample"
+  run "bin/rails restart"
+
+  if git_safe_needed?
+    say_status :notice,
+      "Remember to run #{colorize("mkdir -p .git/safe", :yellow)} to trust the binstubs in this project",
+      :magenta
+  end
+
+  say_status :Ready!,
+    "Use #{colorize("bin/rails s", :yellow)} to start the app, " \
+    "or #{colorize("bin/rake", :yellow)} to run tests"
+end
+
+def run(command, echo: true, silent: false, exception: true)
+  say_status(:run, command, :blue) if echo
+  with_original_bundler_env do
+    options = silent ? {out: File::NULL, err: File::NULL} : {}
+    system(command, exception: exception, **options)
+  end
+end
+
+def run?(command)
+  run command, silent: true, echo: false, exception: false
+end
+
+def bundle_needed?
+  !run("bundle check", silent: true, exception: false)
+end
+
+def overcommit_installable?
+  File.exist?(".overcommit.yml") && !File.exist?(".git/hooks/overcommit-hook") && run?("overcommit -v")
+end
+
+def database_present?
+  File.exist?("config/database.yml")
+end
+
+def yarn_needed?
+  File.exist?("yarn.lock") && !run("yarn check --check-files", silent: true, exception: false)
+end
+
+def tmp_missing?
+  !Dir.exist?("tmp/pids")
+end
+
+def git_safe_needed?
+  ENV["PATH"].include?(".git/safe/../../bin") && !Dir.exist?(".git/safe")
+end
+
+def with_original_bundler_env(&block)
+  return yield unless defined?(Bundler)
+
+  Bundler.with_original_env(&block)
+end
+
+def env(env_file, from:)
+  return unless File.exist?(from)
+
+  unless File.exist?(env_file)
+    say_status(:copy, "#{from} → #{env_file}", :magenta)
+    require "fileutils"
+    FileUtils.cp(from, env_file)
+  end
+
+  keys = ->(f) { File.readlines(f).filter_map { |l| l[/^([^#\s][^=\s]*)/, 1] } }
+
+  missing = keys[from] - keys[env_file]
+  return if missing.empty?
+
+  say_status(:WARNING, "Your #{env_file} file is missing #{missing.join(", ")}. Refer to #{from} for details.", :red)
+end
+
+def say_status(label, message, color = :green)
+  label = label.to_s.rjust(12)
+  puts [colorize(label, color), message].join(" ")
+end
+
+def colorize(str, color)
+  return str unless color_supported?
+
+  code = {red: 31, green: 32, yellow: 33, blue: 34, magenta: 35}.fetch(color)
+  "\e[0;#{code};49m#{str}\e[0m"
+end
+
+def color_supported?
+  if ENV["TERM"] == "dumb" || !ENV["NO_COLOR"].to_s.empty?
+    false
+  else
+    [$stdout, $stderr].all? { |io| io.respond_to?(:tty?) && io.tty? }
+  end
+end
+
+Dir.chdir(File.expand_path("..", __dir__)) do
+  setup!
+end

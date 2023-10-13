@@ -1,0 +1,26 @@
+{
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8.44.4",
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.0.3",
+    "stylelint": "^15.10.3",
+    "stylelint-config-standard": "^34.0.0",
+    "stylelint-declaration-strict-value": "^1.9.2",
+    "stylelint-prettier": "^4.0.2"
+  },
+  "scripts": {
+    "lint:js": "eslint 'app/{components,frontend,javascript}/**/*.{js,jsx,ts,tsx}'",
+    "fix:js": "npm run -- lint:js --fix",
+    "lint": "npm-run-all lint:**",
+    "fix": "npm-run-all fix:**",
+    "lint:css": "stylelint 'app/{components,frontend,assets/stylesheets}/**/*.css'",
+    "fix:css": "npm run -- lint:css --fix"
+  }
+}

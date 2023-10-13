@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^7.3.0",
+    "autoprefixer": "^10.4.14",
+    "modern-normalize": "^2.0.0",
+    "postcss": "^8.4.24",
+    "rollup": "^3.26.3",
+    "stimulus-vite-helpers": "^3.0.1",
+    "vite": "^4.3.0",
+    "vite-plugin-rails": "0.1.0"
+  },
+  "scripts": {
+    "start": "concurrently -i -k --kill-others-on-fail -p none 'RUBY_DEBUG_OPEN=true bin/rails s' 'bin/vite dev'"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1"
+  }
+}

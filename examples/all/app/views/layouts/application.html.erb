@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%= capybara_lockstep if defined?(Capybara::Lockstep) %>
+    <title><%= content_for?(:title) ? strip_tags(yield(:title)) : "All Example" %></title>
+    <meta name="apple-mobile-web-app-title" content="All Example">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
