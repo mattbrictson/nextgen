@@ -22,7 +22,7 @@ Nextgen is an **interactive** and flexible alternative to `rails new` that inclu
 |
 [Contribution guide](#contribution-guide)
 
-TODO: screen recording goes here
+![Screen recording of Nextgen in action](./demo.gif)
 
 ## About
 
