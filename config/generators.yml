@@ -129,6 +129,11 @@ tomo:
   prompt: "Tomo"
   description: "Install tomo gem for SSH-based deployment"
 
+vcr:
+  prompt: "VCR"
+  description: "Install and configure the vcr gem"
+  requires: test_framework
+
 rubocop:
   prompt: "RuboCop"
   description: "Install rubocop gems; apply formatting rules"
