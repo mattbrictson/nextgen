@@ -10,6 +10,7 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 3.0
   Exclude:
+    - "examples/**/*"
     - "tmp/**/*"
     - "vendor/**/*"
 

@@ -1,0 +1,5 @@
+---
+:queues:
+  - default
+
+:concurrency: <%= ENV["SIDEKIQ_CONCURRENCY"] || ENV["RAILS_MAX_THREADS"] || 5 %>
