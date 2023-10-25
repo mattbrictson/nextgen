@@ -19,15 +19,24 @@ class Nextgen::Generators::VcrTest < Nextgen::Generators::TestCase
     end
   end
 
-  test "adds a test/support/vcr.rb file" do
+  test "when minitest is present, adds vcr and webmock test support files" do
+    Dir.chdir(destination_root) do
+      FileUtils.mkdir_p("test")
+      FileUtils.touch("test/test_helper.rb")
+    end
+
     apply_generator
 
     assert_file "test/support/vcr.rb" do |support|
       refute_match(/rspec/, support)
     end
+
+    assert_file "test/support/webmock.rb" do |support|
+      assert_match('require "webmock/minitest"', support)
+    end
   end
 
-  test "when rspec is present, adds a spec/support/vcr.rb file" do
+  test "when rspec is present, adds vcr and webmock spec support files" do
     Dir.chdir(destination_root) do
       FileUtils.mkdir_p("spec/support")
       FileUtils.touch("spec/spec_helper.rb")
@@ -37,6 +46,10 @@ class Nextgen::Generators::VcrTest < Nextgen::Generators::TestCase
 
     assert_file "spec/support/vcr.rb" do |support|
       assert_match(/rspec/, support)
+    end
+
+    assert_file "spec/support/webmock.rb" do |support|
+      assert_match('require "webmock/rspec"', support)
     end
   end
 end
