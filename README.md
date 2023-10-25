@@ -97,6 +97,7 @@ Nextgen can install and configure your choice of these recommended gems:
 - [sidekiq](https://github.com/sidekiq/sidekiq)
 - [thor](https://github.com/rails/thor)
 - [tomo](https://github.com/mattbrictson/tomo)
+- [vcr](https://github.com/vcr/vcr)
 
 ### Node packages
 
