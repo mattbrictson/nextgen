@@ -131,7 +131,7 @@ tomo:
 
 vcr:
   prompt: "VCR"
-  description: "Install and configure the vcr gem"
+  description: "Install and configure vcr and webmock gems"
   requires: test_framework
 
 rubocop:
