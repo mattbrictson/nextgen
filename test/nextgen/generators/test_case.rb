@@ -2,11 +2,24 @@ require "test_helper"
 require "securerandom"
 require "tmpdir"
 require "rails/generators/test_case"
-
 require "rails/generators/rails/app/app_generator"
 
 class Nextgen::Generators::TestCase < Rails::Generators::TestCase
   private
+
+  def empty_destination_gemfile
+    Pathname.new(destination_root).join("Gemfile").write(<<~GEMFILE)
+      source "https://rubygems.org"
+    GEMFILE
+  end
+
+  def touch_destination_paths(*paths)
+    paths.flatten.each do |path|
+      dest = Pathname.new(destination_root).join(path)
+      FileUtils.mkdir_p dest.dirname
+      FileUtils.touch dest
+    end
+  end
 
   def apply_generator(name = self.class.name.underscore[/(\w+)_test$/, 1])
     generators = Nextgen::Generators.new

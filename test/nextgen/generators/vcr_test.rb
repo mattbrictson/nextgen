@@ -3,20 +3,17 @@ require_relative "test_case"
 class Nextgen::Generators::VcrTest < Nextgen::Generators::TestCase
   destination File.join(Dir.tmpdir, "test_#{SecureRandom.hex(8)}")
   setup :prepare_destination
-
-  setup do
-    Pathname.new(destination_root).join("Gemfile").write(<<~GEMFILE)
-      source "https://rubygems.org"
-    GEMFILE
-  end
+  setup :empty_destination_gemfile
 
   test "installs vcr and webmock gems" do
     apply_generator
 
-    assert_file "Gemfile" do |gemfile|
-      assert_match(/gem "vcr"/, gemfile)
-      assert_match(/gem "webmock"/, gemfile)
-    end
+    assert_file "Gemfile", /#{Regexp.quote(<<~GEMFILE)}/
+      group :test do
+        gem "webmock"
+        gem "vcr"
+      end
+    GEMFILE
   end
 
   test "when minitest is present, adds vcr and webmock test support files" do

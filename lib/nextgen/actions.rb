@@ -54,16 +54,18 @@ module Nextgen
     end
 
     def copy_test_support_file(file)
+      copy_action = file.end_with?(".tt") ? method(:template) : method(:copy_file)
+
       if minitest?
         create_test_support_directory
-        copy_file "test/support/#{file}"
+        copy_action.call "test/support/#{file}"
       elsif rspec?
         empty_directory "spec/support"
         spec_file_path = "spec/support/#{file}"
         if Nextgen.template_path.join(spec_file_path).exist?
-          copy_file spec_file_path
+          copy_action.call spec_file_path
         else
-          copy_file "test/support/#{file}", spec_file_path
+          copy_action.call "test/support/#{file}", spec_file_path.sub(/\.tt$/, "")
         end
       end
     end
