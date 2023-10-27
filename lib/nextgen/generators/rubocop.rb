@@ -6,7 +6,8 @@ plugins << "factory_bot" if gemfile.match?(/^\s*gem ['"]factory_bot/)
 plugins << "minitest" if minitest?
 plugins << "performance"
 plugins << "rails"
-install_gems "rubocop", *plugins.map { "rubocop-#{_1}" }, group: :development, require: false
+install_gem("rubocop-rails", version: ">= 2.22.0", group: :development, require: false)
+install_gems(*plugins.map { "rubocop-#{_1}" }, "rubocop", group: :development, require: false)
 binstub "rubocop"
 
 say_git "Generate .rubocop.yml"
