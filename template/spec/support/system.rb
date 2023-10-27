@@ -1,9 +1,3 @@
-require "capybara/rails"
-require "capybara/rspec"
-
-Capybara.default_max_wait_time = 2
-Capybara.disable_animation = true
-
 RSpec.configure do |config|
   config.before(:each, type: :system) do
     driven_by :selenium,
