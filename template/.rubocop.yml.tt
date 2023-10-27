@@ -190,15 +190,6 @@ Rails/RootPathnameMethods:
 Rails/SkipsModelValidations:
   Enabled: false
 
-<% if Gem::Version.new(Rails.version) >= Gem::Version.new("7.1.0.beta1") -%>
-Rails/UnknownEnv:
-  Environments:
-    - development
-    - test
-    - production
-    - local
-<% end -%>
-
 Rails/Validation:
   Enabled: false
 
