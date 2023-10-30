@@ -70,6 +70,10 @@ factory_bot_rails:
   description: "Install and configure factory_bot_rails gem"
   requires: active_record
 
+github_pr_template:
+  prompt: "GitHub PR template"
+  description: "Add GitHub pull request template"
+
 git_safe:
 
 good_migrations:
