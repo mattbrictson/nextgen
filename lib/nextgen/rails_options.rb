@@ -3,6 +3,7 @@ module Nextgen
     DATABASES = %w[
       postgresql
       mysql
+      trilogy
       sqlite3
       oracle
       sqlserver

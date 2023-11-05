@@ -135,7 +135,7 @@ module Nextgen
         "MySQL" => "mysql"
       }
       all_databases = common_databases.merge(
-        %w[MySQL Oracle SQLServer JDBCMySQL JDBCSQLite3 JDBCPostgreSQL JDBC].to_h do |name|
+        %w[MySQL Trilogy Oracle SQLServer JDBCMySQL JDBCSQLite3 JDBCPostgreSQL JDBC].to_h do |name|
           [name, name.downcase]
         end,
         "None (disable Active Record)" => nil
@@ -185,6 +185,7 @@ module Nextgen
       rails_opts.javascript = prompt.select(
         "Which JavaScript bundler will you use with the asset pipeline?",
         "Importmap (default)" => "importmap",
+        "Bun" => "bun",
         "ESBuild" => "esbuild",
         "Rollup" => "rollup",
         "Webpack" => "webpack",
