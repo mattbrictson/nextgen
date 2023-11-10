@@ -30,7 +30,7 @@ Nextgen generates apps using **Rails 7.1**.
 
 - **Ruby 3.0+** is required
 - **Rubygems 3.4.8+** is required (run `gem update --system` to get it)
-- **Node 18+ and Yarn** are required if you choose Vite or other Node-based options
+- **Node 18.12+ and Yarn** are required if you choose Vite or other Node-based options
 - Additional tools may be required depending on the options you select (e.g. PostgreSQL)
 
 Going forward, my goal is that Nextgen will always target the latest stable version of Rails and the next pre-release version. Support for Node LTS and Ruby versions will be dropped as soon as they reach EOL (see [Ruby](https://endoflife.date/ruby) and [Node](https://endoflife.date/nodejs) EOL schedules).
