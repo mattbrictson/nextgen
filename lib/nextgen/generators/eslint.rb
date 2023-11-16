@@ -9,7 +9,7 @@ add_yarn_packages(
   dev: true
 )
 add_package_json_scripts(
-  "lint:js": "eslint 'app/{components,frontend,javascript}/**/*.{js,jsx,ts,tsx}'",
+  "lint:js": "eslint 'app/{assets,components,frontend,javascript}/**/*.{cjs,js,jsx,ts,tsx}'",
   "fix:js": "npm run -- lint:js --fix",
   lint: "npm-run-all lint:**",
   fix: "npm-run-all fix:**"
