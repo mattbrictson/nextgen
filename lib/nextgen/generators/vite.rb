@@ -42,7 +42,7 @@ end
 
 say_git "Install autoprefixer"
 add_yarn_packages "postcss@^8.4.24", "autoprefixer@^10.4.14"
-copy_file "postcss.config.js"
+copy_file "postcss.config.cjs"
 
 say_git "Disable autoBuild in test environment"
 gsub_file "config/vite.json", /("test": \{.+?"autoBuild":\s*)true/m, '\1false'
