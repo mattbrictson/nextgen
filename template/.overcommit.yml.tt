@@ -19,6 +19,10 @@ PreCommit:
     required_executable: npx
     command: ["npx", "--no-install", "eslint", "-f", "compact"]
     include:
+      - app/assets/**/*.cjs
+      - app/components/**/*.cjs
+      - app/frontend/**/*.cjs
+      - app/javascript/**/*.cjs
       - app/assets/**/*.js
       - app/assets/**/*.jsx
       - app/components/**/*.js
