@@ -13,7 +13,7 @@ module Nextgen
     def apply_as_git_commit(path, message: nil)
       say message, :cyan if message
       @commit_messages = []
-      initially_clean = (git_working? && git_status == :clean)
+      initially_clean = git_working? && git_status == :clean
       say_status :apply, File.basename(path)
       apply path, verbose: false
       return if !initially_clean || git_status == :clean
@@ -35,7 +35,7 @@ module Nextgen
     def git_working?
       return @git_working if defined?(@git_working)
 
-      @git_working = (git_status != :error && git_user_configured?)
+      @git_working = git_status != :error && git_user_configured?
     end
 
     def git_user_configured?
