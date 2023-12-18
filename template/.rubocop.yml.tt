@@ -77,6 +77,12 @@ Lint/AmbiguousBlockAssociation:
 Lint/DuplicateBranch:
   Enabled: false
 
+Lint/UselessAccessModifier:
+  ContextCreatingMethods:
+    - concerning
+  MethodCreatingMethods:
+    - delegate
+
 Metrics/AbcSize:
   Enabled: false
 
