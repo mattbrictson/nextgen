@@ -95,7 +95,7 @@ module Nextgen
         inject_into_file "README.md", " and lint checks", after: "automated tests"
         inject_into_file "README.md", <<~MARKDOWN, after: "```\nbin/rake\n```\n"
 
-          > [!NOTE]
+          > [!TIP]
           > Rake allows you to run all checks in parallel with the `-m` option. This is much faster, but since the output is interleaved, it may be harder to read.
 
           ```
