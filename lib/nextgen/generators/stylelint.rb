@@ -2,8 +2,8 @@ say_git "Install stylelint"
 add_yarn_packages(
   "stylelint@^15",
   "stylelint-config-standard@^34",
-  "stylelint-declaration-strict-value",
-  "stylelint-prettier",
+  "stylelint-declaration-strict-value@^1",
+  "stylelint-prettier@^4",
   "prettier",
   "npm-run-all",
   dev: true
