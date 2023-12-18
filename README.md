@@ -45,7 +45,7 @@ gem exec nextgen create myapp
 
 This will download the latest version of the `nextgen` gem and use it to create an app in the `myapp` directory. You'll be asked to configure the tech stack through several interactive prompts. If you have a `~/.railsrc` file, it will be ignored.
 
-> [!NOTE]
+> [!TIP]
 > If you get an "Unknown command exec" error, fix it by upgrading rubygems: `gem update --system`.
 
 ## Examples
@@ -58,7 +58,7 @@ Check out the [examples directory](./examples) to see some Rails apps that were 
 
 On top of that foundation, Nextgen offers dozens of useful enhancements to the vanilla Rails experience. You are free to pick and choose which (if any) of these to apply to your new project. Behind the scenes, **each enhancement is applied in a separate git commit,** so that you can later see what was applied and why, and revert the suggestions if necessary.
 
-> [!NOTE]
+> [!TIP]
 > For the full list of what Nextgen provides, check out [config/generators.yml](https://github.com/mattbrictson/nextgen/tree/main/config/generators.yml). The source code of each generator can be found in [lib/nextgen/generators](https://github.com/mattbrictson/nextgen/tree/main/lib/nextgen/generators).
 
 Here are some highlights of what Nextgen brings to the table:
