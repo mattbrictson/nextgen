@@ -16,6 +16,7 @@ inject_into_class "config/application.rb", "Application", <<-RUBY
 RUBY
 
 say_git "Run the vite installer"
+FileUtils.touch "yarn.lock"
 bundle_command "exec vite install"
 gsub_file "app/views/layouts/application.html.erb",
   /vite_javascript_tag 'application' %>/,
