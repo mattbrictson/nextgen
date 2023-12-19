@@ -22,7 +22,7 @@ gsub_file "app/views/layouts/application.html.erb",
   'vite_javascript_tag "application", "data-turbo-track": "reload" %>'
 
 say_git "Replace vite-plugin-ruby with vite-plugin-rails"
-add_yarn_packages "rollup@^3.26.3", "vite-plugin-rails@0.1.0"
+add_yarn_packages "rollup@^4.2.0", "vite-plugin-rails"
 remove_yarn_package "vite-plugin-ruby"
 gsub_file "vite.config.ts", "import RubyPlugin from 'vite-plugin-ruby'", 'import ViteRails from "vite-plugin-rails"'
 gsub_file "vite.config.ts", /^\s*?RubyPlugin\(\)/, <<~TYPESCRIPT.gsub(/^/, "    ").rstrip
