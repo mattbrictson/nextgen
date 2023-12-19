@@ -2,7 +2,7 @@ source "https://rubygems.org"
 gemspec
 
 gem "minitest", "~> 5.11"
-gem "minitest-reporters", "~> 1.3"
+gem "minitest-rg", "~> 5.3"
 gem "rake", "~> 13.0"
 gem "rubocop", "1.58.0"
 gem "rubocop-minitest", "0.33.0"
