@@ -8,7 +8,7 @@ module Nextgen
         YAML.load_file(yaml_path).each do |name, options|
           options ||= {}
           requirements = Array(options["requires"])
-          next unless requirements.all? { |req| rails_opts.public_send("#{req}?") }
+          next unless requirements.all? { |req| rails_opts.public_send(:"#{req}?") }
 
           g.add(
             name.to_sym,
