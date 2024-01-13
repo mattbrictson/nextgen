@@ -84,7 +84,7 @@ end
 
 def say_status(label, message, color = :green)
   label = label.to_s.rjust(12)
-  puts [colorize(label, color), message].join(" ")
+  puts [colorize(label, color), message.gsub(/^/, " " * 13).strip].join(" ")
 end
 
 def colorize(str, color)
