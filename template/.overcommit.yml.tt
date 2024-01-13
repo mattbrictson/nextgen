@@ -63,7 +63,7 @@ PreCommit:
     on_warn: fail
 <% end -%>
 
-<% if File.exist?(".stylelintrc.cjs") -%>
+<% if File.exist?(".stylelintrc.js") -%>
   Stylelint:
     enabled: true
     required_executable: npx
