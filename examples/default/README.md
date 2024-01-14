@@ -24,7 +24,7 @@ Run this script to install necessary dependencies and prepare the Rails app to b
 bin/setup
 ```
 
-> [!NOTE]
+> [!TIP]
 > The `bin/setup` script is idempotent and is designed to be run often. You should run it every time you pull code that introduces new dependencies or makes other significant changes to the project.
 
 ### Run the app!

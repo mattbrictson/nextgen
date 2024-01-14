@@ -28,7 +28,7 @@ Run this script to install necessary dependencies and prepare the Rails app to b
 bin/setup
 ```
 
-> [!NOTE]
+> [!TIP]
 > The `bin/setup` script is idempotent and is designed to be run often. You should run it every time you pull code that introduces new dependencies or makes other significant changes to the project.
 
 ### Run the app!
@@ -49,7 +49,7 @@ Use this command to run the full suite of automated tests and lint checks:
 bin/rake
 ```
 
-> [!NOTE]
+> [!TIP]
 > Rake allows you to run all checks in parallel with the `-m` option. This is much faster, but since the output is interleaved, it may be harder to read.
 
 ```

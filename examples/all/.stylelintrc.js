@@ -1,5 +1,7 @@
-module.exports = {
-  plugins: ["stylelint-declaration-strict-value"],
+import strictValuePlugin from "stylelint-declaration-strict-value";
+
+export default {
+  plugins: [strictValuePlugin],
   extends: ["stylelint-config-standard", "stylelint-prettier/recommended"],
   rules: {
     "color-hex-length": null,

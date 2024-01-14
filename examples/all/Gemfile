@@ -8,7 +8,7 @@ gem "importmap-rails"
 gem "jbuilder"
 gem "puma", ">= 5.0"
 gem "rack-canonical-host"
-gem "rails", "~> 7.1.1"
+gem "rails", "~> 7.1.2"
 gem "redis", ">= 4.0.1"
 gem "sprockets-rails"
 gem "sqlite3", "~> 1.4"
@@ -35,7 +35,7 @@ group :development do
   gem "rubocop-factory_bot", require: false
   gem "rubocop-minitest", require: false
   gem "rubocop-performance", require: false
-  gem "rubocop-rails", require: false
+  gem "rubocop-rails", ">= 2.22.0", require: false
   gem "tomo", "~> 1.18", require: false
   gem "web-console"
 end
@@ -46,6 +46,8 @@ group :test do
   gem "selenium-webdriver"
   gem "shoulda-context"
   gem "shoulda-matchers"
+  gem "vcr"
+  gem "webmock"
 end
 
 group :production do

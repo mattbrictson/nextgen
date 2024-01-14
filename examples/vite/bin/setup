@@ -4,12 +4,12 @@
 # This script is idempotent, so that you can run it at any time and get an expectable outcome.
 # Add necessary setup steps to this method.
 def setup!
+  env ".env", from: ".env.sample"
   run "bundle install" if bundle_needed?
   run "overcommit --install" if overcommit_installable?
   run "bin/rails db:prepare" if database_present?
   run "yarn install" if yarn_needed?
   run "bin/rails tmp:create" if tmp_missing?
-  env ".env", from: ".env.sample"
   run "bin/rails restart"
 
   if git_safe_needed?
@@ -84,7 +84,7 @@ end
 
 def say_status(label, message, color = :green)
   label = label.to_s.rjust(12)
-  puts [colorize(label, color), message].join(" ")
+  puts [colorize(label, color), message.gsub(/^/, " " * 13).strip].join(" ")
 end
 
 def colorize(str, color)

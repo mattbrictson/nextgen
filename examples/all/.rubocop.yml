@@ -81,6 +81,12 @@ Lint/AmbiguousBlockAssociation:
 Lint/DuplicateBranch:
   Enabled: false
 
+Lint/UselessAccessModifier:
+  ContextCreatingMethods:
+    - concerning
+  MethodCreatingMethods:
+    - delegate
+
 Metrics/AbcSize:
   Enabled: false
 
@@ -191,13 +197,6 @@ Rails/RootPathnameMethods:
 
 Rails/SkipsModelValidations:
   Enabled: false
-
-Rails/UnknownEnv:
-  Environments:
-    - development
-    - test
-    - production
-    - local
 
 Rails/Validation:
   Enabled: false
