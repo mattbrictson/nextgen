@@ -1,5 +1,4 @@
 require "test_helper"
-require "capybara/rails"
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   driven_by :selenium,
@@ -9,10 +8,4 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       options.add_argument("--disable-dev-shm-usage")
       options.add_argument("--no-sandbox")
     end
-
-  setup do
-    Capybara.default_max_wait_time = 2
-    Capybara.disable_animation = true
-    Capybara.server = :puma, {Silent: true}
-  end
 end

@@ -13,7 +13,7 @@ module BasicAuth
     return true if expected_username.blank? || expected_password.blank?
 
     authenticate_or_request_with_http_basic do |username, password|
-      ActiveSupport::SecurityUtils.secure_compare(username, expected_username) & \
+      ActiveSupport::SecurityUtils.secure_compare(username, expected_username) &
         ActiveSupport::SecurityUtils.secure_compare(password, expected_password)
     end
   end

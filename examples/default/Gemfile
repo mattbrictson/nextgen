@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby Pathname.new(__dir__).join(".ruby-version").read.strip
 
-gem "rails", "~> 7.1.1"
+gem "rails", "~> 7.1.2"
 gem "sprockets-rails"
 gem "sqlite3", "~> 1.4"
 gem "puma", ">= 5.0"
