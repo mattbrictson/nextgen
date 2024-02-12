@@ -51,8 +51,8 @@ capybara_lockstep:
   requires: system_testing
 
 dotenv:
-  prompt: "dotenv-rails"
-  description: "Install dotenv-rails gem and add .env.sample"
+  prompt: "dotenv"
+  description: "Install dotenv gem and add .env.sample"
 
 erb_lint:
   prompt: "ERB Lint"

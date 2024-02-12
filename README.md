@@ -79,7 +79,7 @@ Nextgen can install and configure your choice of these recommended gems:
 - [brakeman](https://github.com/presidentbeef/brakeman)
 - [bundler-audit](https://github.com/rubysec/bundler-audit)
 - [capybara-lockstep](https://github.com/makandra/capybara-lockstep)
-- [dotenv-rails](https://github.com/bkeepers/dotenv)
+- [dotenv](https://github.com/bkeepers/dotenv)
 - [erb_lint](https://github.com/Shopify/erb-lint)
 - [factory_bot_rails](https://github.com/thoughtbot/factory_bot_rails)
 - [good_migrations](https://github.com/testdouble/good-migrations)
