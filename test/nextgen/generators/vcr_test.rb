@@ -20,9 +20,14 @@ class Nextgen::Generators::VcrTest < Nextgen::Generators::TestCase
     Dir.chdir(destination_root) do
       FileUtils.mkdir_p("test")
       FileUtils.touch("test/test_helper.rb")
+      FileUtils.touch(".gitattributes")
     end
 
     apply_generator
+
+    assert_file ".gitattributes" do |attrs|
+      assert_match("test/cassettes/** linguist-generated", attrs)
+    end
 
     assert_file "test/support/vcr.rb" do |support|
       refute_match(/rspec/, support)
@@ -37,9 +42,14 @@ class Nextgen::Generators::VcrTest < Nextgen::Generators::TestCase
     Dir.chdir(destination_root) do
       FileUtils.mkdir_p("spec/support")
       FileUtils.touch("spec/spec_helper.rb")
+      FileUtils.touch(".gitattributes")
     end
 
     apply_generator
+
+    assert_file ".gitattributes" do |attrs|
+      assert_match("spec/cassettes/** linguist-generated", attrs)
+    end
 
     assert_file "spec/support/vcr.rb" do |support|
       assert_match(/rspec/, support)
