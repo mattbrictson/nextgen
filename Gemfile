@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 gemspec
 
+gem "mighty_test" unless RUBY_VERSION < "3.1"
 gem "minitest", "~> 5.11"
-gem "minitest-rg", "~> 5.3"
 gem "rake", "~> 13.0"
 gem "rubocop", "1.61.0"
 gem "rubocop-minitest", "0.34.5"
