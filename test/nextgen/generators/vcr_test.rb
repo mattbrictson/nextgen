@@ -26,7 +26,7 @@ class Nextgen::Generators::VcrTest < Nextgen::Generators::TestCase
     apply_generator
 
     assert_file ".gitattributes" do |attrs|
-      assert_match("test/cassettes/** linguist-generated", attrs)
+      assert_match("test/cassettes/* linguist-generated", attrs)
     end
 
     assert_file "test/support/vcr.rb" do |support|
@@ -48,7 +48,7 @@ class Nextgen::Generators::VcrTest < Nextgen::Generators::TestCase
     apply_generator
 
     assert_file ".gitattributes" do |attrs|
-      assert_match("spec/cassettes/** linguist-generated", attrs)
+      assert_match("spec/cassettes/* linguist-generated", attrs)
     end
 
     assert_file "spec/support/vcr.rb" do |support|
