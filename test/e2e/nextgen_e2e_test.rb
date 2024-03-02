@@ -3,7 +3,7 @@ require "fileutils"
 require "open3"
 require "securerandom"
 
-class NextgenIntegrationTest < Minitest::Test
+class NextgenE2ETest < Minitest::Test
   def test_nextgen_generates_rails_app
     assert_bundle_exec_nextgen_create(stdin_data: "\n\n\n\n\n\n\n\n\n\n\u0001\n\n")
   end

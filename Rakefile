@@ -3,17 +3,17 @@ require "rake/testtask"
 require "rubocop/rake_task"
 
 Rake::TestTask.new("test:unit") do |t|
-  t.description = "Run tests except for slow integration tests"
+  t.description = "Run tests except for slow e2e tests"
   t.libs << "test"
   t.libs << "lib"
-  t.test_files = FileList["test/**/*_test.rb"] - FileList["test/**/*_integration_test.rb"]
+  t.test_files = FileList["test/**/*_test.rb"] - FileList["test/e2e/**/*_test.rb"]
 end
 
-Rake::TestTask.new("test:integration") do |t|
-  t.description = "Run slow integration tests"
+Rake::TestTask.new("test:e2e") do |t|
+  t.description = "Run slow e2e tests"
   t.libs << "test"
   t.libs << "lib"
-  t.test_files = FileList["test/**/*_integration_test.rb"]
+  t.test_files = FileList["test/e2e/**/*_test.rb"]
 end
 
 RuboCop::RakeTask.new
