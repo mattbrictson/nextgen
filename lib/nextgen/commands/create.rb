@@ -5,6 +5,7 @@ require "shellwords"
 require "open3"
 require "tmpdir"
 require "tty-prompt"
+require "rainbow"
 require "nextgen/ext/prompt/list"
 require "nextgen/ext/prompt/multilist"
 
@@ -26,9 +27,9 @@ module Nextgen
       say <<~BANNER
         Welcome to nextgen, the interactive Rails app generator!
 
-        You are about to create a Rails app named "#{app_name}" in the following directory:
+        You are about to create a Rails app named "#{cyan(app_name)}" in the following directory:
 
-          #{app_path}
+          #{cyan(app_path)}
 
         You'll be asked ~10 questions about database, test framework, and other options.
         The standard Rails "omakase" experience will be selected by default.
@@ -83,9 +84,9 @@ module Nextgen
       say <<~DONE.gsub(/^/, "  ")
 
 
-        #{set_color("Done!", :green)}
+        #{green("Done!")}
 
-        A Rails #{rails_version} app was generated in #{set_color(app_path, :cyan)}.
+        A Rails #{rails_version} app was generated in #{cyan(app_path)}.
         Run #{set_color("bin/setup", :yellow)} in that directory to get started.
 
 
@@ -99,7 +100,7 @@ module Nextgen
     def_delegators :shell, :say, :set_color
 
     def continue_if(question)
-      if prompt.yes?(question)
+      if prompt.yes?("#{question} ↵")
         say
       else
         say "Canceled", :red
@@ -121,7 +122,7 @@ module Nextgen
 
     def ask_rails_version
       selected = prompt.select(
-        "What version of Rails will you use?",
+        "What #{underline("version")} of Rails will you use?",
         Rails.version => :current,
         "edge (#{Rails.edge_branch} branch)" => :edge
       )
@@ -129,24 +130,21 @@ module Nextgen
     end
 
     def ask_database
-      common_databases = {
+      databases = {
         "SQLite3 (default)" => "sqlite3",
         "PostgreSQL (recommended)" => "postgresql",
-        "MySQL" => "mysql"
-      }
-      all_databases = common_databases.merge(
-        %w[MySQL Trilogy Oracle SQLServer JDBCMySQL JDBCSQLite3 JDBCPostgreSQL JDBC].to_h do |name|
+        **%w[MySQL Trilogy Oracle SQLServer JDBCMySQL JDBCSQLite3 JDBCPostgreSQL JDBC].to_h do |name|
           [name, name.downcase]
         end,
         "None (disable Active Record)" => nil
+      }
+      rails_opts.database = prompt_select(
+        "Which #{underline("database")}?", databases
       )
-      rails_opts.database =
-        prompt.select("Which database?", common_databases.merge("More options..." => false)) ||
-        prompt.select("Which database?", all_databases)
     end
 
     def ask_full_stack_or_api
-      api = prompt.select(
+      api = prompt_select(
         "What style of Rails app do you need?",
         "Standard, full-stack Rails (default)" => false,
         "API only" => true
@@ -155,12 +153,13 @@ module Nextgen
     end
 
     def ask_frontend_management
-      frontend = prompt.select(
-        "How will you manage frontend assets?",
+      frontend = prompt_select(
+        "How will you manage frontend #{underline("assets")}?",
         "Sprockets (default)" => "sprockets",
         "Propshaft" => "propshaft",
         "Vite" => :vite
       )
+
       if frontend == :vite
         rails_opts.asset_pipeline = nil
         rails_opts.javascript = "vite"
@@ -170,8 +169,8 @@ module Nextgen
     end
 
     def ask_css
-      rails_opts.css = prompt.select(
-        "Which CSS framework will you use with the asset pipeline?",
+      rails_opts.css = prompt_select(
+        "Which #{underline("CSS")} framework will you use with the asset pipeline?",
         "None (default)" => nil,
         "Bootstrap" => "bootstrap",
         "Bulma" => "bulma",
@@ -182,8 +181,8 @@ module Nextgen
     end
 
     def ask_javascript
-      rails_opts.javascript = prompt.select(
-        "Which JavaScript bundler will you use with the asset pipeline?",
+      rails_opts.javascript = prompt_select(
+        "Which #{underline("JavaScript")} bundler will you use with the asset pipeline?",
         "Importmap (default)" => "importmap",
         "Bun" => "bun",
         "ESBuild" => "esbuild",
@@ -214,7 +213,7 @@ module Nextgen
       end
 
       answers = prompt.multi_select(
-        "Which optional Rails frameworks do you need?",
+        "Which optional Rails #{underline("frameworks")} do you need?",
         frameworks,
         default: frameworks.keys.reverse
       )
@@ -223,8 +222,8 @@ module Nextgen
     end
 
     def ask_test_framework
-      rails_opts.test_framework = prompt.select(
-        "Which test framework will you use?",
+      rails_opts.test_framework = prompt_select(
+        "Which #{underline("test")} framework will you use?",
         "Minitest (default)" => "minitest",
         "RSpec" => "rspec",
         "None" => nil
@@ -232,8 +231,8 @@ module Nextgen
     end
 
     def ask_system_testing
-      system_testing = prompt.select(
-        "Include system testing (capybara)?",
+      system_testing = prompt_select(
+        "Include #{underline("system testing")} (capybara)?",
         "Yes (default)" => true,
         "No" => false
       )
@@ -309,5 +308,10 @@ module Nextgen
     def shell
       @shell ||= Thor::Base.shell.new
     end
+
+    def green(string) = set_color(string, :green)
+    def cyan(string) = set_color(string, :cyan)
+    def underline(string) = Rainbow(string).underline
+    def prompt_select(question, choices) = prompt.select(question, choices, enum: ".", cycle: true)
   end
 end
