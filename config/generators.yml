@@ -137,6 +137,10 @@ vcr:
   prompt: "VCR"
   description: "Install and configure vcr and webmock gems"
   requires: test_framework
+  questions:
+    - variable: solid_queue_puma__no
+      method: no?
+      question: "Run the SolidQueue supervisor together with Puma (as plugin)?"
 
 rubocop:
   prompt: "RuboCop"

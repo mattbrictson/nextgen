@@ -138,6 +138,7 @@ module Nextgen::Commands
     def green(string) = set_color(string, :green)
     def cyan(string) = set_color(string, :cyan)
     def underline(string) = Rainbow(string).underline
-    def prompt_select(question, choices) = prompt.select(question, choices, enum: ".", cycle: true)
+    def select(question, choices) = prompt.select(question, choices, enum: ".", cycle: true)
+    def multi_select(question, choices, **opts) = prompt.multi_select(question, choices, filter: true, cycle: true, **opts)
   end
 end

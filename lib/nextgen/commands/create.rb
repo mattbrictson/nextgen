@@ -37,6 +37,7 @@ module Nextgen
       ask_rails_frameworks
       ask_test_framework
       ask_system_testing if rails_opts.frontend? && rails_opts.test_framework?
+      say
 
       if prompt.yes?("More detailed configuration? [ cache, job and gems ] ↵")
         ask_job_backend if rails_opts.active_job?
@@ -81,13 +82,13 @@ module Nextgen
         end,
         "None (disable Active Record)" => nil
       }
-      rails_opts.database = prompt_select(
+      rails_opts.database = select(
         "Which #{underline("database")}?", databases
       )
     end
 
     def ask_full_stack_or_api
-      api = prompt_select(
+      api = select(
         "What style of Rails app do you need?",
         "Standard, full-stack Rails (default)" => false,
         "API only" => true
@@ -96,7 +97,7 @@ module Nextgen
     end
 
     def ask_frontend_management
-      frontend = prompt_select(
+      frontend = select(
         "How will you manage frontend #{underline("assets")}?",
         "Sprockets (default)" => "sprockets",
         "Propshaft" => "propshaft",
@@ -112,7 +113,7 @@ module Nextgen
     end
 
     def ask_css
-      rails_opts.css = prompt_select(
+      rails_opts.css = select(
         "Which #{underline("CSS")} framework will you use with the asset pipeline?",
         "None (default)" => nil,
         "Bootstrap" => "bootstrap",
@@ -124,7 +125,7 @@ module Nextgen
     end
 
     def ask_javascript
-      rails_opts.javascript = prompt_select(
+      rails_opts.javascript = select(
         "Which #{underline("JavaScript")} bundler will you use with the asset pipeline?",
         "Importmap (default)" => "importmap",
         "Bun" => "bun",
@@ -155,7 +156,7 @@ module Nextgen
         )
       end
 
-      answers = prompt.multi_select(
+      answers = multi_select(
         "Which optional Rails #{underline("frameworks")} do you need?",
         frameworks,
         default: frameworks.keys.reverse
@@ -165,7 +166,7 @@ module Nextgen
     end
 
     def ask_test_framework
-      rails_opts.test_framework = prompt_select(
+      rails_opts.test_framework = select(
         "Which #{underline("test")} framework will you use?",
         "Minitest (default)" => "minitest",
         "RSpec" => "rspec",
@@ -174,7 +175,7 @@ module Nextgen
     end
 
     def ask_system_testing
-      system_testing = prompt_select(
+      system_testing = select(
         "Include #{underline("system testing")} (capybara)?",
         "Yes (default)" => true,
         "No" => false
@@ -184,27 +185,12 @@ module Nextgen
 
     def ask_job_backend
       @job_backend = Generators.compatible_with(rails_opts: rails_opts, scope: "job")
-
-      answer = prompt_select(
-        "Which #{underline("job backend")} would you like to use?",
-        job_backend.optional
-      )
-
-      if answer == :solid_queue && prompt.no?("  ↪ Run the SolidQueue supervisor together with Puma (as plugin)?")
-        job_backend.variables[:solid_queue_puma] = true
-      end
-
-      job_backend.activate(answer)
+      job_backend.ask_select("Which #{underline("job backend")} would you like to use?")
     end
 
     def ask_optional_enhancements
       @generators = Generators.compatible_with(rails_opts: rails_opts)
-
-      answers = prompt.multi_select(
-        "Which optional enhancements would you like to add?",
-        generators.optional.sort_by { |label, _| label.downcase }.to_h
-      )
-      generators.activate(*answers)
+      generators.ask_select("Which optional enhancements would you like to add?", multi: true, sort: true)
     end
   end
 end

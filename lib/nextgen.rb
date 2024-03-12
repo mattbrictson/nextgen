@@ -7,8 +7,8 @@ loader.inflector.inflect("cli" => "CLI")
 loader.setup
 
 module Nextgen
-  def self.generators_path
-    Pathname.new(__dir__).join("nextgen/generators")
+  def self.generators_path(scope = "")
+    Pathname.new(__dir__).join("nextgen/generators", scope)
   end
 
   def self.template_path
