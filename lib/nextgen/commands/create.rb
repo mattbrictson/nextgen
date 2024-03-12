@@ -22,9 +22,10 @@ module Nextgen
       @app_path = File.expand_path(app_path)
       @app_name = File.basename(@app_path).gsub(/\W/, "_").squeeze("_").camelize
       @rails_opts = RailsOptions.new
+      @generators = {basic: Generators.compatible_with(rails_opts: rails_opts, scope: "basic")}
     end
 
-    def run # rubocop:disable Metrics/PerceivedComplexity
+    def run # rubocop:disable Metrics/MethodLength Metrics/PerceivedComplexity
       say_banner
       continue_if "Ready to start?"
 
@@ -41,6 +42,9 @@ module Nextgen
 
       if prompt.yes?("More detailed configuration? [ cache, job and gems ] ↵")
         ask_job_backend if rails_opts.active_job?
+        ask_workflows
+        ask_checkers
+        ask_code_snippets
         ask_optional_enhancements
       end
 
@@ -52,15 +56,16 @@ module Nextgen
       copy_package_json if node?
       Nextgen::Rails.run "new", *rails_new_args
       Dir.chdir(app_path) do
-        Nextgen::Rails.run "app:template", "LOCATION=#{write_generators_script(generators)}"
-        Nextgen::Rails.run "app:template", "LOCATION=#{write_generators_script(job_backend)}"
+        generators.each_value do |g|
+          Nextgen::Rails.run "app:template", "LOCATION=#{write_generators_script(g)}"
+        end
       end
       say_done
     end
 
     private
 
-    attr_accessor :app_path, :app_name, :rails_opts, :generators, :job_backend
+    attr_accessor :app_path, :app_name, :rails_opts, :generators
 
     def_delegators :shell, :say, :set_color
 
@@ -122,6 +127,7 @@ module Nextgen
         "Sass" => "sass",
         "Tailwind" => "tailwind"
       )
+      generators[:basic].ask_second_level_questions(for_selected: rails_opts.css, prompt: prompt)
     end
 
     def ask_javascript
@@ -184,13 +190,33 @@ module Nextgen
     end
 
     def ask_job_backend
-      @job_backend = Generators.compatible_with(rails_opts: rails_opts, scope: "job")
-      job_backend.ask_select("Which #{underline("job backend")} would you like to use?")
+      generators[:job] = Generators.compatible_with(rails_opts: rails_opts, scope: "job").tap do |it|
+        it.ask_select("Which #{underline("job backend")} would you like to use?", prompt: prompt)
+      end
+    end
+
+    def ask_workflows
+      generators[:workflows] = Generators.compatible_with(rails_opts: rails_opts, scope: "workflows").tap do |it|
+        it.ask_select("Which #{underline("workflows")} would you like to add?", multi: true, prompt: prompt)
+      end
+    end
+
+    def ask_checkers
+      generators[:checkers] = Generators.compatible_with(rails_opts: rails_opts, scope: "checkers").tap do |it|
+        it.ask_select("Which #{underline("checkers")} would you like to add?", multi: true, prompt: prompt)
+      end
+    end
+
+    def ask_code_snippets
+      generators[:code_snippets] = Generators.compatible_with(rails_opts: rails_opts, scope: "code_snippets").tap do |it|
+        it.ask_select("Which #{underline("code snippets")} would you like to add?", multi: true, prompt: prompt)
+      end
     end
 
     def ask_optional_enhancements
-      @generators = Generators.compatible_with(rails_opts: rails_opts)
-      generators.ask_select("Which optional enhancements would you like to add?", multi: true, sort: true)
+      generators[:gems] = Generators.compatible_with(rails_opts: rails_opts, scope: "gems").tap do |it|
+        it.ask_select("Which optional enhancements would you like to add?", multi: true, sort: true, prompt: prompt)
+      end
     end
   end
 end

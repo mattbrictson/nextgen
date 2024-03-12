@@ -2,7 +2,7 @@ require "yaml"
 
 module Nextgen
   class Generators
-    def self.compatible_with(rails_opts:, scope: "generators")
+    def self.compatible_with(rails_opts:, scope:)
       yaml_path = File.expand_path("../../config/#{scope}.yml", __dir__)
       new(scope).tap do |generators|
         YAML.load_file(yaml_path).each do |name, options|
@@ -32,25 +32,27 @@ module Nextgen
       @scope = scope
     end
 
-    def ask_select(question, multi: false, sort: false)
-      prompt = TTY::Prompt.new
+    def ask_select(question, multi: false, sort: false, prompt: TTY::Prompt.new)
       opt = sort ? optional.sort_by { |label, _| label.downcase }.to_h : optional
       args = [question, opt, {cycle: true, filter: true}]
       answers = multi ? prompt.multi_select(*args) : [prompt.select(*args)]
 
       answers.each do |answer|
-        second_level_questions = generators[answer][:questions] || []
-        second_level_questions.each do |q|
-          variables[q.fetch("variable")] = prompt.public_send(
-            q.fetch("method"), "  ↪ #{q.fetch("question")}"
-          )
-        end
+        ask_second_level_questions(for_selected: answer, prompt: prompt)
       end
       activate(*answers)
     end
 
+    def ask_second_level_questions(for_selected:, prompt:)
+      (generators[for_selected&.to_sym]&.[](:questions) || []).each do |q|
+        variables[q.fetch("variable").to_sym] = prompt.public_send(
+          q.fetch("method"), "  ↪ #{q.fetch("question")}"
+        )
+      end
+    end
+
     def node_active?
-      !!generators.fetch(:node)[:active]
+      !!generators[:node]&.[](:active)
     end
 
     def all_active

@@ -10,14 +10,12 @@ else
 end
 
 say_git "Configure Active Job to use the solid_queue adapter"
-uncomment_lines "config/environments/production.rb", /config\.active_job/
 gsub_file "config/environments/production.rb",
-  /active_job\.queue_adapter\s*=\s*:.+/,
-  "active_job.queue_adapter = :solid_queue"
-uncomment_lines "config/environments/development.rb", /config\.active_job/
-gsub_file "config/environments/production.rb",
-  /active_job\.queue_adapter\s*=\s*:.+/,
-  "active_job.queue_adapter = :solid_queue"
+  /(# )?config\.active_job\.queue_adapter\s+=.*/,
+  "config.active_job.queue_adapter = :solid_queue"
+inject_into_file "config/environments/development.rb",
+  "  config.active_job.queue_adapter = :solid_queue\n",
+  after: "config.active_job.verbose_enqueue_logs = true\n"
 copy_file "config/solid_queue.yml"
 
 say_git "Add the solid_queue migrations"

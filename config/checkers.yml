@@ -1,0 +1,41 @@
+
+node:
+  description: "Set up Node and Yarn"
+
+brakeman:
+  prompt: "Brakeman"
+  description: "Install brakeman gem for security checks"
+
+bundler_audit:
+  prompt: "Bundler Audit"
+  description: "Install bundler-audit gem to detect CVEs in Ruby dependencies"
+
+erb_lint:
+  prompt: "ERB Lint"
+  description: "Install erb_lint gem and correct existing issues"
+  requires: frontend
+
+eslint:
+  prompt: "ESLint"
+  description: "Install eslint + supporting packages; apply prettier format"
+  requires: frontend
+  node: true
+
+good_migrations:
+  prompt: "good_migrations"
+  description: "Install good_migrations gem"
+  requires: active_record
+
+stylelint:
+  prompt: "Stylelint"
+  description: "Install stylelint and apply prettier format to CSS"
+  requires: frontend
+  node: true
+
+rubocop:
+  prompt: "RuboCop"
+  description: "Install rubocop gems; apply formatting rules"
+
+overcommit:
+  prompt: "Overcommit"
+  description: "Configure overcommit pre-commit git hooks"

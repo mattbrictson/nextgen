@@ -10,7 +10,7 @@ module Nextgen::Commands
 
           #{cyan(app_path)}
 
-        You'll be asked ~10 questions about database, test framework, and other options.
+        You'll be asked ~10 (or more) questions about database, test framework, and other options.
         The standard Rails "omakase" experience will be selected by default.
 
       BANNER
@@ -99,7 +99,7 @@ module Nextgen::Commands
     end
 
     def node?
-      generators.node_active?
+      generators.values.any?(&:node_active?)
     end
 
     def capture_version(command)
@@ -110,8 +110,8 @@ module Nextgen::Commands
     end
 
     def activated_generators
-      activated = generators.all_active_names
-      activated.prepend(job_backend.all_active_names.first) unless job_backend.nil?
+      activated = generators[:gems].all_active_names
+      activated.prepend(generators[:job].all_active_names.first) unless generators[:job].nil?
 
       activated.any? ? activated.sort_by(&:downcase) : ["<None>"]
     end
