@@ -4,7 +4,7 @@ module Nextgen
   class Generators
     def self.compatible_with(rails_opts:, scope:)
       yaml_path = File.expand_path("../../config/#{scope}.yml", __dir__)
-      new(scope).tap do |generators|
+      new(scope, api: rails_opts.api?).tap do |generators|
         YAML.load_file(yaml_path).each do |name, options|
           options ||= {}
           requirements = Array(options["requires"])
@@ -19,16 +19,13 @@ module Nextgen
           )
         end
 
-        generators.variables[:api] = rails_opts.api?
         generators.deactivate_node unless rails_opts.requires_node?
       end
     end
 
-    attr_accessor :variables
-
-    def initialize(scope)
+    def initialize(scope, **vars)
       @generators = {}
-      @variables = {}
+      @variables = vars
       @scope = scope
     end
 
@@ -113,6 +110,6 @@ module Nextgen
 
     private
 
-    attr_reader :generators, :scope
+    attr_reader :generators, :variables, :scope
   end
 end

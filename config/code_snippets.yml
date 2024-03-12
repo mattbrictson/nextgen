@@ -6,3 +6,7 @@ home_controller:
 basic_auth:
   prompt: "BasicAuth controller concern"
   description: "Allow app to be secured with ENV-based basic auth credentials"
+
+current:
+  prompt: "Current.user"
+  description: "Intro thread-isolated attributes singleton `Current`, which resets automatically before and after each request"

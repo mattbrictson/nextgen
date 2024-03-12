@@ -22,7 +22,6 @@ module Nextgen
       @app_path = File.expand_path(app_path)
       @app_name = File.basename(@app_path).gsub(/\W/, "_").squeeze("_").camelize
       @rails_opts = RailsOptions.new
-      @generators = {basic: Generators.compatible_with(rails_opts: rails_opts, scope: "basic")}
     end
 
     def run # rubocop:disable Metrics/MethodLength Metrics/PerceivedComplexity
@@ -40,7 +39,7 @@ module Nextgen
       ask_system_testing if rails_opts.frontend? && rails_opts.test_framework?
       say
 
-      if prompt.yes?("More detailed configuration? [ cache, job and gems ] ↵")
+      if prompt.yes?("More detailed configuration? [ job, code snippets, gems ... ] ↵")
         ask_job_backend if rails_opts.active_job?
         ask_workflows
         ask_checkers
@@ -99,6 +98,7 @@ module Nextgen
         "API only" => true
       )
       rails_opts.api! if api
+      @generators = {basic: Generators.compatible_with(rails_opts: rails_opts, scope: "basic")}
     end
 
     def ask_frontend_management
