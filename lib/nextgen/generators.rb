@@ -2,15 +2,15 @@ require "yaml"
 
 module Nextgen
   class Generators
-    def self.compatible_with(rails_opts:)
-      yaml_path = File.expand_path("../../config/generators.yml", __dir__)
-      new.tap do |g|
+    def self.compatible_with(rails_opts:, scope: "generators")
+      yaml_path = File.expand_path("../../config/#{scope}.yml", __dir__)
+      new.tap do |itself|
         YAML.load_file(yaml_path).each do |name, options|
           options ||= {}
           requirements = Array(options["requires"])
           next unless requirements.all? { |req| rails_opts.public_send(:"#{req}?") }
 
-          g.add(
+          itself.add(
             name.to_sym,
             prompt: options["prompt"],
             description: options["description"],
@@ -18,7 +18,7 @@ module Nextgen
           )
         end
 
-        g.deactivate_node unless rails_opts.requires_node?
+        itself.deactivate_node unless rails_opts.requires_node?
       end
     end
 
@@ -34,6 +34,11 @@ module Nextgen
       generators.each_with_object([]) do |(name, meta), result|
         result << name if meta[:active]
       end
+    end
+
+    def all_active_names
+      opts = optional.invert
+      all_active.filter_map { |name| opts[name] }
     end
 
     def add(name, node: false, prompt: nil, description: nil)
@@ -60,7 +65,7 @@ module Nextgen
     end
 
     def deactivate_node
-      generators.fetch(:node)[:active] = false
+      generators[:node][:active] = false if generators.key?(:node)
     end
 
     def to_ruby_script

@@ -75,6 +75,13 @@ Prefer RSpec? Nextgen can set you up with RSpec, plus the gems and configuration
 
 Nextgen can install and configure your choice of these recommended gems:
 
+#### Job Backends
+
+- [sidekiq](https://github.com/sidekiq/sidekiq)
+- [solid_queue](https://github.com/basecamp/solid_queue)
+
+#### Other
+
 - [annotate](https://github.com/ctran/annotate_models)
 - [brakeman](https://github.com/presidentbeef/brakeman)
 - [bundler-audit](https://github.com/rubysec/bundler-audit)
@@ -90,7 +97,6 @@ Nextgen can install and configure your choice of these recommended gems:
 - [rack-mini-profiler](https://github.com/MiniProfiler/rack-mini-profiler)
 - [rubocop](https://github.com/rubocop/rubocop)
 - [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers)
-- [sidekiq](https://github.com/sidekiq/sidekiq)
 - [thor](https://github.com/rails/thor)
 - [tomo](https://github.com/mattbrictson/tomo)
 - [vcr](https://github.com/vcr/vcr)
