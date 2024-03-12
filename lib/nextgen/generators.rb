@@ -18,12 +18,16 @@ module Nextgen
           )
         end
 
+        itself.variables[:api] = rails_opts.api?
         itself.deactivate_node unless rails_opts.requires_node?
       end
     end
 
+    attr_accessor :variables
+
     def initialize
       @generators = {}
+      @variables = {}
     end
 
     def node_active?
@@ -78,6 +82,7 @@ module Nextgen
       <<~SCRIPT
         require #{File.expand_path("../nextgen", __dir__).inspect}
         extend Nextgen::Actions
+        @variables = #{@variables}
 
         with_nextgen_source_path do
           #{apply_statements.join("\n  ")}

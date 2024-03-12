@@ -12,7 +12,7 @@ require "nextgen/ext/prompt/multilist"
 module Nextgen
   class Commands::Create
     extend Forwardable
-    include Helpers
+    include Commands::Helpers
 
     def self.run(app_path, options)
       new(app_path, options).run
@@ -189,6 +189,11 @@ module Nextgen
         "Which #{underline("job backend")} would you like to use?",
         job_backend.optional
       )
+
+      if answer == :solid_queue && prompt.no?("  ↪ Run the SolidQueue supervisor together with Puma (as plugin)?")
+        job_backend.variables[:solid_queue_puma] = true
+      end
+
       job_backend.activate(answer)
     end
 

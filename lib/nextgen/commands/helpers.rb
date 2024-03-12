@@ -1,4 +1,4 @@
-module Nextgen
+module Nextgen::Commands
   module Helpers
     private
 
