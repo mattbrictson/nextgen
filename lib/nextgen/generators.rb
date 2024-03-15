@@ -2,10 +2,9 @@ require "yaml"
 
 module Nextgen
   class Generators
-    def self.compatible_with(rails_opts:, scope:)
-      yaml_path = File.expand_path("../../config/#{scope}.yml", __dir__)
+    def self.compatible_with(rails_opts:, style:, scope:)
       new(scope, api: rails_opts.api?).tap do |generators|
-        YAML.load_file(yaml_path).each do |name, options|
+        Nextgen.config_for(style: style, scope: scope).each do |name, options|
           options ||= {}
           requirements = Array(options["requires"])
           next unless requirements.all? { |req| rails_opts.public_send(:"#{req}?") }
@@ -18,7 +17,6 @@ module Nextgen
             questions: options["questions"]
           )
         end
-
         generators.deactivate_node unless rails_opts.requires_node?
       end
     end
@@ -29,9 +27,11 @@ module Nextgen
       @scope = scope
     end
 
+    def empty? = @generators.empty?
+
     def ask_select(question, multi: false, sort: false, prompt: TTY::Prompt.new)
-      opt = sort ? optional.sort_by { |label, _| label.downcase }.to_h : optional
-      args = [question, opt, {cycle: true, filter: true}]
+      opts = sort ? optional.sort_by { |label, _| label.downcase }.to_h : optional
+      args = [question, opts, {cycle: true, filter: true}]
       answers = multi ? prompt.multi_select(*args) : [prompt.select(*args)]
 
       answers.each do |answer|

@@ -1,0 +1,5 @@
+
+sidekiq:
+  prompt: "Sidekiq (Redis-backed)"
+  description: "Install sidekiq gem to use in production"
+  requires: active_job

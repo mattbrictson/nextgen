@@ -6,6 +6,7 @@ module Nextgen
 
     map %w[-v --version] => "version"
 
+    option :style, type: :string, default: nil
     desc "create APP_PATH", "Generate a Rails app interactively in APP_PATH"
     def create(app_path)
       Commands::Create.run(app_path, options)

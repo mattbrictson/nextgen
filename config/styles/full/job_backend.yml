@@ -1,9 +1,4 @@
 
-sidekiq:
-  prompt: "Sidekiq (Redis-backed)"
-  description: "Install sidekiq gem to use in production"
-  requires: active_job
-
 solid_queue:
   prompt: "SolidQueue (Database-backed)"
   description: "Install solid_queue as ActiveJob's backend"

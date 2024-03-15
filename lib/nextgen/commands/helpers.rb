@@ -110,9 +110,7 @@ module Nextgen::Commands
     end
 
     def activated_generators
-      activated = generators[:gems].all_active_names
-      activated.prepend(generators[:job].all_active_names.first) unless generators[:job].nil?
-
+      activated = generators.values.flat_map(&:all_active_names)
       activated.any? ? activated.sort_by(&:downcase) : ["<None>"]
     end
 

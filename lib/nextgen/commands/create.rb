@@ -18,13 +18,14 @@ module Nextgen
       new(app_path, options).run
     end
 
-    def initialize(app_path, _options)
+    def initialize(app_path, options)
       @app_path = File.expand_path(app_path)
       @app_name = File.basename(@app_path).gsub(/\W/, "_").squeeze("_").camelize
       @rails_opts = RailsOptions.new
+      @style = options[:style]
     end
 
-    def run # rubocop:disable Metrics/MethodLength Metrics/PerceivedComplexity
+    def run # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
       say_banner
       continue_if "Ready to start?"
 
@@ -39,12 +40,8 @@ module Nextgen
       ask_system_testing if rails_opts.frontend? && rails_opts.test_framework?
       say
 
-      if prompt.yes?("More detailed configuration? [ job, code snippets, gems ... ] ↵")
-        ask_job_backend if rails_opts.active_job?
-        ask_workflows
-        ask_checkers
-        ask_code_snippets
-        ask_optional_enhancements
+      if prompt.yes?("More enhancements? [ job, code snippets, gems ... ] ↵")
+        ask_styled_enhancements
       end
 
       say_summary
@@ -98,7 +95,7 @@ module Nextgen
         "API only" => true
       )
       rails_opts.api! if api
-      @generators = {basic: Generators.compatible_with(rails_opts: rails_opts, scope: "basic")}
+      @generators = {basic: Generators.compatible_with(rails_opts: rails_opts, style: nil, scope: "basic")}
     end
 
     def ask_frontend_management
@@ -189,33 +186,17 @@ module Nextgen
       rails_opts.skip_system_test! unless system_testing
     end
 
-    def ask_job_backend
-      generators[:job] = Generators.compatible_with(rails_opts: rails_opts, scope: "job").tap do |it|
-        it.ask_select("Which #{underline("job backend")} would you like to use?", prompt: prompt)
-      end
-    end
+    def ask_styled_enhancements
+      say "  ↪ style: #{cyan(@style || "default")}"
+      Nextgen.scopes_for(style: @style).each do |scope|
+        gen = Generators.compatible_with(rails_opts: rails_opts, style: @style, scope: scope)
+        next if gen.empty? || scope == "basic"
 
-    def ask_workflows
-      generators[:workflows] = Generators.compatible_with(rails_opts: rails_opts, scope: "workflows").tap do |it|
-        it.ask_select("Which #{underline("workflows")} would you like to add?", multi: true, prompt: prompt)
-      end
-    end
-
-    def ask_checkers
-      generators[:checkers] = Generators.compatible_with(rails_opts: rails_opts, scope: "checkers").tap do |it|
-        it.ask_select("Which #{underline("checkers")} would you like to add?", multi: true, prompt: prompt)
-      end
-    end
-
-    def ask_code_snippets
-      generators[:code_snippets] = Generators.compatible_with(rails_opts: rails_opts, scope: "code_snippets").tap do |it|
-        it.ask_select("Which #{underline("code snippets")} would you like to add?", multi: true, prompt: prompt)
-      end
-    end
-
-    def ask_optional_enhancements
-      generators[:gems] = Generators.compatible_with(rails_opts: rails_opts, scope: "gems").tap do |it|
-        it.ask_select("Which optional enhancements would you like to add?", multi: true, sort: true, prompt: prompt)
+        key_word = underline(scope.tr("_", " "))
+        multi = scope == scope.pluralize
+        sort = gen.optional.size > 10
+        gen.ask_select("Which #{key_word} would you like to add?", prompt: prompt, multi: multi, sort: sort)
+        generators[scope.to_sym] = gen
       end
     end
   end
