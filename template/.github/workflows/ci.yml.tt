@@ -31,7 +31,7 @@ jobs:
         with:
           bundler-cache: true
 <% if File.exist?("package.json") -%>
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
 <% if File.exist?(".node-version") -%>
           node-version-file: ".node-version"
@@ -79,7 +79,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
 <% if File.exist?(".node-version") -%>
           node-version-file: ".node-version"
@@ -107,7 +107,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
 <% if File.exist?(".node-version") -%>
           node-version-file: ".node-version"
