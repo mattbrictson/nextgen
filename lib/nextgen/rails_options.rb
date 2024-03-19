@@ -156,6 +156,10 @@ module Nextgen
       !skip_optional_framework?("active_job")
     end
 
+    def tailwind?
+      css == "tailwind"
+    end
+
     def skip_optional_framework!(framework)
       raise ArgumentError, "Unknown framework: #{framework}" unless OPTIONAL_FRAMEWORKS.include?(framework)
 

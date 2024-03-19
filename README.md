@@ -45,6 +45,13 @@ gem exec nextgen create myapp
 
 This will download the latest version of the `nextgen` gem and use it to create an app in the `myapp` directory. You'll be asked to configure the tech stack through several interactive prompts. If you have a `~/.railsrc` file, it will be ignored.
 
+Options:
+- `style`: control the **optional enhancements** you can choose in the generator.
+  - defaults to `default`, [enhancements list](config)
+  - presets:
+    - `full` (`--style=full`), [enhancements list](config/styles/full)
+  - your local configs: `--style=path/to/your/style_dir`
+
 > [!TIP]
 > If you get an "Unknown command exec" error, fix it by upgrading rubygems: `gem update --system`.
 
@@ -59,7 +66,7 @@ Check out the [examples directory](./examples) to see some Rails apps that were 
 On top of that foundation, Nextgen offers dozens of useful enhancements to the vanilla Rails experience. You are free to pick and choose which (if any) of these to apply to your new project. Behind the scenes, **each enhancement is applied in a separate git commit,** so that you can later see what was applied and why, and revert the suggestions if necessary.
 
 > [!TIP]
-> For the full list of what Nextgen provides, check out [config/generators.yml](https://github.com/mattbrictson/nextgen/tree/main/config/generators.yml). The source code of each generator can be found in [lib/nextgen/generators](https://github.com/mattbrictson/nextgen/tree/main/lib/nextgen/generators).
+> For the full list of what Nextgen provides, check out [config/*.yml](https://github.com/mattbrictson/nextgen/tree/main/config). The source code of each generator can be found in [lib/nextgen/generators](https://github.com/mattbrictson/nextgen/tree/main/lib/nextgen/generators).
 
 Here are some highlights of what Nextgen brings to the table:
 
@@ -70,6 +77,11 @@ Nextgen can optionally set up a GitHub Actions CI workflow for your app that aut
 ### Minitest or RSpec
 
 Prefer RSpec? Nextgen can set you up with RSpec, plus the gems and configuration you need for system specs (browser testing). Or stick with the Rails Minitest defaults. In either case, Nextgen will set up a good default Rake task and appropriate CI job.
+
+### Job Backends
+
+- [sidekiq](https://github.com/sidekiq/sidekiq)
+- [solid_queue](https://github.com/basecamp/solid_queue) (`--style=full`)
 
 ### Gems
 
@@ -90,7 +102,6 @@ Nextgen can install and configure your choice of these recommended gems:
 - [rack-mini-profiler](https://github.com/MiniProfiler/rack-mini-profiler)
 - [rubocop](https://github.com/rubocop/rubocop)
 - [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers)
-- [sidekiq](https://github.com/sidekiq/sidekiq)
 - [thor](https://github.com/rails/thor)
 - [tomo](https://github.com/mattbrictson/tomo)
 - [vcr](https://github.com/vcr/vcr)

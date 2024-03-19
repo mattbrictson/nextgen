@@ -1,0 +1,8 @@
+
+github_actions:
+  prompt: "GitHub Actions"
+  description: "Configure GitHub Actions workflow for CI"
+
+github_pr_template:
+  prompt: "GitHub PR template"
+  description: "Add GitHub pull request template"
