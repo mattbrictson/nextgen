@@ -25,4 +25,9 @@ class Nextgen::Generators::GithubActionsTest < Nextgen::Generators::TestCase
     apply_generator
     assert_file ".github/workflows/ci.yml", %r{Lint / rubocop}
   end
+
+  test "configures dependabot" do
+    apply_generator
+    assert_file ".github/dependabot.yml", /package-ecosystem: github-actions/
+  end
 end
