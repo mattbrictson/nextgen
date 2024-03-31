@@ -1,4 +1,4 @@
-install_gems "capybara", "selenium-webdriver", group: :test
+install_gems "capybara", "selenium-webdriver", group: :test, require: false
 copy_test_support_file "capybara.rb.tt"
 copy_test_support_file "system.rb"
 

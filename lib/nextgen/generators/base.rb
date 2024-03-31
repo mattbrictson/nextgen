@@ -29,6 +29,8 @@ if File.exist?("test/application_system_test_case.rb")
   say_git "Configure system tests"
   copy_test_support_file "capybara.rb.tt"
   copy_file "test/application_system_test_case.rb", force: true
+  gsub_file "Gemfile", /gem "capybara"$/, '\0, require: false'
+  gsub_file "Gemfile", /gem "selenium-webdriver"$/, '\0, require: false'
 end
 
 if File.exist?(".ruby-version") && File.read(".ruby-version").match?(/\A\d+\.\d+.\d+.\s*\z/m)
