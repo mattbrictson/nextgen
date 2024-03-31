@@ -14,8 +14,8 @@ class Nextgen::Generators::RspecSystemTestingTest < Nextgen::Generators::TestCas
 
     assert_file "Gemfile", /#{Regexp.quote(<<~GEMFILE)}/
       group :test do
-        gem "selenium-webdriver"
-        gem "capybara"
+        gem "selenium-webdriver", require: false
+        gem "capybara", require: false
       end
     GEMFILE
   end
@@ -24,7 +24,7 @@ class Nextgen::Generators::RspecSystemTestingTest < Nextgen::Generators::TestCas
     apply_generator
 
     assert_file "spec/support/capybara.rb", %r{require "capybara/rspec"\n}
-    assert_file "spec/support/capybara.rb", /^Capybara\.configure/
+    assert_file "spec/support/capybara.rb", /Capybara\.configure/
 
     assert_file "spec/support/system.rb", /driven_by :selenium/
   end
