@@ -59,3 +59,9 @@ if File.exist?("config/database.yml")
   say_git "Create initial schema.rb"
   rails_command "db:prepare"
 end
+
+if (time_zone = read_system_time_zone_name)
+  say_git "Set default time zone: #{time_zone}"
+  uncomment_lines "config/application.rb", /config\.time_zone/
+  gsub_file "config/application.rb", /(config\.time_zone = ).*$/, "\\1#{time_zone.inspect}"
+end
