@@ -153,5 +153,11 @@ module Nextgen
 
       raise Thor::Error, message
     end
+
+    def read_system_time_zone_name
+      return unless File.symlink?("/etc/localtime")
+
+      File.readlink("/etc/localtime")[%r{zoneinfo/(.+)$}, 1]
+    end
   end
 end
