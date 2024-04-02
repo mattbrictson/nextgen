@@ -1,0 +1,9 @@
+
+solid_queue:
+  prompt: "SolidQueue (Database-backed)"
+  description: "Install solid_queue as ActiveJob's backend"
+  requires: active_job
+  questions:
+    - variable: solid_queue_puma__no
+      method: no?
+      question: "Run the SolidQueue supervisor together with Puma (as plugin)? *defaults to NO*"

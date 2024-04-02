@@ -1,0 +1,29 @@
+initial_git_commit:
+
+base:
+  description: "Enhance base Rails template with better docs, etc"
+
+clean_gemfile:
+  description: "Clean up Gemfile"
+
+git_safe:
+
+action_mailer:
+  description: "Improve Action Mailer support for absolute URLs and testing"
+  requires: action_mailer
+
+rspec_rails:
+  description: "Install and configure rspec-rails"
+  requires: rspec
+
+rspec_system_testing:
+  description: "Install capybara + selenium-webdriver and set up system specs"
+  requires:
+    - rspec
+    - system_testing
+
+tailwind:
+  questions:
+    - variable: tailwind_puma__no
+      method: no?
+      question: "Integrate tailwind watch with Puma (as plugin)? *defaults to NO*"
