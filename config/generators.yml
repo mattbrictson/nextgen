@@ -119,6 +119,10 @@ sidekiq:
   description: "Install sidekiq gem to use in production"
   requires: active_job
 
+staging:
+  prompt: "Staging environment"
+  description: "Define a staging environment"
+
 stylelint:
   prompt: "Stylelint"
   description: "Install stylelint and apply prettier format to CSS"
