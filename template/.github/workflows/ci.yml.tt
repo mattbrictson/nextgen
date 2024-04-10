@@ -73,7 +73,7 @@ jobs:
           bundler-cache: true
       - run: bin/erblint --lint-all
 <% end -%>
-<% if Dir[".eslintrc*"].any? -%>
+<% if Dir["eslint.config.*"].any? -%>
   eslint:
     name: "Lint / eslint"
     runs-on: ubuntu-latest
