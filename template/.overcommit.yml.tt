@@ -13,7 +13,7 @@ PreCommit:
     include: "**/*.html.erb"
 <% end -%>
 
-<% if File.exist?(".eslintrc.cjs") -%>
+<% if File.exist?("eslint.config.js") -%>
   EsLint:
     enabled: true
     required_executable: npx
