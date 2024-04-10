@@ -1,7 +1,7 @@
 say_git "Install eslint"
 add_yarn_packages(
   "@eslint/js",
-  "eslint",
+  "eslint@^9",
   "eslint-config-prettier",
   "eslint-plugin-prettier",
   "prettier",
