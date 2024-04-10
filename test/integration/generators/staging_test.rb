@@ -9,6 +9,20 @@ class Nextgen::Generators::StagingTest < Nextgen::Generators::TestCase
     assert_file "config/environments/staging.rb"
   end
 
+  test "updates the RAILS_ENV documentation in DEPLOYMENT.md" do
+    File.write(File.join(destination_root, "DEPLOYMENT.md"), <<~DEPLOYMENT_MD)
+      - `RAILS_DISABLE_SSL` - Disable HSTS and secure cookies
+      - `RAILS_ENV` **REQUIRED** - "production"
+      - `RAILS_MAX_THREADS` - Number of threads per Puma process (default: 5)
+    DEPLOYMENT_MD
+
+    apply_generator
+
+    assert_file "DEPLOYMENT.md", /#{Regexp.quote(<<~MARKDOWN)}/
+      - `RAILS_ENV` **REQUIRED** - "production" or "staging"
+    MARKDOWN
+  end
+
   test "adds a :staging section to config/cable.yml,database.yml" do
     FileUtils.mkdir_p(File.join(destination_root, "config"))
     File.write(File.join(destination_root, "config/cable.yml"), <<~CABLE_YML)
