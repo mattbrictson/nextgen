@@ -1,4 +1,5 @@
 require "test_helper"
+require "vite_helper"
 
 class InlineSvgHelperTest < ActionView::TestCase
   test "inline_svg_tag returns contents of svg file as html_safe string" do

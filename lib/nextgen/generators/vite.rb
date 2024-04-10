@@ -46,9 +46,13 @@ say_git "Install autoprefixer"
 add_yarn_packages "postcss@^8.4.24", "autoprefixer@^10.4.14"
 copy_file "postcss.config.cjs"
 
-say_git "Disable autoBuild in test environment"
-gsub_file "config/vite.json", /("test": \{.+?"autoBuild":\s*)true/m, '\1false'
-copy_test_support_file "vite.rb"
+# TODO: rspec support
+if File.exist?("test/application_system_test_case.rb")
+  say_git "Disable autoBuild in test environment"
+  gsub_file "config/vite.json", /("test": \{.+?"autoBuild":\s*)true/m, '\1false'
+  copy_file "test/vite_helper.rb"
+  inject_into_file "test/application_system_test_case.rb", "\nrequire \"vite_helper\"", after: /require "test_helper"$/
+end
 
 say_git "Install modern-normalize and base stylesheets"
 add_yarn_package "modern-normalize@^2.0.0"
@@ -84,7 +88,7 @@ end
 copy_file "app/helpers/inline_svg_helper.rb"
 copy_file "app/frontend/images/example.svg"
 # TODO: rspec support
-copy_file "test/helpers/inline_svg_helper_test.rb" if minitest?
+copy_file "test/helpers/inline_svg_helper_test.rb" if File.exist?("test/vite_helper.rb")
 
 say_git "Add a `yarn start` script"
 start = "concurrently -i -k --kill-others-on-fail -p none 'RUBY_DEBUG_OPEN=true bin/rails s' 'bin/vite dev'"
