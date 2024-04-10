@@ -14,7 +14,7 @@ class Nextgen::Generators::GithubActionsTest < Nextgen::Generators::TestCase
     end
   end
 
-  test "includes an eslint job if in eslintrc file is present" do
+  test "includes an eslint job if in eslint.config file is present" do
     FileUtils.touch File.join(destination_root, "eslint.config.js")
     apply_generator
     assert_file ".github/workflows/ci.yml", %r{Lint / eslint}
