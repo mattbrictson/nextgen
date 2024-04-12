@@ -5,7 +5,6 @@ require "shellwords"
 require "open3"
 require "tmpdir"
 require "tty-prompt"
-require "rainbow"
 require "nextgen/ext/prompt/list"
 require "nextgen/ext/prompt/multilist"
 
@@ -87,7 +86,7 @@ module Nextgen
         #{green("Done!")}
 
         A Rails #{rails_version} app was generated in #{cyan(app_path)}.
-        Run #{set_color("bin/setup", :yellow)} in that directory to get started.
+        Run #{yellow("bin/setup")} in that directory to get started.
 
 
       DONE
@@ -97,10 +96,10 @@ module Nextgen
 
     attr_accessor :app_path, :app_name, :rails_opts, :generators
 
-    def_delegators :shell, :say, :set_color
+    def_delegators :shell, :say
 
     def continue_if(question)
-      if prompt.yes?("#{question} ↵")
+      if prompt.yes?(question)
         say
       else
         say "Canceled", :red
@@ -122,7 +121,7 @@ module Nextgen
 
     def ask_rails_version
       selected = prompt.select(
-        "What #{underline("version")} of Rails will you use?",
+        "What version of Rails will you use?",
         Rails.version => :current,
         "edge (#{Rails.edge_branch} branch)" => :edge
       )
@@ -130,17 +129,20 @@ module Nextgen
     end
 
     def ask_database
-      databases = {
+      common_databases = {
         "SQLite3 (default)" => "sqlite3",
         "PostgreSQL (recommended)" => "postgresql",
-        **%w[MySQL Trilogy Oracle SQLServer JDBCMySQL JDBCSQLite3 JDBCPostgreSQL JDBC].to_h do |name|
+        "MySQL" => "mysql"
+      }
+      all_databases = common_databases.merge(
+        %w[MySQL Trilogy Oracle SQLServer JDBCMySQL JDBCSQLite3 JDBCPostgreSQL JDBC].to_h do |name|
           [name, name.downcase]
         end,
         "None (disable Active Record)" => nil
-      }
-      rails_opts.database = prompt_select(
-        "Which #{underline("database")}?", databases
       )
+      rails_opts.database =
+        prompt_select("Which database?", common_databases.merge("More options..." => false)) ||
+        prompt_select("Which database?", all_databases)
     end
 
     def ask_full_stack_or_api
@@ -154,7 +156,7 @@ module Nextgen
 
     def ask_frontend_management
       frontend = prompt_select(
-        "How will you manage frontend #{underline("assets")}?",
+        "How will you manage frontend assets?",
         "Sprockets (default)" => "sprockets",
         "Propshaft" => "propshaft",
         "Vite" => :vite
@@ -170,7 +172,7 @@ module Nextgen
 
     def ask_css
       rails_opts.css = prompt_select(
-        "Which #{underline("CSS")} framework will you use with the asset pipeline?",
+        "Which CSS framework will you use with the asset pipeline?",
         "None (default)" => nil,
         "Bootstrap" => "bootstrap",
         "Bulma" => "bulma",
@@ -182,7 +184,7 @@ module Nextgen
 
     def ask_javascript
       rails_opts.javascript = prompt_select(
-        "Which #{underline("JavaScript")} bundler will you use with the asset pipeline?",
+        "Which JavaScript bundler will you use with the asset pipeline?",
         "Importmap (default)" => "importmap",
         "Bun" => "bun",
         "ESBuild" => "esbuild",
@@ -213,7 +215,7 @@ module Nextgen
       end
 
       answers = prompt.multi_select(
-        "Which optional Rails #{underline("frameworks")} do you need?",
+        "Which optional Rails frameworks do you need?",
         frameworks,
         default: frameworks.keys.reverse
       )
@@ -223,7 +225,7 @@ module Nextgen
 
     def ask_test_framework
       rails_opts.test_framework = prompt_select(
-        "Which #{underline("test")} framework will you use?",
+        "Which test framework will you use?",
         "Minitest (default)" => "minitest",
         "RSpec" => "rspec",
         "None" => nil
@@ -232,7 +234,7 @@ module Nextgen
 
     def ask_system_testing
       system_testing = prompt_select(
-        "Include #{underline("system testing")} (capybara)?",
+        "Include system testing (capybara)?",
         "Yes (default)" => true,
         "No" => false
       )
@@ -309,9 +311,9 @@ module Nextgen
       @shell ||= Thor::Base.shell.new
     end
 
-    def green(string) = set_color(string, :green)
-    def cyan(string) = set_color(string, :cyan)
-    def underline(string) = Rainbow(string).underline
-    def prompt_select(question, choices) = prompt.select(question, choices, enum: ".", cycle: true)
+    def cyan(string) = shell.set_color(string, :cyan)
+    def green(string) = shell.set_color(string, :green)
+    def yellow(string) = shell.set_color(string, :yellow)
+    def prompt_select(question, choices) = prompt.select(question, choices, cycle: true)
   end
 end
