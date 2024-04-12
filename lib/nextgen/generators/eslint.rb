@@ -3,6 +3,7 @@ add_yarn_packages(
   "@eslint/js",
   "eslint@^9",
   "eslint-config-prettier",
+  "eslint-formatter-compact",
   "eslint-plugin-prettier",
   "prettier",
   "npm-run-all",
