@@ -26,9 +26,9 @@ module Nextgen
       say <<~BANNER
         Welcome to nextgen, the interactive Rails app generator!
 
-        You are about to create a Rails app named "#{app_name}" in the following directory:
+        You are about to create a Rails app named "#{cyan(app_name)}" in the following directory:
 
-          #{app_path}
+          #{cyan(app_path)}
 
         You'll be asked ~10 questions about database, test framework, and other options.
         The standard Rails "omakase" experience will be selected by default.
@@ -83,10 +83,10 @@ module Nextgen
       say <<~DONE.gsub(/^/, "  ")
 
 
-        #{set_color("Done!", :green)}
+        #{green("Done!")}
 
-        A Rails #{rails_version} app was generated in #{set_color(app_path, :cyan)}.
-        Run #{set_color("bin/setup", :yellow)} in that directory to get started.
+        A Rails #{rails_version} app was generated in #{cyan(app_path)}.
+        Run #{yellow("bin/setup")} in that directory to get started.
 
 
       DONE
@@ -96,7 +96,7 @@ module Nextgen
 
     attr_accessor :app_path, :app_name, :rails_opts, :generators
 
-    def_delegators :shell, :say, :set_color
+    def_delegators :shell, :say
 
     def continue_if(question)
       if prompt.yes?(question)
@@ -141,12 +141,12 @@ module Nextgen
         "None (disable Active Record)" => nil
       )
       rails_opts.database =
-        prompt.select("Which database?", common_databases.merge("More options..." => false)) ||
-        prompt.select("Which database?", all_databases)
+        prompt_select("Which database?", common_databases.merge("More options..." => false)) ||
+        prompt_select("Which database?", all_databases)
     end
 
     def ask_full_stack_or_api
-      api = prompt.select(
+      api = prompt_select(
         "What style of Rails app do you need?",
         "Standard, full-stack Rails (default)" => false,
         "API only" => true
@@ -155,12 +155,13 @@ module Nextgen
     end
 
     def ask_frontend_management
-      frontend = prompt.select(
+      frontend = prompt_select(
         "How will you manage frontend assets?",
         "Sprockets (default)" => "sprockets",
         "Propshaft" => "propshaft",
         "Vite" => :vite
       )
+
       if frontend == :vite
         rails_opts.asset_pipeline = nil
         rails_opts.javascript = "vite"
@@ -170,7 +171,7 @@ module Nextgen
     end
 
     def ask_css
-      rails_opts.css = prompt.select(
+      rails_opts.css = prompt_select(
         "Which CSS framework will you use with the asset pipeline?",
         "None (default)" => nil,
         "Bootstrap" => "bootstrap",
@@ -182,7 +183,7 @@ module Nextgen
     end
 
     def ask_javascript
-      rails_opts.javascript = prompt.select(
+      rails_opts.javascript = prompt_select(
         "Which JavaScript bundler will you use with the asset pipeline?",
         "Importmap (default)" => "importmap",
         "Bun" => "bun",
@@ -223,7 +224,7 @@ module Nextgen
     end
 
     def ask_test_framework
-      rails_opts.test_framework = prompt.select(
+      rails_opts.test_framework = prompt_select(
         "Which test framework will you use?",
         "Minitest (default)" => "minitest",
         "RSpec" => "rspec",
@@ -232,7 +233,7 @@ module Nextgen
     end
 
     def ask_system_testing
-      system_testing = prompt.select(
+      system_testing = prompt_select(
         "Include system testing (capybara)?",
         "Yes (default)" => true,
         "No" => false
@@ -309,5 +310,10 @@ module Nextgen
     def shell
       @shell ||= Thor::Base.shell.new
     end
+
+    def cyan(string) = shell.set_color(string, :cyan)
+    def green(string) = shell.set_color(string, :green)
+    def yellow(string) = shell.set_color(string, :yellow)
+    def prompt_select(question, choices) = prompt.select(question, choices, cycle: true)
   end
 end

@@ -55,6 +55,10 @@ module Nextgen
       false
     end
 
+    def bundler_ruby_file_supported?
+      bundler_version_satisifed?(">= 2.4.20")
+    end
+
     def noisy_bundler_version?
       bundler_version_satisifed?("< 2.4.17")
     end

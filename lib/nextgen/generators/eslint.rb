@@ -1,7 +1,9 @@
 say_git "Install eslint"
 add_yarn_packages(
-  "eslint",
+  "@eslint/js",
+  "eslint@^9",
   "eslint-config-prettier",
+  "eslint-formatter-compact",
   "eslint-plugin-prettier",
   "prettier",
   "npm-run-all",
@@ -14,7 +16,7 @@ add_package_json_scripts(
   lint: "npm-run-all lint:**",
   fix: "npm-run-all fix:**"
 )
-copy_file ".eslintrc.cjs"
+copy_file "eslint.config.js"
 
 say_git "Add eslint to default rake task"
 copy_file "lib/tasks/eslint.rake"

@@ -35,7 +35,11 @@ end
 
 if File.exist?(".ruby-version") && File.read(".ruby-version").match?(/\A\d+\.\d+.\d+.\s*\z/m)
   say_git "DRY up Gemfile and .ruby-version file"
-  replacement = 'ruby Pathname.new(__dir__).join(".ruby-version").read.strip'
+  replacement = if bundler_ruby_file_supported?
+                  'ruby file: ".ruby-version"'
+                else
+                  'ruby Pathname.new(__dir__).join(".ruby-version").read.strip'
+                end
   gsub_file "Gemfile", /^ruby "\d.*"$/, replacement
 end
 
@@ -60,4 +64,10 @@ gsub_file "config/environments/production.rb",
 if File.exist?("config/database.yml")
   say_git "Create initial schema.rb"
   rails_command "db:prepare"
+end
+
+if (time_zone = read_system_time_zone_name)
+  say_git "Set default time zone: #{time_zone}"
+  uncomment_lines "config/application.rb", /config\.time_zone/
+  gsub_file "config/application.rb", /(config\.time_zone = ).*$/, "\\1#{time_zone.inspect}"
 end
