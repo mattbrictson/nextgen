@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby Pathname.new(__dir__).join(".ruby-version").read.strip
+ruby file: ".ruby-version"
 
 gem "bootsnap", require: false
 gem "good_migrations"
@@ -8,7 +8,7 @@ gem "importmap-rails"
 gem "jbuilder"
 gem "puma", ">= 5.0"
 gem "rack-canonical-host"
-gem "rails", "~> 7.1.2"
+gem "rails", "~> 7.1.3", ">= 7.1.3.2"
 gem "redis", ">= 4.0.1"
 gem "sprockets-rails"
 gem "sqlite3", "~> 1.4"
@@ -18,7 +18,7 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 
 group :development, :test do
   gem "debug", platforms: %i[mri windows]
-  gem "dotenv-rails"
+  gem "dotenv", ">= 3.0"
   gem "factory_bot_rails"
   gem "launchy"
 end

@@ -23,3 +23,7 @@ test:
 production:
   <<: *default
   database: storage/production.sqlite3
+
+staging:
+  <<: *default
+  database: storage/staging.sqlite3
