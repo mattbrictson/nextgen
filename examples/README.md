@@ -122,7 +122,7 @@ Which optional enhancements would you like to add?
   ⬢ Brakeman
   ⬢ Bundler Audit
   ⬢ capybara-lockstep
-  ⬢ dotenv-rails
+  ⬢ dotenv
   ⬢ ERB Lint
   ⬢ ESLint
   ⬢ Factory Bot
@@ -137,6 +137,7 @@ Which optional enhancements would you like to add?
   ⬢ RuboCop
   ⬢ shoulda
   ⬢ Sidekiq
+  ⬢ Staging environment
   ⬢ Stylelint
   ⬢ Thor
   ⬢ Tomo

@@ -7,3 +7,6 @@ db/schema.rb linguist-generated
 vendor/* linguist-vendored
 config/credentials/*.yml.enc diff=rails_credentials
 config/credentials.yml.enc diff=rails_credentials
+
+# Mark VCR cassettes as having been generated.
+test/cassettes/* linguist-generated
