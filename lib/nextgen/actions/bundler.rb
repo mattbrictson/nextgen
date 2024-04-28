@@ -13,7 +13,7 @@ module Nextgen
           false
         else
           say_status :gemfile, [name, version].compact.join(", ")
-          gemfile.add(name, version: version, group: group, require: require)
+          gemfile.add(name, version:, group:, require:)
           true
         end
       end
@@ -44,7 +44,7 @@ module Nextgen
 
       Bundler.with_original_env do
         say_status :bundle, cmd, :green if verbose
-        run! full_command, env: {"BUNDLE_IGNORE_MESSAGES" => "1"}, verbose: false, capture: capture
+        run! full_command, env: {"BUNDLE_IGNORE_MESSAGES" => "1"}, verbose: false, capture:
       end
     end
 

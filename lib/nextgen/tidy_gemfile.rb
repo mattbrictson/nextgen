@@ -27,7 +27,7 @@ module Nextgen
     def add(gem, version: nil, group: nil, require: nil)
       return false if include?(gem)
 
-      gem_line = build_gem_line(gem, version: version, require: require, indent: group ? "  " : "")
+      gem_line = build_gem_line(gem, version:, require:, indent: group ? "  " : "")
 
       if group
         group_line = create_group_if_needed(group)

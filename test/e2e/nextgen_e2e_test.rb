@@ -20,7 +20,7 @@ class NextgenE2ETest < Minitest::Test
 
   def assert_bundle_exec_nextgen_create(stdin_data:)
     in_temp_dir do
-      bundle_exec! "nextgen create myapp", stdin_data: stdin_data
+      bundle_exec!("nextgen create myapp", stdin_data:)
       Bundler.with_original_env do
         Dir.chdir("myapp") do
           bundle_exec!("bin/setup")
