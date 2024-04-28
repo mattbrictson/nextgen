@@ -23,7 +23,7 @@ module Nextgen
 
       if given_args.first == "help"
         retry_with_args = ["help"] if given_args.length > 1
-      elsif (e.unknown & %w[-h --help]).any?
+      elsif e.unknown.intersect?(%w[-h --help])
         retry_with_args = ["help", (given_args - e.unknown).first]
       end
       raise unless retry_with_args.any?

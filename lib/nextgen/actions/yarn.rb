@@ -7,7 +7,7 @@ module Nextgen
     alias add_yarn_package add_yarn_packages
 
     def remove_yarn_packages(*packages, capture: false)
-      yarn_command "remove #{packages.map(&:shellescape).join(" ")}", capture: capture
+      yarn_command "remove #{packages.map(&:shellescape).join(" ")}", capture:
     end
     alias remove_yarn_package remove_yarn_packages
 

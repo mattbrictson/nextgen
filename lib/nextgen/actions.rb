@@ -22,7 +22,7 @@ module Nextgen
         result, status = Open3.capture2e(env, cmd)
         success = status.success?
       else
-        result = success = run(cmd, env: env, verbose: verbose)
+        result = success = run(cmd, env:, verbose:)
       end
 
       return result if success

@@ -242,7 +242,7 @@ module Nextgen
     end
 
     def ask_optional_enhancements
-      @generators = Generators.compatible_with(rails_opts: rails_opts)
+      @generators = Generators.compatible_with(rails_opts:)
 
       answers = prompt.multi_select(
         "Which optional enhancements would you like to add?",

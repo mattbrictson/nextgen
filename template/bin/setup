@@ -27,7 +27,7 @@ def run(command, echo: true, silent: false, exception: true)
   say_status(:run, command, :blue) if echo
   with_original_bundler_env do
     options = silent ? {out: File::NULL, err: File::NULL} : {}
-    system(command, exception: exception, **options)
+    system(command, exception:, **options)
   end
 end
 
@@ -59,10 +59,10 @@ def git_safe_needed?
   ENV["PATH"].include?(".git/safe/../../bin") && !Dir.exist?(".git/safe")
 end
 
-def with_original_bundler_env(&block)
+def with_original_bundler_env(&)
   return yield unless defined?(Bundler)
 
-  Bundler.with_original_env(&block)
+  Bundler.with_original_env(&)
 end
 
 def env(env_file, from:)
