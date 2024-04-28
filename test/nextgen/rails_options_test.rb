@@ -214,8 +214,8 @@ class Nextgen::RailsOptionsTest < Minitest::Test
 
   private
 
-  def assert_prohibited(&block)
-    error = assert_raises(ArgumentError, &block)
+  def assert_prohibited(&)
+    error = assert_raises(ArgumentError, &)
     assert_match(/Can't specify/i, error.message)
   end
 end

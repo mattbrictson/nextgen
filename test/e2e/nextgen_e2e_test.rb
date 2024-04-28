@@ -46,10 +46,10 @@ class NextgenE2ETest < Minitest::Test
     assert(status.success?, "Expected #{command.inspect} to run without error")
   end
 
-  def in_temp_dir(&block)
+  def in_temp_dir(&)
     token = SecureRandom.hex(8)
     dir = File.join(Dir.tmpdir, "nextgen_test_#{token}")
     FileUtils.mkdir_p(dir)
-    Dir.chdir(dir, &block)
+    Dir.chdir(dir, &)
   end
 end

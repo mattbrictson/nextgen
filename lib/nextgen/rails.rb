@@ -29,10 +29,10 @@ module Nextgen
         Thor::Base.shell.new.say_status(...)
       end
 
-      def with_original_bundler_env(&block)
+      def with_original_bundler_env(&)
         return yield unless defined?(Bundler)
 
-        Bundler.with_original_env(&block)
+        Bundler.with_original_env(&)
       end
     end
   end
