@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 desc "Run erblint"
 task :erblint do
   sh "bin/erblint --lint-all"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Nextgen
   class TidyGemfile
     def self.clean!(path = "Gemfile")
@@ -62,8 +64,8 @@ module Nextgen
 
     def build_gem_line(gem, version:, require:, indent:)
       line = %(gem "#{gem}")
-      line << ", #{version.to_s.inspect}" if version
-      line << ", require: #{require.inspect}" unless require.nil?
+      line += ", #{version.to_s.inspect}" if version
+      line += ", require: #{require.inspect}" unless require.nil?
 
       indent + line + "\n"
     end

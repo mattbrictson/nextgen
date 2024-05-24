@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "test_case"
 
 class Nextgen::Generators::RspecSystemTestingTest < Nextgen::Generators::TestCase

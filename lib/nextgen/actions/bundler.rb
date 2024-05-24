@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Nextgen
   module Actions::Bundler
     def binstubs(*gems)
@@ -21,7 +23,7 @@ module Nextgen
 
       gemfile.save
       cmd = "install"
-      cmd << " --quiet" if noisy_bundler_version?
+      cmd += " --quiet" if noisy_bundler_version?
       bundle_command! cmd
     end
     alias install_gem install_gems

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 say_git "Install the rspec-rails gem"
 install_gem "rspec-rails", group: %i[development test]
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Nextgen
   module Actions::Yarn
     def add_yarn_packages(*packages, dev: false)

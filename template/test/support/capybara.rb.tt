@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "capybara/rails"
 <% if rspec? -%>
 require "capybara/rspec"

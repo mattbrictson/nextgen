@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 say_git "Install launchy"
 install_gem "launchy", group: %i[development test]
 
