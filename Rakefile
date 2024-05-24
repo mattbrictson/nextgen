@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "bundler/gem_tasks"
 require "rake/testtask"
 require "rubocop/rake_task"
@@ -67,6 +69,7 @@ namespace :bump do
     replace_in_file "nextgen.gemspec", /ruby_version = .*">= (.*)"/ => RubyVersions.lowest
     replace_in_file ".rubocop.yml", /TargetRubyVersion: (.*)/ => RubyVersions.lowest
     replace_in_file ".github/workflows/ci.yml", /ruby: (\[.+\])/ => RubyVersions.all.inspect
+    replace_in_file "README.md", /Ruby (\d+\.\d+)\+/ => RubyVersions.lowest
   end
 
   task :year do

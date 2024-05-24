@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "yaml"
 
 module Nextgen
@@ -40,7 +42,7 @@ module Nextgen
       name = name.to_sym
       raise ArgumentError, "Generator #{name.inspect} was already added" if generators.key?(name)
 
-      generators[name] = {node: node, prompt: prompt, description: description}
+      generators[name] = {node:, prompt:, description:}
       activate(name) unless prompt
     end
 

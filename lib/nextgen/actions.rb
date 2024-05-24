@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Nextgen
   module Actions
     include Bundler
@@ -22,7 +24,7 @@ module Nextgen
         result, status = Open3.capture2e(env, cmd)
         success = status.success?
       else
-        result = success = run(cmd, env: env, verbose: verbose)
+        result = success = run(cmd, env:, verbose:)
       end
 
       return result if success
@@ -82,9 +84,9 @@ module Nextgen
 
     def document_deploy_var(var_name, desc = nil, required: false, default: nil)
       insertion = "`#{var_name}`"
-      insertion << " **REQUIRED**" if required
-      insertion << " - #{desc}" if desc.present?
-      insertion << " (default: #{default})" unless default.nil?
+      insertion += " **REQUIRED**" if required
+      insertion += " - #{desc}" if desc.present?
+      insertion += " (default: #{default})" unless default.nil?
 
       copy_file "DEPLOYMENT.md" unless File.exist?("DEPLOYMENT.md")
       inject_into_file "DEPLOYMENT.md", "#{insertion}\n- ", after: /^## Environment variables.*?^- /m

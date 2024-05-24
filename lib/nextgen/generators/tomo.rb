@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 say_git "Install the tomo gem in the :development group, with a binstub"
 install_gem "tomo", version: "~> 1.18", group: :development, require: false
 binstub "tomo"

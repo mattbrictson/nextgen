@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Nextgen
   module Actions::Bundler
     def binstubs(*gems)
@@ -13,7 +15,7 @@ module Nextgen
           false
         else
           say_status :gemfile, [name, version].compact.join(", ")
-          gemfile.add(name, version: version, group: group, require: require)
+          gemfile.add(name, version:, group:, require:)
           true
         end
       end
@@ -21,7 +23,7 @@ module Nextgen
 
       gemfile.save
       cmd = "install"
-      cmd << " --quiet" if noisy_bundler_version?
+      cmd += " --quiet" if noisy_bundler_version?
       bundle_command! cmd
     end
     alias install_gem install_gems
@@ -44,7 +46,7 @@ module Nextgen
 
       Bundler.with_original_env do
         say_status :bundle, cmd, :green if verbose
-        run! full_command, env: {"BUNDLE_IGNORE_MESSAGES" => "1"}, verbose: false, capture: capture
+        run! full_command, env: {"BUNDLE_IGNORE_MESSAGES" => "1"}, verbose: false, capture:
       end
     end
 

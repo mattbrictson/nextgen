@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 copy_file "config/environments/staging.rb"
 gsub_file "DEPLOYMENT.md", '"production"', '"production" or "staging"' if File.exist?("DEPLOYMENT.md")
 

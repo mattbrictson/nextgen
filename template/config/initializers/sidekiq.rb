@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 return unless defined?(Sidekiq)
 
 # Disable SSL certificate verification if using Heroku Redis

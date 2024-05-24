@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module InlineSvgHelper
   def inline_svg_tag(filename, title: nil)
     svg = ViteInlineSvgFileLoader.named(filename)

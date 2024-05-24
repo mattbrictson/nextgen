@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 say_git "Install factory_bot_rails"
 install_gem "factory_bot_rails", group: %i[development test]
 

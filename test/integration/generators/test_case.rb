@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require "securerandom"
 require "tmpdir"
@@ -44,7 +46,7 @@ class Nextgen::Generators::TestCase < Rails::Generators::TestCase
     generator = Rails::Generators::AppGenerator.new(
       [destination_root],
       {template: template.to_s},
-      {destination_root: destination_root}
+      {destination_root:}
     )
     generator.set_default_accessors!
     generator.apply_rails_template

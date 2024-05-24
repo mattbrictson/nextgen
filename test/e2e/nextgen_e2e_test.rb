@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require "fileutils"
 require "open3"
@@ -20,7 +22,7 @@ class NextgenE2ETest < Minitest::Test
 
   def assert_bundle_exec_nextgen_create(stdin_data:)
     in_temp_dir do
-      bundle_exec! "nextgen create myapp", stdin_data: stdin_data
+      bundle_exec!("nextgen create myapp", stdin_data:)
       Bundler.with_original_env do
         Dir.chdir("myapp") do
           bundle_exec!("bin/setup")
@@ -46,10 +48,10 @@ class NextgenE2ETest < Minitest::Test
     assert(status.success?, "Expected #{command.inspect} to run without error")
   end
 
-  def in_temp_dir(&block)
+  def in_temp_dir(&)
     token = SecureRandom.hex(8)
     dir = File.join(Dir.tmpdir, "nextgen_test_#{token}")
     FileUtils.mkdir_p(dir)
-    Dir.chdir(dir, &block)
+    Dir.chdir(dir, &)
   end
 end

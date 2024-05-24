@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 install_gem "capybara-lockstep", group: :test, require: false
 
 inject_into_file "app/views/layouts/application.html.erb",

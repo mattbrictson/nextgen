@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 say_git "Install rubocop gems"
 gemfile = File.read("Gemfile")
 plugins = []

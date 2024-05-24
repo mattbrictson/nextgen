@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 say_git "Install rack-canonical-host"
 install_gem "rack-canonical-host"
 
