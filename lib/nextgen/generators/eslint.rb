@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 say_git "Install eslint"
 add_yarn_packages(
   "@eslint/js",

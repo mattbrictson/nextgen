@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "active_support/core_ext/string/inflections"
 require "fileutils"
 require "forwardable"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 say_git "Install erb_lint"
 install_gem "erb_lint", group: :development, require: false
 binstub "erb_lint"

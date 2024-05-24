@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 say_git "Install the vite_rails gem"
 install_gem "vite_rails", version: "~> 3.0"
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 return unless defined?(Rack::MiniProfiler)
 
 # https://github.com/MiniProfiler/rack-mini-profiler#configuration-options

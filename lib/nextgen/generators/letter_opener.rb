@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 say_git "Install letter_opener"
 install_gem "letter_opener", group: :development
 

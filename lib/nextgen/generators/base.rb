@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 say_git "Add improved bin/setup script"
 copy_file "bin/setup", mode: :preserve, force: true
 
