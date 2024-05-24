@@ -84,9 +84,9 @@ module Nextgen
 
     def document_deploy_var(var_name, desc = nil, required: false, default: nil)
       insertion = "`#{var_name}`"
-      insertion << " **REQUIRED**" if required
-      insertion << " - #{desc}" if desc.present?
-      insertion << " (default: #{default})" unless default.nil?
+      insertion += " **REQUIRED**" if required
+      insertion += " - #{desc}" if desc.present?
+      insertion += " (default: #{default})" unless default.nil?
 
       copy_file "DEPLOYMENT.md" unless File.exist?("DEPLOYMENT.md")
       inject_into_file "DEPLOYMENT.md", "#{insertion}\n- ", after: /^## Environment variables.*?^- /m
