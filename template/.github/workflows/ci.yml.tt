@@ -53,7 +53,7 @@ jobs:
       - run: bundle exec rake test:all
 <% end -%>
 <% if gems.include?("capybara") -%>
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: capybara-screenshots
