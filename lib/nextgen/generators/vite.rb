@@ -12,8 +12,8 @@ move "app/assets/images", "app/frontend/images"
 move "app/assets/stylesheets", "app/frontend/stylesheets"
 remove_dir "app/assets"
 inject_into_class "config/application.rb", "Application", <<-RUBY
-  # Prevents Rails from trying to eager-load the contents of app/frontend
-  config.javascript_path = "frontend"
+    # Prevents Rails from trying to eager-load the contents of app/frontend
+    config.javascript_path = "frontend"
 
 RUBY
 
