@@ -100,6 +100,14 @@ gsub_file "README.md", %r{bin/rails s(erver)?}, "yarn start"
 gsub_file "bin/setup", %r{bin/rails s(erver)?}, "yarn start"
 remove_file "Procfile.dev"
 
+say_git "Add Safari cache workaround in development"
+insert_into_file "config/environments/development.rb", <<-RUBY, before: /^end/
+
+  # Disable `Link: ... rel=preload` header to work around Safari caching bug
+  # https://bugs.webkit.org/show_bug.cgi?id=193533
+  config.action_view.preload_links_header = false
+RUBY
+
 say_git "Remove jsbundling-rails"
 remove_gem "jsbundling-rails"
 
