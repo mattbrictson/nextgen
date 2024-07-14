@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 return if ViteRuby.config.auto_build
 
 # Compile assets once at the start of testing

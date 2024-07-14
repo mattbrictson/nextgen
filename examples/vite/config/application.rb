@@ -8,8 +8,8 @@ Bundler.require(*Rails.groups)
 
 module ViteExample
   class Application < Rails::Application
-  # Prevents Rails from trying to eager-load the contents of app/frontend
-  config.javascript_path = "frontend"
+    # Prevents Rails from trying to eager-load the contents of app/frontend
+    config.javascript_path = "frontend"
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
