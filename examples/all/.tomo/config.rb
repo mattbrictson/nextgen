@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 plugin "git"
 plugin "env"
 plugin "bundler"
@@ -11,7 +13,7 @@ host "user@hostname.or.ip.address"
 
 set application: "all_example"
 set deploy_to: "/var/www/%{application}"
-set nodenv_node_version: "20.12.2"
+set nodenv_node_version: "20.15.1"
 set nodenv_install_yarn: true
 set git_url: nil # FIXME
 set git_branch: "main"
@@ -21,14 +23,11 @@ set git_exclusions: %w[
   test/
 ]
 set env_vars: {
-  RACK_ENV: "production",
   RAILS_ENV: "production",
-  RAILS_LOG_TO_STDOUT: "1",
-  RAILS_SERVE_STATIC_FILES: "1",
   RUBY_YJIT_ENABLE: "1",
   BOOTSNAP_CACHE_DIR: "tmp/bootsnap-cache",
   DATABASE_URL: :prompt,
-  SECRET_KEY_BASE: :prompt
+  SECRET_KEY_BASE: :generate_secret
 }
 set linked_dirs: %w[
   .yarn/cache

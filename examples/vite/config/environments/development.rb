@@ -73,4 +73,8 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Disable `Link: ... rel=preload` header to work around Safari caching bug
+  # https://bugs.webkit.org/show_bug.cgi?id=193533
+  config.action_view.preload_links_header = false
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 desc "Run ESLint"
 task :eslint do
   sh "yarn lint:js"
