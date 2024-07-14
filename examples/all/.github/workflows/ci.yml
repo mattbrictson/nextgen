@@ -23,7 +23,7 @@ jobs:
       - run: mkdir -p ./tmp/screenshots
       - run: bundle exec rake db:prepare
       - run: bundle exec rake test:all
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: capybara-screenshots

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 desc "Run Stylelint"
 task :stylelint do
   sh "yarn lint:css"
