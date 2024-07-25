@@ -119,7 +119,7 @@ module Nextgen
 
           desc "Apply auto-corrections"
           task fix: %w[] do
-            Thor::Base.shell.new.say_status :OK, "All fixes applied!"
+            puts ">>>>>> [OK] All fixes applied!"
           end
         RUBY
       end
