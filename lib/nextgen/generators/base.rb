@@ -23,7 +23,7 @@ append_to_file "Rakefile", <<~RUBY
 
   desc "Run all checks"
   task default: %w[#{test_task}] do
-    Thor::Base.shell.new.say_status :OK, "All checks passed!"
+    puts ">>>>>> [OK] All checks passed!"
   end
 RUBY
 
