@@ -107,7 +107,7 @@ Nextgen can optionally install and configure these Node packages to work nicely 
 [Vite](https://vitejs.dev) (pronounced _veet_) is a next generation Node-based frontend build system and hot-reloading dev server. It can completely take the place of the asset pipeline and integrate seamlessly with Rails via the [vite_rails](https://github.com/ElMassimo/vite_ruby) gem. If you opt-in, Nextgen can set you up with Vite and adds a bunch of vite_rails best practices:
 
 - All frontend sources (CSS, JS, images) are moved to `app/frontend`
-- A `yarn start` script is used to start the Rails server and Vite dev server
+- A `bin/dev` script is used to start the Rails server and Vite dev server
 - The [autoprefixer](https://github.com/postcss/autoprefixer) package is installed and activated via PostCSS
 - A base set of CSS files are added, including [modern_normalize](https://github.com/sindresorhus/modern-normalize)
 - A Vite-compatible inline SVG helper is added

@@ -96,8 +96,7 @@ say_git "Add a `yarn start` script"
 start = "concurrently -i -k --kill-others-on-fail -p none 'RUBY_DEBUG_OPEN=true bin/rails s' 'bin/vite dev'"
 add_package_json_script(start:)
 add_yarn_package "concurrently", dev: true
-gsub_file "README.md", %r{bin/rails s(erver)?}, "yarn start"
-gsub_file "bin/setup", %r{bin/rails s(erver)?}, "yarn start"
+copy_file "bin/dev-yarn", "bin/dev", mode: :preserve, force: true
 remove_file "Procfile.dev"
 
 say_git "Add Safari cache workaround in development"

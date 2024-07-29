@@ -15,6 +15,11 @@ copy_file "DEPLOYMENT.md"
 say_git "Create a Procfile"
 template "Procfile.tt"
 
+unless File.exist?("bin/dev")
+  say_git "Create bin/dev script"
+  copy_file "bin/dev", mode: :preserve
+end
+
 say_git "Set up default rake task"
 test_task = "test:all" if minitest?
 append_to_file "Rakefile", <<~RUBY
