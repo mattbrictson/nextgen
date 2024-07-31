@@ -1,0 +1,16 @@
+[
+  {
+    "command": ["bin/rails", "server"],
+    "status": {
+      "Listening on": null
+    },
+    "defaultStatus": ["⏳", "S"]
+  },
+  {
+    "command": ["bin/vite", "dev"],
+    "status": {
+      "ready in": null
+    },
+    "defaultStatus": ["⏳", "S"]
+  }
+]
