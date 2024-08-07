@@ -139,8 +139,9 @@ vcr:
   requires: test_framework
 
 rubocop:
-  prompt: "RuboCop"
-  description: "Install rubocop gems; apply formatting rules"
+  prompt: "RuboCop (nextgen custom config)"
+  description: "Replace rubocop-rails-omakase with a custom config"
+  requires: rubocop
 
 overcommit:
   prompt: "Overcommit"

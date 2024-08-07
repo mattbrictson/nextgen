@@ -200,7 +200,7 @@ module Nextgen
       opt_out = {
         "Brakeman" => "brakeman",
         "GitHub Actions CI" => "ci",
-        "RuboCop (rubocop-rails-omakase)" => "rubocop"
+        "RuboCop" => "rubocop"
       }
       opt_in = {
         "devcontainer files" => "devcontainer"
