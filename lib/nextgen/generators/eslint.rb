@@ -24,5 +24,31 @@ say_git "Add eslint to default rake task"
 copy_file "lib/tasks/eslint.rake"
 add_lint_task "eslint"
 
+if File.exist?(".github/workflows/ci.yml")
+  say_git "Add eslint job to CI workflow"
+  node_spec = File.exist?(".node-version") ? 'node-version-file: ".node-version"' : 'node-version: "lts/*"'
+  inject_into_file ".github/workflows/ci.yml", <<~YAML.gsub(/^/, "  "), after: /^jobs:\n/
+    eslint:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        - name: Set up Node
+          uses: actions/setup-node@v4
+          with:
+            #{node_spec}
+            cache: yarn
+
+        - name: Install Yarn packages
+          run: npx --yes ci
+
+        - name: Lint JavaScript files with eslint
+          run: yarn lint:js
+
+  YAML
+end
+
 say_git "Auto-correct any existing issues"
 run "yarn fix:js", capture: true
