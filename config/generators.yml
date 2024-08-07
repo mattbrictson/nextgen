@@ -149,7 +149,3 @@ rubocop:
 overcommit:
   prompt: "Overcommit"
   description: "Configure overcommit pre-commit git hooks"
-
-github_actions:
-  prompt: "GitHub Actions"
-  description: "Configure GitHub Actions workflow for CI"
