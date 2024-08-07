@@ -134,14 +134,17 @@ class Nextgen::RailsOptionsTest < Minitest::Test
 
   def test_optional_frameworks_can_be_skipped
     opts = Nextgen::RailsOptions.new
-    opts.skip_optional_framework!("action_mailer")
-    opts.skip_optional_framework!("action_mailbox")
-    opts.skip_optional_framework!("action_text")
-    opts.skip_optional_framework!("active_job")
-    opts.skip_optional_framework!("active_storage")
-    opts.skip_optional_framework!("action_cable")
-    opts.skip_optional_framework!("hotwire")
-    opts.skip_optional_framework!("jbuilder")
+    opts.skip_optional_feature!("action_mailer")
+    opts.skip_optional_feature!("action_mailbox")
+    opts.skip_optional_feature!("action_text")
+    opts.skip_optional_feature!("active_job")
+    opts.skip_optional_feature!("active_storage")
+    opts.skip_optional_feature!("action_cable")
+    opts.skip_optional_feature!("brakeman")
+    opts.skip_optional_feature!("ci")
+    opts.skip_optional_feature!("hotwire")
+    opts.skip_optional_feature!("jbuilder")
+    opts.skip_optional_feature!("rubocop")
 
     assert_equal(
       %w[
@@ -151,8 +154,11 @@ class Nextgen::RailsOptionsTest < Minitest::Test
         --skip-active-job
         --skip-active-storage
         --skip-action-cable
+        --skip-brakeman
+        --skip-ci
         --skip-hotwire
         --skip-jbuilder
+        --skip-rubocop
       ],
       opts.to_args
     )
@@ -161,7 +167,7 @@ class Nextgen::RailsOptionsTest < Minitest::Test
   def test_invalid_optional_frameworks_raises
     opts = Nextgen::RailsOptions.new
 
-    assert_raises(ArgumentError) { opts.skip_optional_framework!("action_blah") }
+    assert_raises(ArgumentError) { opts.skip_optional_feature!("action_blah") }
   end
 
   def test_test_framework_can_be_set_to_minitest

@@ -45,6 +45,7 @@ module Nextgen
       ask_frontend_management unless rails_opts.api?
       ask_css unless rails_opts.api? || rails_opts.skip_asset_pipeline?
       ask_javascript unless rails_opts.api? || rails_opts.skip_asset_pipeline?
+      ask_rails_tools
       ask_rails_frameworks
       ask_test_framework
       ask_system_testing if rails_opts.frontend? && rails_opts.test_framework?
@@ -196,6 +197,22 @@ module Nextgen
       )
     end
 
+    def ask_rails_tools
+      tools = {
+        "Brakeman" => "brakeman",
+        "GitHub Actions CI" => "ci",
+        "RuboCop (rubocop-rails-omakase)" => "rubocop"
+      }
+
+      answers = prompt.multi_select(
+        "Rails 7.2 can preinstall the following. Which do you need?",
+        tools,
+        default: tools.keys.reverse
+      )
+
+      (tools.values - answers).each { rails_opts.skip_optional_feature!(_1) }
+    end
+
     def ask_rails_frameworks
       frameworks = {
         "JBuilder" => "jbuilder",
@@ -222,7 +239,7 @@ module Nextgen
         default: frameworks.keys.reverse
       )
 
-      (frameworks.values - answers).each { rails_opts.skip_optional_framework!(_1) }
+      (frameworks.values - answers).each { rails_opts.skip_optional_feature!(_1) }
     end
 
     def ask_test_framework

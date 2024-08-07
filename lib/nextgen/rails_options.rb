@@ -19,15 +19,18 @@ module Nextgen
 
     ASSET_PIPELINES = %w[sprockets propshaft].freeze
 
-    OPTIONAL_FRAMEWORKS = %w[
+    OPTIONAL_FEATURES = %w[
       action_mailer
       action_mailbox
       action_text
       active_job
       active_storage
       action_cable
+      brakeman
+      ci
       hotwire
       jbuilder
+      rubocop
     ].freeze
 
     attr_reader :asset_pipeline, :css, :javascript, :database, :test_framework
@@ -35,7 +38,7 @@ module Nextgen
     def initialize
       @api = false
       @edge = false
-      @skip_frameworks = []
+      @skip_features = []
       @skip_system_test = false
       @test_framework = "minitest"
     end
@@ -151,23 +154,23 @@ module Nextgen
     end
 
     def action_mailer?
-      !skip_optional_framework?("action_mailer")
+      !skip_optional_feature?("action_mailer")
     end
 
     def active_job?
-      !skip_optional_framework?("active_job")
+      !skip_optional_feature?("active_job")
     end
 
-    def skip_optional_framework!(framework)
-      raise ArgumentError, "Unknown framework: #{framework}" unless OPTIONAL_FRAMEWORKS.include?(framework)
+    def skip_optional_feature!(feature)
+      raise ArgumentError, "Unknown feature: #{feature}" unless OPTIONAL_FEATURES.include?(feature)
 
-      skip_frameworks << framework
+      skip_features << feature
     end
 
-    def skip_optional_framework?(framework)
-      raise ArgumentError, "Unknown framework: #{framework}" unless OPTIONAL_FRAMEWORKS.include?(framework)
+    def skip_optional_feature?(feature)
+      raise ArgumentError, "Unknown feature: #{feature}" unless OPTIONAL_FEATURES.include?(feature)
 
-      skip_frameworks.include?(framework)
+      skip_features.include?(feature)
     end
 
     def to_args # rubocop:disable Metrics/PerceivedComplexity
@@ -183,12 +186,12 @@ module Nextgen
         args << "--database=#{database}" if database
         args << "--css=#{css}" if css
         args << "--javascript=#{javascript}" if javascript
-        args.push(*skip_frameworks.map { "--skip-#{_1.tr("_", "-")}" })
+        args.push(*skip_features.map { "--skip-#{_1.tr("_", "-")}" })
       end
     end
 
     private
 
-    attr_reader :skip_frameworks
+    attr_reader :skip_features
   end
 end
