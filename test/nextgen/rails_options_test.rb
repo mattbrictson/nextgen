@@ -206,6 +206,13 @@ class Nextgen::RailsOptionsTest < Minitest::Test
     assert_equal(["--skip-system-test"], opts.to_args)
   end
 
+  def test_devcontainer_is_opt_in
+    opts = Nextgen::RailsOptions.new
+    opts.devcontainer!
+
+    assert_equal(["--devcontainer"], opts.to_args)
+  end
+
   def test_defaults
     opts = Nextgen::RailsOptions.new
 

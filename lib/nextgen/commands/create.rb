@@ -198,19 +198,23 @@ module Nextgen
     end
 
     def ask_rails_tools
-      tools = {
+      opt_out = {
         "Brakeman" => "brakeman",
         "GitHub Actions CI" => "ci",
         "RuboCop (rubocop-rails-omakase)" => "rubocop"
       }
+      opt_in = {
+        "devcontainer files" => "devcontainer"
+      }
 
       answers = prompt.multi_select(
         "Rails can preinstall the following. Which do you need?",
-        tools,
-        default: tools.keys.reverse
+        opt_out.merge(opt_in),
+        default: opt_out.keys.reverse
       )
 
-      (tools.values - answers).each { rails_opts.skip_optional_feature!(_1) }
+      rails_opts.devcontainer! if answers.delete("devcontainer")
+      (opt_out.values - answers).each { rails_opts.skip_optional_feature!(_1) }
     end
 
     def ask_rails_frameworks

@@ -38,6 +38,7 @@ module Nextgen
     def initialize
       @api = false
       @edge = false
+      @devcontainer = nil
       @skip_features = []
       @skip_system_test = false
       @test_framework = "minitest"
@@ -100,6 +101,10 @@ module Nextgen
 
     def edge?
       @edge
+    end
+
+    def devcontainer!
+      @devcontainer = true
     end
 
     def api!
@@ -186,6 +191,7 @@ module Nextgen
         args << "--database=#{database}" if database
         args << "--css=#{css}" if css
         args << "--javascript=#{javascript}" if javascript
+        args << "--devcontainer" if @devcontainer
         args.push(*skip_features.map { "--skip-#{_1.tr("_", "-")}" })
       end
     end
