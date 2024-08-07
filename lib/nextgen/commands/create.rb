@@ -205,7 +205,7 @@ module Nextgen
       }
 
       answers = prompt.multi_select(
-        "Rails 7.2 can preinstall the following. Which do you need?",
+        "Rails can preinstall the following. Which do you need?",
         tools,
         default: tools.keys.reverse
       )
