@@ -40,14 +40,15 @@ if File.exist?("test/application_system_test_case.rb")
   gsub_file "Gemfile", /gem "selenium-webdriver"$/, '\0, require: false'
 end
 
-if File.exist?(".ruby-version") && File.read(".ruby-version").match?(/\A\d+\.\d+.\d+.\s*\z/m)
-  say_git "DRY up Gemfile and .ruby-version file"
-  replacement = if bundler_ruby_file_supported?
-                  'ruby file: ".ruby-version"'
-                else
-                  'ruby Pathname.new(__dir__).join(".ruby-version").read.strip'
-                end
-  gsub_file "Gemfile", /^ruby "\d.*"$/, replacement
+missing_ruby_decl = !File.read("Gemfile").match?(/^ruby /)
+if missing_ruby_decl && File.exist?(".ruby-version") && File.read(".ruby-version").match?(/\A\d+\.\d+.\d+.\s*\z/m)
+  say_git "Add ruby declaration to Gemfile"
+  ruby_decl = if bundler_ruby_file_supported?
+                'ruby file: ".ruby-version"'
+              else
+                'ruby Pathname.new(__dir__).join(".ruby-version").read.strip'
+              end
+  gsub_file "Gemfile", /^source .*$/, '\0' + "\n#{ruby_decl}"
 end
 
 if File.exist?("app/views/layouts/application.html.erb")
@@ -70,7 +71,7 @@ gsub_file "config/environments/production.rb",
 
 if File.exist?("config/database.yml")
   say_git "Create initial schema.rb"
-  rails_command "db:prepare"
+  rails_command "db:create db:migrate"
 end
 
 if (time_zone = read_system_time_zone_name)
