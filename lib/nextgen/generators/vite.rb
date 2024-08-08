@@ -120,15 +120,15 @@ remove_gem "sprockets-rails"
 if File.exist?(".github/workflows/ci.yml")
   say_git "Add Node steps to CI workflow"
   node_spec = File.exist?(".node-version") ? 'node-version-file: ".node-version"' : 'node-version: "lts/*"'
-  inject_into_file ".github/workflows/ci.yml", <<~YAML.gsub(/^/, "      "), before: /^\s+- name: Run tests/
+  inject_into_file ".github/workflows/ci.yml", <<-YAML, before: /^\s+- name: Run tests/
 
-    - name: Set up Node
-      uses: actions/setup-node@v4
-      with:
-        #{node_spec}
-        cache: yarn
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          #{node_spec}
+          cache: yarn
 
-    - name: Install Yarn packages
-      run: npx --yes ci
+      - name: Install Yarn packages
+        run: npx --yes ci
   YAML
 end
