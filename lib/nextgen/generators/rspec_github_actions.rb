@@ -40,7 +40,7 @@ erb = <<~YAML
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
           <%- end -%>
         <%- if File.exist?("config/database.yml") -%>
-        run: bundle exec db:test:prepare rspec
+        run: bin/rails db:test:prepare && bin/rspec
         <%- else -%>
         run: bundle exec rspec
         <%- end -%>
