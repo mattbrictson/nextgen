@@ -37,10 +37,6 @@ basic_auth:
   prompt: "BasicAuth controller concern"
   description: "Allow app to be secured with ENV-based basic auth credentials"
 
-brakeman:
-  prompt: "Brakeman"
-  description: "Install brakeman gem for security checks"
-
 bundler_audit:
   prompt: "Bundler Audit"
   description: "Install bundler-audit gem to detect CVEs in Ruby dependencies"
