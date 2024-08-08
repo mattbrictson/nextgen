@@ -71,6 +71,10 @@ If you've opted into GitHub Actions, Nextgen will automatically add jobs to your
 
 Prefer RSpec? Nextgen can set you up with RSpec, plus the gems and configuration you need for system specs (browser testing). Or stick with the Rails Minitest defaults. In either case, Nextgen will set up a good default Rake task and appropriate CI job.
 
+### Opinionated RuboCop Config
+
+By default, Rails apps include RuboCop with a config defined by the [rubocop-rails-omakase](https://github.com/rails/rubocop-rails-omakase) gem. Nextgen allows you to opt out of RuboCop entirely, or use Nextgen's own custom RuboCop config. Nextgen's config will automatically include Capybara, FactoryBot, and RSpec rules, should your app include those frameworks.
+
 ### Gems
 
 Nextgen can install and configure your choice of these recommended gems:
@@ -87,7 +91,6 @@ Nextgen can install and configure your choice of these recommended gems:
 - [pgcli-rails](https://github.com/mattbrictson/pgcli-rails)
 - [rack-canonical-host](https://github.com/tylerhunt/rack-canonical-host)
 - [rack-mini-profiler](https://github.com/MiniProfiler/rack-mini-profiler)
-- [rubocop](https://github.com/rubocop/rubocop)
 - [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers)
 - [sidekiq](https://github.com/sidekiq/sidekiq)
 - [thor](https://github.com/rails/thor)
