@@ -27,25 +27,25 @@ add_lint_task "eslint"
 if File.exist?(".github/workflows/ci.yml")
   say_git "Add eslint job to CI workflow"
   node_spec = File.exist?(".node-version") ? 'node-version-file: ".node-version"' : 'node-version: "lts/*"'
-  inject_into_file ".github/workflows/ci.yml", <<~YAML.gsub(/^/, "  "), after: /^jobs:\n/
-    eslint:
-      runs-on: ubuntu-latest
+  inject_into_file ".github/workflows/ci.yml", <<-YAML, after: /^jobs:\n/
+  eslint:
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-        - name: Set up Node
-          uses: actions/setup-node@v4
-          with:
-            #{node_spec}
-            cache: yarn
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          #{node_spec}
+          cache: yarn
 
-        - name: Install Yarn packages
-          run: npx --yes ci
+      - name: Install Yarn packages
+        run: npx --yes ci
 
-        - name: Lint JavaScript files with eslint
-          run: yarn lint:js
+      - name: Lint JavaScript files with eslint
+        run: yarn lint:js
 
   YAML
 end
