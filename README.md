@@ -65,7 +65,7 @@ Here are some highlights of what Nextgen brings to the table:
 
 ### GitHub Actions
 
-Nextgen can optionally set up a GitHub Actions CI workflow for your app that automatically runs tests, linters, and security checks based on the gems and packages you have installed.
+If you've opted into GitHub Actions, Nextgen will automatically add jobs to your CI workflow based on the gems and packages you have installed.
 
 ### Minitest or RSpec
 
