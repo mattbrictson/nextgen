@@ -16,6 +16,10 @@ rspec_system_testing:
     - rspec
     - system_testing
 
+rspec_github_actions:
+  description: "Add RSpec job to GitHub Actions CI workflow"
+  requires: rspec
+
 node:
   description: "Set up Node and Yarn"
 
