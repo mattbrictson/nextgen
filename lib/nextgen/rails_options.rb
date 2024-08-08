@@ -134,6 +134,10 @@ module Nextgen
       @test_framework == "rspec"
     end
 
+    def rubocop?
+      !skip_optional_feature?("rubocop")
+    end
+
     def active_record?
       !skip_active_record?
     end
