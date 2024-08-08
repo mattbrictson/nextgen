@@ -76,7 +76,6 @@ Prefer RSpec? Nextgen can set you up with RSpec, plus the gems and configuration
 Nextgen can install and configure your choice of these recommended gems:
 
 - [annotate](https://github.com/ctran/annotate_models)
-- [brakeman](https://github.com/presidentbeef/brakeman)
 - [bundler-audit](https://github.com/rubysec/bundler-audit)
 - [capybara-lockstep](https://github.com/makandra/capybara-lockstep)
 - [dotenv](https://github.com/bkeepers/dotenv)
