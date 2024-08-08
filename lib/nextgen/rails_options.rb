@@ -38,6 +38,7 @@ module Nextgen
     def initialize
       @api = false
       @edge = false
+      @vite = false
       @devcontainer = nil
       @skip_features = []
       @skip_system_test = false
@@ -59,16 +60,19 @@ module Nextgen
 
     def javascript=(framework)
       raise ArgumentError, "Can't specify javascript in API mode" if api? && framework
-
-      if skip_asset_pipeline? && framework != "vite"
-        raise ArgumentError, "Can't specify javascript when asset pipeline is disabled"
-      end
+      raise ArgumentError, "Can't specify javascript when asset pipeline is disabled" if skip_asset_pipeline?
 
       @javascript = framework
     end
 
+    def vite!
+      self.asset_pipeline = nil
+      @javascript = "esbuild"
+      @vite = true
+    end
+
     def vite?
-      @javascript == "vite"
+      @vite
     end
 
     def skip_javascript?
@@ -123,7 +127,7 @@ module Nextgen
     end
 
     def requires_node?
-      %w[bootstrap bulma postcss sass].include?(css) || %w[webpack esbuild rollup vite].include?(javascript)
+      %w[bootstrap bulma postcss sass].include?(css) || %w[webpack esbuild rollup].include?(javascript)
     end
 
     def rspec?

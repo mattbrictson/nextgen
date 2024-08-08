@@ -166,8 +166,7 @@ module Nextgen
       )
 
       if frontend == :vite
-        rails_opts.asset_pipeline = nil
-        rails_opts.javascript = "vite"
+        rails_opts.vite!
       else
         rails_opts.asset_pipeline = frontend
       end
