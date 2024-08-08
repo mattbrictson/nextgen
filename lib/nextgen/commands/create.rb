@@ -45,6 +45,7 @@ module Nextgen
       ask_frontend_management unless rails_opts.api?
       ask_css unless rails_opts.api? || rails_opts.skip_asset_pipeline?
       ask_javascript unless rails_opts.api? || rails_opts.skip_asset_pipeline?
+      ask_rails_tools
       ask_rails_frameworks
       ask_test_framework
       ask_system_testing if rails_opts.frontend? && rails_opts.test_framework?
@@ -196,6 +197,26 @@ module Nextgen
       )
     end
 
+    def ask_rails_tools
+      opt_out = {
+        "Brakeman" => "brakeman",
+        "GitHub Actions CI" => "ci",
+        "RuboCop (rubocop-rails-omakase)" => "rubocop"
+      }
+      opt_in = {
+        "devcontainer files" => "devcontainer"
+      }
+
+      answers = prompt.multi_select(
+        "Rails can preinstall the following. Which do you need?",
+        opt_out.merge(opt_in),
+        default: opt_out.keys.reverse
+      )
+
+      rails_opts.devcontainer! if answers.delete("devcontainer")
+      (opt_out.values - answers).each { rails_opts.skip_optional_feature!(_1) }
+    end
+
     def ask_rails_frameworks
       frameworks = {
         "JBuilder" => "jbuilder",
@@ -222,7 +243,7 @@ module Nextgen
         default: frameworks.keys.reverse
       )
 
-      (frameworks.values - answers).each { rails_opts.skip_optional_framework!(_1) }
+      (frameworks.values - answers).each { rails_opts.skip_optional_feature!(_1) }
     end
 
     def ask_test_framework
