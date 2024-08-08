@@ -70,7 +70,7 @@ gsub_file "config/environments/production.rb",
 
 if File.exist?("config/database.yml")
   say_git "Create initial schema.rb"
-  rails_command "db:prepare"
+  rails_command "db:create db:migrate"
 end
 
 if (time_zone = read_system_time_zone_name)
