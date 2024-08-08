@@ -19,15 +19,18 @@ module Nextgen
 
     ASSET_PIPELINES = %w[sprockets propshaft].freeze
 
-    OPTIONAL_FRAMEWORKS = %w[
+    OPTIONAL_FEATURES = %w[
       action_mailer
       action_mailbox
       action_text
       active_job
       active_storage
       action_cable
+      brakeman
+      ci
       hotwire
       jbuilder
+      rubocop
     ].freeze
 
     attr_reader :asset_pipeline, :css, :javascript, :database, :test_framework
@@ -35,7 +38,9 @@ module Nextgen
     def initialize
       @api = false
       @edge = false
-      @skip_frameworks = []
+      @vite = false
+      @devcontainer = nil
+      @skip_features = []
       @skip_system_test = false
       @test_framework = "minitest"
     end
@@ -55,16 +60,19 @@ module Nextgen
 
     def javascript=(framework)
       raise ArgumentError, "Can't specify javascript in API mode" if api? && framework
-
-      if skip_asset_pipeline? && framework != "vite"
-        raise ArgumentError, "Can't specify javascript when asset pipeline is disabled"
-      end
+      raise ArgumentError, "Can't specify javascript when asset pipeline is disabled" if skip_asset_pipeline?
 
       @javascript = framework
     end
 
+    def vite!
+      self.asset_pipeline = nil
+      @javascript = "esbuild"
+      @vite = true
+    end
+
     def vite?
-      @javascript == "vite"
+      @vite
     end
 
     def skip_javascript?
@@ -99,6 +107,10 @@ module Nextgen
       @edge
     end
 
+    def devcontainer!
+      @devcontainer = true
+    end
+
     def api!
       raise ArgumentError, "Can't specify API mode if css is already specified" if css
       raise ArgumentError, "Can't specify API mode if javascript is already specified" if javascript
@@ -115,11 +127,15 @@ module Nextgen
     end
 
     def requires_node?
-      %w[bootstrap bulma postcss sass].include?(css) || %w[webpack esbuild rollup vite].include?(javascript)
+      %w[bootstrap bulma postcss sass].include?(css) || %w[webpack esbuild rollup].include?(javascript)
     end
 
     def rspec?
       @test_framework == "rspec"
+    end
+
+    def rubocop?
+      !skip_optional_feature?("rubocop")
     end
 
     def active_record?
@@ -151,23 +167,23 @@ module Nextgen
     end
 
     def action_mailer?
-      !skip_optional_framework?("action_mailer")
+      !skip_optional_feature?("action_mailer")
     end
 
     def active_job?
-      !skip_optional_framework?("active_job")
+      !skip_optional_feature?("active_job")
     end
 
-    def skip_optional_framework!(framework)
-      raise ArgumentError, "Unknown framework: #{framework}" unless OPTIONAL_FRAMEWORKS.include?(framework)
+    def skip_optional_feature!(feature)
+      raise ArgumentError, "Unknown feature: #{feature}" unless OPTIONAL_FEATURES.include?(feature)
 
-      skip_frameworks << framework
+      skip_features << feature
     end
 
-    def skip_optional_framework?(framework)
-      raise ArgumentError, "Unknown framework: #{framework}" unless OPTIONAL_FRAMEWORKS.include?(framework)
+    def skip_optional_feature?(feature)
+      raise ArgumentError, "Unknown feature: #{feature}" unless OPTIONAL_FEATURES.include?(feature)
 
-      skip_frameworks.include?(framework)
+      skip_features.include?(feature)
     end
 
     def to_args # rubocop:disable Metrics/PerceivedComplexity
@@ -183,12 +199,13 @@ module Nextgen
         args << "--database=#{database}" if database
         args << "--css=#{css}" if css
         args << "--javascript=#{javascript}" if javascript
-        args.push(*skip_frameworks.map { "--skip-#{_1.tr("_", "-")}" })
+        args << "--devcontainer" if @devcontainer
+        args.push(*skip_features.map { "--skip-#{_1.tr("_", "-")}" })
       end
     end
 
     private
 
-    attr_reader :skip_frameworks
+    attr_reader :skip_features
   end
 end

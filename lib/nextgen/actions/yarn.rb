@@ -22,6 +22,12 @@ module Nextgen
     end
     alias add_package_json_script add_package_json_scripts
 
+    def remove_package_json_script(name)
+      cmd = "npm pkg delete scripts.#{name.to_s.shellescape}"
+      say_status :run, cmd.truncate(60), :green
+      run! cmd, verbose: false
+    end
+
     def yarn_command(cmd, capture: false)
       say_status :yarn, cmd, :green
       output = run! "yarn #{cmd}", capture: true, verbose: false

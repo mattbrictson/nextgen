@@ -7,15 +7,15 @@ require "securerandom"
 
 class NextgenE2ETest < Minitest::Test
   def test_nextgen_generates_rails_app
-    assert_bundle_exec_nextgen_create(stdin_data: "\n\n\n\n\n\n\n\n\n\n\u0001\n\n")
+    assert_bundle_exec_nextgen_create(stdin_data: "\n\n\n\n\n\n\n\n\n\n\n\u0001\n\n")
   end
 
   def test_nextgen_generates_vite_rails_app
-    assert_bundle_exec_nextgen_create(stdin_data: "\n\n\n\n\e[B\e[B\n\n\n\n\u0001\n\n")
+    assert_bundle_exec_nextgen_create(stdin_data: "\n\n\n\n\e[B\e[B\n\n\n\n\n\u0001\n\n")
   end
 
   def test_nextgen_generates_rspec_rails_app
-    assert_bundle_exec_nextgen_create(stdin_data: "\n\n\n\n\n\n\n\n\e[B\n\n\u0001\n\n")
+    assert_bundle_exec_nextgen_create(stdin_data: "\n\n\n\n\n\n\n\n\n\e[B\n\n\u0001\n\n")
   end
 
   private

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 say_git "Install rubocop gems"
+remove_gem "rubocop-rails-omakase"
 gemfile = File.read("Gemfile")
 plugins = []
 plugins << "capybara" if gemfile.match?(/^\s*gem ['"]capybara['"]/)
@@ -12,8 +13,8 @@ install_gem("rubocop-rails", version: ">= 2.22.0", group: :development, require:
 install_gems(*plugins.map { "rubocop-#{_1}" }, "rubocop", group: :development, require: false)
 binstub "rubocop"
 
-say_git "Generate .rubocop.yml"
-template ".rubocop.yml", context: binding
+say_git "Replace .rubocop.yml"
+template ".rubocop.yml", context: binding, force: true
 
 if File.exist?(".erb-lint.yml")
   say_git "Regenerate .erb-lint.yml with rubocop support"

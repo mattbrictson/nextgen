@@ -16,6 +16,10 @@ rspec_system_testing:
     - rspec
     - system_testing
 
+rspec_github_actions:
+  description: "Add RSpec job to GitHub Actions CI workflow"
+  requires: rspec
+
 node:
   description: "Set up Node and Yarn"
 
@@ -36,10 +40,6 @@ annotate:
 basic_auth:
   prompt: "BasicAuth controller concern"
   description: "Allow app to be secured with ENV-based basic auth credentials"
-
-brakeman:
-  prompt: "Brakeman"
-  description: "Install brakeman gem for security checks"
 
 bundler_audit:
   prompt: "Bundler Audit"
@@ -143,13 +143,10 @@ vcr:
   requires: test_framework
 
 rubocop:
-  prompt: "RuboCop"
-  description: "Install rubocop gems; apply formatting rules"
+  prompt: "RuboCop (nextgen custom config)"
+  description: "Replace rubocop-rails-omakase with a custom config"
+  requires: rubocop
 
 overcommit:
   prompt: "Overcommit"
   description: "Configure overcommit pre-commit git hooks"
-
-github_actions:
-  prompt: "GitHub Actions"
-  description: "Configure GitHub Actions workflow for CI"

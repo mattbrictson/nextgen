@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+say_git "Remove esbuild"
+remove_yarn_package "esbuild"
+remove_package_json_script(:build)
+
 say_git "Install the vite_rails gem"
 install_gem "vite_rails", version: "~> 3.0"
 
@@ -116,3 +120,19 @@ comment_lines "config/environments/development.rb", /^\s*config\.assets\./
 comment_lines "config/environments/production.rb", /^\s*config\.assets\./
 gsub_file "app/views/layouts/application.html.erb", /^.*<%= stylesheet_link_tag.*$/, ""
 remove_gem "sprockets-rails"
+
+if File.exist?(".github/workflows/ci.yml")
+  say_git "Add Node steps to CI workflow"
+  node_spec = File.exist?(".node-version") ? 'node-version-file: ".node-version"' : 'node-version: "lts/*"'
+  inject_into_file ".github/workflows/ci.yml", <<-YAML, before: /^\s+- name: Run tests/
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          #{node_spec}
+          cache: yarn
+
+      - name: Install Yarn packages
+        run: npx --yes ci
+  YAML
+end
