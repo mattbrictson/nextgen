@@ -21,7 +21,8 @@ module Nextgen
       @gemfile = gemfile
         .gsub(/^\s*#.*/, "")          # remove comments
         .gsub(/(\s*\n)+/, "\n")       # remove blank lines
-        .gsub(/^(ruby.*)/, "\n\\1\n") # ensure blank space around "ruby" line
+        .sub(/^(ruby.*)/, "\n\\1")    # ensure blank space before "ruby" line
+        .sub(/^(gem.*)/, "\n\\1")     # ensure blank space before first "gem" line
         .gsub(/^(group.*)/, "\n\\1")  # ensure blank space before each "group" block
       nil
     end

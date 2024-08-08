@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+say_git "Remove esbuild"
+remove_yarn_package "esbuild"
+remove_package_json_script(:build)
+
 say_git "Install the vite_rails gem"
 install_gem "vite_rails", version: "~> 3.0"
 
