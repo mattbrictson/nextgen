@@ -48,7 +48,7 @@ class Nextgen::RailsOptionsTest < Minitest::Test
   end
 
   def test_node_requirement_depends_on_javascript_option
-    %w[webpack esbuild rollup vite].each do |js|
+    %w[webpack esbuild rollup].each do |js|
       opts = Nextgen::RailsOptions.new
       opts.javascript = js
 
@@ -99,16 +99,22 @@ class Nextgen::RailsOptionsTest < Minitest::Test
     assert_raises(ArgumentError) { opts.asset_pipeline = "something" }
   end
 
-  def test_assigning_nil_disables_asset_pipeline_allows_vite_but_prohibits_other_frontend_options
+  def test_assigning_nil_disables_asset_pipeline_allows_and_prohibits_other_frontend_options
     opts = Nextgen::RailsOptions.new
     opts.asset_pipeline = nil
 
     assert_prohibited { opts.css = "sass" }
-    assert_prohibited { opts.javascript = "esbuild" }
+    assert_prohibited { opts.javascript = "rollup" }
+  end
 
-    opts.javascript = "vite"
-    assert(opts.skip_asset_pipeline?)
-    assert_equal(["--skip-asset-pipeline", "--javascript=vite"], opts.to_args)
+  def test_vite_disables_asset_pipeline_and_uses_esbuild_under_the_hood
+    opts = Nextgen::RailsOptions.new
+
+    refute_predicate opts, :vite?
+
+    opts.vite!
+    assert_predicate opts, :vite?
+    assert_equal(%w[--skip-asset-pipeline --javascript=esbuild], opts.to_args)
   end
 
   def test_assigning_nil_database_disables_active_record
