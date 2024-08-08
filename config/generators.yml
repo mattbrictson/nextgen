@@ -41,10 +41,6 @@ basic_auth:
   prompt: "BasicAuth controller concern"
   description: "Allow app to be secured with ENV-based basic auth credentials"
 
-brakeman:
-  prompt: "Brakeman"
-  description: "Install brakeman gem for security checks"
-
 bundler_audit:
   prompt: "Bundler Audit"
   description: "Install bundler-audit gem to detect CVEs in Ruby dependencies"
@@ -147,8 +143,9 @@ vcr:
   requires: test_framework
 
 rubocop:
-  prompt: "RuboCop"
-  description: "Install rubocop gems; apply formatting rules"
+  prompt: "RuboCop (nextgen custom config)"
+  description: "Replace rubocop-rails-omakase with a custom config"
+  requires: rubocop
 
 overcommit:
   prompt: "Overcommit"
