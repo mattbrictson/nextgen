@@ -54,7 +54,7 @@ Check out the [examples directory](./examples) to see some Rails apps that were 
 
 ## What's included
 
-**Nextgen starts with the "omakase" default behavior of `rails new`,** so you get the great things included in Rails 7.1 like a production-ready Dockerfile, your choice of database platform, CSS framework, etc. You can also interactively disable parts of the default stack that you don't need, like JBuilder or Action Mailbox.
+**Nextgen starts with the "omakase" default behavior of `rails new`,** so you get the great things included in Rails 7.2 like RuboCop, a GitHub Actions CI workflow, your choice of database platform, CSS framework, etc. You can also interactively disable parts of the default stack that you don't need, like JBuilder or Action Mailbox.
 
 On top of that foundation, Nextgen offers dozens of useful enhancements to the vanilla Rails experience. You are free to pick and choose which (if any) of these to apply to your new project. Behind the scenes, **each enhancement is applied in a separate git commit,** so that you can later see what was applied and why, and revert the suggestions if necessary.
 
