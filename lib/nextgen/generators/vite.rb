@@ -97,10 +97,8 @@ copy_file "app/frontend/images/example.svg"
 copy_file "test/helpers/inline_svg_helper_test.rb" if File.exist?("test/vite_helper.rb")
 
 say_git "Add a `bin/dev` script that uses run-pty"
-start = "run-pty run-pty.json"
-add_package_json_script(start:)
 add_yarn_package "run-pty@^5", dev: true
-copy_file "bin/dev-yarn", "bin/dev", mode: :preserve, force: true
+copy_file "bin/dev-node", "bin/dev", mode: :preserve, force: true
 copy_file "run-pty.json"
 remove_file "Procfile.dev"
 
