@@ -96,11 +96,10 @@ copy_file "app/frontend/images/example.svg"
 # TODO: rspec support
 copy_file "test/helpers/inline_svg_helper_test.rb" if File.exist?("test/vite_helper.rb")
 
-say_git "Add a `yarn start` script"
-start = "concurrently -i -k --kill-others-on-fail -p none 'RUBY_DEBUG_OPEN=true bin/rails s' 'bin/vite dev'"
-add_package_json_script(start:)
-add_yarn_package "concurrently", dev: true
-copy_file "bin/dev-yarn", "bin/dev", mode: :preserve, force: true
+say_git "Add a `bin/dev` script that uses run-pty"
+add_yarn_package "run-pty@^5", dev: true
+copy_file "bin/dev-node", "bin/dev", mode: :preserve, force: true
+copy_file "run-pty.json"
 remove_file "Procfile.dev"
 
 say_git "Add Safari cache workaround in development"
