@@ -87,6 +87,7 @@ Nextgen can install and configure your choice of these recommended gems:
 - [factory_bot_rails](https://github.com/thoughtbot/factory_bot_rails)
 - [good_migrations](https://github.com/testdouble/good-migrations)
 - [letter_opener](https://github.com/ryanb/letter_opener)
+- [mocha](https://github.com/freerange/mocha)
 - [overcommit](https://github.com/sds/overcommit)
 - [pgcli-rails](https://github.com/mattbrictson/pgcli-rails)
 - [rack-canonical-host](https://github.com/tylerhunt/rack-canonical-host)

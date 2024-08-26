@@ -90,6 +90,11 @@ letter_opener:
   description: "Install letter_opener gem to use with Action Mailer in dev"
   requires: action_mailer
 
+mocha:
+  prompt: "mocha"
+  description: "Install mocha gem for fluent stubs/mocks in minitest"
+  requires: minitest
+
 open_browser_on_start:
   prompt: "Open browser on startup"
   description: "Configure puma to launch browser on startup in development"

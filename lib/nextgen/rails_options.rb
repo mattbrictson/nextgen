@@ -130,6 +130,10 @@ module Nextgen
       %w[bootstrap bulma postcss sass].include?(css) || %w[webpack esbuild rollup].include?(javascript)
     end
 
+    def minitest?
+      @test_framework == "minitest"
+    end
+
     def rspec?
       @test_framework == "rspec"
     end
