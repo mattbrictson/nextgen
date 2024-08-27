@@ -61,7 +61,7 @@ if File.exist?("test/application_system_test_case.rb")
 end
 
 say_git "Install modern-normalize and base stylesheets"
-add_yarn_package "modern-normalize@^2.0.0"
+add_yarn_package "modern-normalize@^3.0.0"
 copy_file "app/frontend/stylesheets/index.css"
 copy_file "app/frontend/stylesheets/base.css"
 copy_file "app/frontend/stylesheets/reset.css"
