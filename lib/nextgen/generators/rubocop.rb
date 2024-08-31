@@ -33,4 +33,5 @@ inject_into_file "README.md", <<~MARKDOWN, after: /rake fix\n```\n/
 MARKDOWN
 
 say_git "Auto-correct any existing issues"
+uncomment_lines "config/environments/development.rb", /apply_rubocop_autocorrect_after_generate!/
 run "bin/rubocop -A --fail-level F", capture: true
