@@ -11,7 +11,7 @@ plugins << "performance"
 plugins << "rails"
 install_gem("rubocop-rails", version: ">= 2.22.0", group: :development, require: false)
 install_gems(*plugins.map { "rubocop-#{_1}" }, "rubocop", group: :development, require: false)
-binstub "rubocop"
+binstub "rubocop" unless File.exist?("bin/rubocop")
 
 say_git "Replace .rubocop.yml"
 template ".rubocop.yml", context: binding, force: true
