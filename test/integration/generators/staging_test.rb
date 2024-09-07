@@ -15,7 +15,7 @@ class Nextgen::Generators::StagingTest < Nextgen::Generators::TestCase
     File.write(File.join(destination_root, "DEPLOYMENT.md"), <<~DEPLOYMENT_MD)
       - `RAILS_DISABLE_SSL` - Disable HSTS and secure cookies
       - `RAILS_ENV` **REQUIRED** - "production"
-      - `RAILS_MAX_THREADS` - Number of threads per Puma process (default: 5)
+      - `RAILS_MAX_THREADS` - Number of threads per Puma process (default: 3)
     DEPLOYMENT_MD
 
     apply_generator
