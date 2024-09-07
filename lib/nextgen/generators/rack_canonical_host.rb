@@ -8,3 +8,7 @@ document_deploy_var "RAILS_HOSTNAME", "Redirect all requests to the specified ca
 insert_into_file "config.ru",
   %(use Rack::CanonicalHost, ENV.fetch("RAILS_HOSTNAME", nil) if ENV["RAILS_HOSTNAME"].present?\n),
   before: /^run Rails.application/
+
+gsub_file "config/environments/production.rb",
+  /\bhost: "example\.com"/,
+  'host: ENV.fetch("RAILS_HOSTNAME", "example.com")'
