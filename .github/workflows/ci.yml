@@ -28,9 +28,27 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
       - run: bundle exec rake test
-  integration_test:
-    name: "Test / E2E"
+  integration-test:
+    name: "Test / E2E / Rails ${{ matrix.version }} / ${{ matrix.frontend }} frontend / ${{ matrix.test-framework }}"
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - version: current
+            frontend: default
+            test-framework: minitest
+          - version: current
+            frontend: default
+            test-framework: rspec
+          - version: current
+            frontend: vite
+            test-framework: minitest
+          - version: current
+            frontend: vite
+            test-framework: rspec
+          - version: edge
+            frontend: default
+            test-framework: minitest
     needs: [rubocop, test]
     steps:
       - uses: actions/checkout@v4
@@ -41,4 +59,21 @@ jobs:
       - run: git config --global user.name 'github-actions[bot]'
       - run: git config --global user.email 'github-actions[bot]@users.noreply.github.com'
       - run: gem install --no-document railties --version "~> 7.2.0"
-      - run: bundle exec rake test:e2e
+      - name: rake test:e2e
+        env:
+          NEXTGEN_VERSION: ${{ matrix.version }}
+          NEXTGEN_FRONTEND: ${{ matrix.frontend }}
+          NEXTGEN_TEST_FRAMEWORK: ${{ matrix.test-framework }}
+        run: bundle exec rake test:e2e
+  test-all:
+    name: "Test / All"
+    runs-on: ubuntu-latest
+    needs: [test, integration-test]
+    if: always()
+    steps:
+      - name: All tests ok
+        if: ${{ !(contains(needs.*.result, 'failure')) }}
+        run: exit 0
+      - name: Some tests failed
+        if: ${{ contains(needs.*.result, 'failure') }}
+        run: exit 1

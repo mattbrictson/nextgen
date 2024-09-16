@@ -6,16 +6,29 @@ require "open3"
 require "securerandom"
 
 class NextgenE2ETest < Minitest::Test
+  VERSION_KEYSTROKES = {
+    current: "",
+    edge: "\e[B"
+  }.freeze
+
+  FRONTEND_KEYSTROKES = {
+    default: "",
+    vite: "\e[B\e[B"
+  }.freeze
+
+  TEST_FRAMEWORK_KEYSTROKES = {
+    minitest: "",
+    rspec: "\e[B"
+  }.freeze
+
   def test_nextgen_generates_rails_app
-    assert_bundle_exec_nextgen_create(stdin_data: "\n\n\n\n\n\n\n\n\n\n\n\u0001\n\n")
-  end
+    version_keys = VERSION_KEYSTROKES.fetch((ENV["NEXTGEN_VERSION"] || "current").to_sym)
+    frontend_keys = FRONTEND_KEYSTROKES.fetch((ENV["NEXTGEN_FRONTEND"] || "default").to_sym)
+    test_framework_keys = TEST_FRAMEWORK_KEYSTROKES.fetch((ENV["NEXTGEN_TEST_FRAMEWORK"] || "minitest").to_sym)
 
-  def test_nextgen_generates_vite_rails_app
-    assert_bundle_exec_nextgen_create(stdin_data: "\n\n\n\n\e[B\e[B\n\n\n\n\n\u0001\n\n")
-  end
+    stdin_data = "\n" + version_keys + "\n\n\n" + frontend_keys + "\n\n\n\n\n" + test_framework_keys + "\n\n\u0001\n\n"
 
-  def test_nextgen_generates_rspec_rails_app
-    assert_bundle_exec_nextgen_create(stdin_data: "\n\n\n\n\n\n\n\n\n\e[B\n\n\u0001\n\n")
+    assert_bundle_exec_nextgen_create(stdin_data:)
   end
 
   private
