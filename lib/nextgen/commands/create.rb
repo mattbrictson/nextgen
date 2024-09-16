@@ -120,7 +120,7 @@ module Nextgen
     end
 
     def ask_rails_version
-      options = %i[current edge].to_h do |key|
+      options = %i[current edge main].to_h do |key|
         version = RailsVersion.public_send(key)
         [version.label, version]
       end
@@ -266,10 +266,10 @@ module Nextgen
 
     def rails_new_args
       [app_path, "--no-rc", *rails_opts.to_args].tap do |args|
-        # Work around a Rails bug where --edge causes --no-rc to get ignored.
+        # Work around a Rails bug where --edge and --main cause --no-rc to get ignored.
         # Specifying --rc= with a non-existent file has the same effect as --no-rc.
         @rc_token ||= SecureRandom.hex(8)
-        args << "--rc=#{@rc_token}" if args.include?("--edge")
+        args << "--rc=#{@rc_token}" if args.intersect?(%w[--edge --main])
       end
     end
 
