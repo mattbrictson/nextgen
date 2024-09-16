@@ -117,7 +117,8 @@ say_git "Remove sprockets"
 remove_file "config/initializers/assets.rb"
 comment_lines "config/environments/development.rb", /^\s*config\.assets\./
 comment_lines "config/environments/production.rb", /^\s*config\.assets\./
-gsub_file "app/views/layouts/application.html.erb", /^.*<%= stylesheet_link_tag.*$/, ""
+gsub_file "app/views/layouts/application.html.erb", /^.*<%= javascript_include_tag.*\n/, ""
+gsub_file "app/views/layouts/application.html.erb", /^.*<%= stylesheet_link_tag.*\n/, ""
 remove_gem "sprockets-rails"
 
 if File.exist?(".github/workflows/ci.yml")
