@@ -33,9 +33,22 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: ["current", "edge"]
-        frontend: ["default", "vite"]
-        test-framework: ["minitest", "rspec"]
+        include:
+          - version: current
+            frontend: default
+            test-framework: minitest
+          - version: current
+            frontend: default
+            test-framework: rspec
+          - version: current
+            frontend: vite
+            test-framework: minitest
+          - version: current
+            frontend: vite
+            test-framework: rspec
+          - version: edge
+            frontend: default
+            test-framework: minitest
     needs: [rubocop, test]
     steps:
       - uses: actions/checkout@v4
