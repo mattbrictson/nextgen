@@ -162,6 +162,15 @@ module Nextgen
       !skip_default_feature?(:active_job)
     end
 
+    def skip_kamal?
+      # Depending on the Rails version, kamal may not exist, in which case we can consider it "skipped".
+      !skippable_features.include?(:kamal) || skip_default_feature?(:kamal)
+    end
+
+    def skip_solid?
+      !skippable_features.include?(:solid) || skip_default_feature?(:solid)
+    end
+
     def enable_optional_feature!(feature)
       raise ArgumentError, "Unknown feature: #{feature}" unless optional_features.include?(feature)
 

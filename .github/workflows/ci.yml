@@ -49,6 +49,18 @@ jobs:
           - version: edge
             frontend: default
             test-framework: minitest
+          - version: main
+            frontend: default
+            test-framework: minitest
+          - version: main
+            frontend: default
+            test-framework: rspec
+          - version: main
+            frontend: vite
+            test-framework: minitest
+          - version: main
+            frontend: vite
+            test-framework: rspec
     needs: [rubocop, test]
     steps:
       - uses: actions/checkout@v4

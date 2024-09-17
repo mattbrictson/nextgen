@@ -26,3 +26,32 @@ edge:
   <<: *current
   args: ["--edge"]
   label: "edge (7-2-stable)"
+
+main:
+  args: ["--main"]
+  label: "main (%%MAIN_VERSION%%)"
+  asset_pipelines:
+    propshaft: Propshaft (default)
+    sprockets: Sprockets
+  databases:
+    sqlite3: SQLite3 (default)
+    postgresql: PostgreSQL (recommended)
+    mysql: MySQL
+    trilogy: Trilogy
+    oracle: Oracle
+    sqlserver: SQLServer
+    jdbcmysql: JDBCMySQL
+    jdbcsqlite3: JDBCSQLite3
+    jdbcpostgresql: JDBCPostgreSQL
+    jdbc: JDBC
+    mariadb-mysql: MariaDB-MySQL
+    mariadb-trilogy: MariaDB-Trilogy
+  default_features:
+    brakeman: Brakeman
+    ci: GitHub Actions CI
+    kamal: Kamal
+    rubocop: RuboCop
+    solid: Solid Cache+Queue
+    thruster: Thruster
+  optional_features:
+    devcontainer: devcontainer files
