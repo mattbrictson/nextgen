@@ -1,52 +1,44 @@
 # frozen_string_literal: true
 
+require "forwardable"
+
 module Nextgen
   class RailsOptions
-    DATABASES = %w[
-      postgresql
-      mysql
-      trilogy
-      sqlite3
-      oracle
-      sqlserver
-      jdbcmysql
-      jdbcsqlite3
-      jdbcpostgresql
-      jdbc
-    ].freeze
+    extend Forwardable
 
-    TEST_FRAMEWORKS = %w[minitest rspec].freeze
+    TEST_FRAMEWORKS = %i[minitest rspec].freeze
 
-    ASSET_PIPELINES = %w[sprockets propshaft].freeze
-
-    OPTIONAL_FEATURES = %w[
+    FRAMEWORKS = %i[
       action_mailer
       action_mailbox
       action_text
       active_job
       active_storage
       action_cable
-      brakeman
-      ci
       hotwire
       jbuilder
-      rubocop
     ].freeze
 
     attr_reader :asset_pipeline, :css, :javascript, :database, :test_framework
 
-    def initialize
+    def_delegators :version, :asset_pipelines, :databases, :default_features, :optional_features
+
+    def initialize(version:)
+      @version = version
       @api = false
-      @edge = false
       @vite = false
-      @devcontainer = nil
+      @enable_features = []
       @skip_features = []
       @skip_system_test = false
-      @test_framework = "minitest"
+      @test_framework = :minitest
+    end
+
+    def version_label
+      version.label
     end
 
     def asset_pipeline=(pipeline)
-      raise ArgumentError, "Unknown asset pipeline: #{pipeline}" unless [nil, *ASSET_PIPELINES].include?(pipeline)
+      raise ArgumentError, "Unknown asset pipeline: #{pipeline}" unless [nil, *asset_pipelines.keys].include?(pipeline)
 
       @asset_pipeline = pipeline
     end
@@ -80,7 +72,7 @@ module Nextgen
     end
 
     def database=(db)
-      raise ArgumentError, "Unknown database: #{db}" unless [nil, *DATABASES].include?(db)
+      raise ArgumentError, "Unknown database: #{db}" unless [nil, *databases.keys].include?(db)
 
       @database = db
     end
@@ -97,14 +89,6 @@ module Nextgen
 
     def test_framework?
       !!@test_framework
-    end
-
-    def edge!
-      @edge = true
-    end
-
-    def edge?
-      @edge
     end
 
     def devcontainer!
@@ -131,15 +115,15 @@ module Nextgen
     end
 
     def minitest?
-      @test_framework == "minitest"
+      @test_framework == :minitest
     end
 
     def rspec?
-      @test_framework == "rspec"
+      @test_framework == :rspec
     end
 
     def rubocop?
-      !skip_optional_feature?("rubocop")
+      !skip_default_feature?(:rubocop)
     end
 
     def active_record?
@@ -163,7 +147,7 @@ module Nextgen
     end
 
     def skip_test?
-      defined?(@test_framework) && [nil, "rspec"].include?(@test_framework)
+      defined?(@test_framework) && [nil, :rspec].include?(@test_framework)
     end
 
     def system_testing?
@@ -171,28 +155,34 @@ module Nextgen
     end
 
     def action_mailer?
-      !skip_optional_feature?("action_mailer")
+      !skip_default_feature?(:action_mailer)
     end
 
     def active_job?
-      !skip_optional_feature?("active_job")
+      !skip_default_feature?(:active_job)
     end
 
-    def skip_optional_feature!(feature)
-      raise ArgumentError, "Unknown feature: #{feature}" unless OPTIONAL_FEATURES.include?(feature)
+    def enable_optional_feature!(feature)
+      raise ArgumentError, "Unknown feature: #{feature}" unless optional_features.include?(feature)
+
+      enable_features << feature
+    end
+
+    def skip_default_feature!(feature)
+      raise ArgumentError, "Unknown feature: #{feature}" unless skippable_features.include?(feature)
 
       skip_features << feature
     end
 
-    def skip_optional_feature?(feature)
-      raise ArgumentError, "Unknown feature: #{feature}" unless OPTIONAL_FEATURES.include?(feature)
+    def skip_default_feature?(feature)
+      raise ArgumentError, "Unknown feature: #{feature}" unless skippable_features.include?(feature)
 
       skip_features.include?(feature)
     end
 
     def to_args # rubocop:disable Metrics/PerceivedComplexity
       [].tap do |args|
-        args << "--edge" if edge?
+        args.push(*version.args)
         args << "--api" if api?
         args << "--skip-active-record" if skip_active_record?
         args << "--skip-asset-pipeline" if skip_asset_pipeline?
@@ -203,13 +193,17 @@ module Nextgen
         args << "--database=#{database}" if database
         args << "--css=#{css}" if css
         args << "--javascript=#{javascript}" if javascript
-        args << "--devcontainer" if @devcontainer
-        args.push(*skip_features.map { "--skip-#{_1.tr("_", "-")}" })
+        args.push(*enable_features.map { "--#{_1.to_s.tr("_", "-")}" })
+        args.push(*skip_features.map { "--skip-#{_1.to_s.tr("_", "-")}" })
       end
     end
 
     private
 
-    attr_reader :skip_features
+    attr_reader :enable_features, :skip_features, :version
+
+    def skippable_features
+      FRAMEWORKS + default_features.keys
+    end
   end
 end

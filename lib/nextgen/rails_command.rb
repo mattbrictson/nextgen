@@ -1,22 +1,8 @@
 # frozen_string_literal: true
 
-require "rails/version"
-
 module Nextgen
-  module Rails
+  module RailsCommand
     class << self
-      def version
-        ::Rails.version
-      end
-
-      def edge_branch
-        if version.match?(/[a-z]/i)
-          "main"
-        else
-          version[/^\d+\.\d+/].tr(".", "-") + "-stable"
-        end
-      end
-
       def run(*args, raise_on_error: true)
         command = "rails", *args
         say_status :run, *command.join(" ")

@@ -21,7 +21,6 @@ module Nextgen
     def initialize(app_path, _options)
       @app_path = File.expand_path(app_path)
       @app_name = File.basename(@app_path).gsub(/\W/, "_").squeeze("_").camelize
-      @rails_opts = RailsOptions.new
     end
 
     def run # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
@@ -39,13 +38,15 @@ module Nextgen
 
       continue_if "Ready to start?"
 
-      ask_rails_version
+      rails_version = ask_rails_version
+      @rails_opts = RailsOptions.new(version: rails_version)
+
       ask_database
       ask_full_stack_or_api
       ask_frontend_management unless rails_opts.api?
       ask_css unless rails_opts.api? || rails_opts.skip_asset_pipeline?
       ask_javascript unless rails_opts.api? || rails_opts.skip_asset_pipeline?
-      ask_rails_tools
+      ask_rails_features
       ask_rails_frameworks
       ask_test_framework
       ask_system_testing if rails_opts.frontend? && rails_opts.test_framework?
@@ -78,9 +79,9 @@ module Nextgen
 
       create_initial_commit_message
       copy_package_json if node?
-      Nextgen::Rails.run "new", *rails_new_args
+      Nextgen::RailsCommand.run "new", *rails_new_args
       Dir.chdir(app_path) do
-        Nextgen::Rails.run "app:template", "LOCATION=#{write_generators_script}"
+        Nextgen::RailsCommand.run "app:template", "LOCATION=#{write_generators_script}"
       end
 
       say <<~DONE.gsub(/^/, "  ")
@@ -88,7 +89,7 @@ module Nextgen
 
         #{green("Done!")}
 
-        A Rails #{rails_version} app was generated in #{cyan(app_path)}.
+        A Rails #{rails_opts.version_label} app was generated in #{cyan(app_path)}.
         Run #{yellow("bin/setup")} in that directory to get started.
 
 
@@ -118,31 +119,17 @@ module Nextgen
       )
     end
 
-    def rails_version
-      rails_opts.edge? ? "edge (#{Rails.edge_branch} branch)" : Rails.version
-    end
-
     def ask_rails_version
-      selected = prompt.select(
-        "What version of Rails will you use?",
-        Rails.version => :current,
-        "edge (#{Rails.edge_branch} branch)" => :edge
-      )
-      rails_opts.edge! if selected == :edge
+      options = %i[current edge].to_h do |key|
+        version = RailsVersion.public_send(key)
+        [version.label, version]
+      end
+      prompt.select("What version of Rails will you use?", options)
     end
 
     def ask_database
-      common_databases = {
-        "SQLite3 (default)" => "sqlite3",
-        "PostgreSQL (recommended)" => "postgresql",
-        "MySQL" => "mysql"
-      }
-      all_databases = common_databases.merge(
-        %w[MySQL Trilogy Oracle SQLServer JDBCMySQL JDBCSQLite3 JDBCPostgreSQL JDBC].to_h do |name|
-          [name, name.downcase]
-        end,
-        "None (disable Active Record)" => nil
-      )
+      common_databases = rails_opts.databases.slice(:sqlite3, :postgresql, :mysql).invert
+      all_databases = rails_opts.databases.invert.merge("None (disable Active Record)" => nil)
       rails_opts.database =
         prompt_select("Which database?", common_databases.merge("More options..." => false)) ||
         prompt_select("Which database?", all_databases)
@@ -158,12 +145,8 @@ module Nextgen
     end
 
     def ask_frontend_management
-      frontend = prompt_select(
-        "How will you manage frontend assets?",
-        "Sprockets (default)" => "sprockets",
-        "Propshaft" => "propshaft",
-        "Vite" => :vite
-      )
+      options = rails_opts.asset_pipelines.invert.merge("Vite" => :vite)
+      frontend = prompt_select("How will you manage frontend assets?", options)
 
       if frontend == :vite
         rails_opts.vite!
@@ -196,15 +179,9 @@ module Nextgen
       )
     end
 
-    def ask_rails_tools
-      opt_out = {
-        "Brakeman" => "brakeman",
-        "GitHub Actions CI" => "ci",
-        "RuboCop" => "rubocop"
-      }
-      opt_in = {
-        "devcontainer files" => "devcontainer"
-      }
+    def ask_rails_features
+      opt_out = rails_opts.default_features.invert
+      opt_in = rails_opts.optional_features.invert
 
       answers = prompt.multi_select(
         "Rails can preinstall the following. Which do you need?",
@@ -212,27 +189,27 @@ module Nextgen
         default: opt_out.keys.reverse
       )
 
-      rails_opts.devcontainer! if answers.delete("devcontainer")
-      (opt_out.values - answers).each { rails_opts.skip_optional_feature!(_1) }
+      (opt_out.values - answers).each { rails_opts.skip_default_feature!(_1) }
+      (opt_in.values & answers).each { rails_opts.enable_optional_feature!(_1) }
     end
 
     def ask_rails_frameworks
       frameworks = {
-        "JBuilder" => "jbuilder",
-        "Action Mailer" => "action_mailer",
-        "Active Job" => "active_job",
-        "Action Cable" => "action_cable"
+        "JBuilder" => :jbuilder,
+        "Action Mailer" => :action_mailer,
+        "Active Job" => :active_job,
+        "Action Cable" => :action_cable
       }
 
       unless rails_opts.api? || rails_opts.skip_javascript?
-        frameworks = {"Hotwire" => "hotwire"}.merge(frameworks)
+        frameworks = {"Hotwire" => :hotwire}.merge(frameworks)
       end
 
       unless rails_opts.skip_active_record?
         frameworks.merge!(
-          "Active Storage" => "active_storage",
-          "Action Text" => "action_text",
-          "Action Mailbox" => "action_mailbox"
+          "Active Storage" => :active_storage,
+          "Action Text" => :action_text,
+          "Action Mailbox" => :action_mailbox
         )
       end
 
@@ -242,14 +219,14 @@ module Nextgen
         default: frameworks.keys.reverse
       )
 
-      (frameworks.values - answers).each { rails_opts.skip_optional_feature!(_1) }
+      (frameworks.values - answers).each { rails_opts.skip_default_feature!(_1) }
     end
 
     def ask_test_framework
       rails_opts.test_framework = prompt_select(
         "Which test framework will you use?",
-        "Minitest (default)" => "minitest",
-        "RSpec" => "rspec",
+        "Minitest (default)" => :minitest,
+        "RSpec" => :rspec,
         "None" => nil
       )
     end
@@ -277,7 +254,7 @@ module Nextgen
       path = File.join(app_path, "tmp", "initial_nextgen_commit")
       FileUtils.mkdir_p(File.dirname(path))
       File.write(path, <<~COMMIT)
-        Init project with `rails new` (#{Nextgen::Rails.version})
+        Init project with `rails new` (#{rails_opts.version_label})
 
         Nextgen generated this project with the following `rails new` options:
 
@@ -292,7 +269,7 @@ module Nextgen
         # Work around a Rails bug where --edge causes --no-rc to get ignored.
         # Specifying --rc= with a non-existent file has the same effect as --no-rc.
         @rc_token ||= SecureRandom.hex(8)
-        args << "--rc=#{@rc_token}" if rails_opts.edge?
+        args << "--rc=#{@rc_token}" if args.include?("--edge")
       end
     end
 

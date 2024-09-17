@@ -1,0 +1,28 @@
+current: &current
+  args: []
+  label: "%%CURRENT_VERSION%%"
+  asset_pipelines:
+    sprockets: Sprockets (default)
+    propshaft: Propshaft
+  databases:
+    sqlite3: SQLite3 (default)
+    postgresql: PostgreSQL (recommended)
+    mysql: MySQL
+    trilogy: Trilogy
+    oracle: Oracle
+    sqlserver: SQLServer
+    jdbcmysql: JDBCMySQL
+    jdbcsqlite3: JDBCSQLite3
+    jdbcpostgresql: JDBCPostgreSQL
+    jdbc: JDBC
+  default_features:
+    brakeman: Brakeman
+    ci: GitHub Actions CI
+    rubocop: RuboCop
+  optional_features:
+    devcontainer: devcontainer files
+
+edge:
+  <<: *current
+  args: ["--edge"]
+  label: "edge (7-2-stable)"
