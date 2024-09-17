@@ -8,7 +8,8 @@ require "securerandom"
 class NextgenE2ETest < Minitest::Test
   VERSION_KEYSTROKES = {
     current: "",
-    edge: "\e[B"
+    edge: "\e[B",
+    main: "\e[B\e[B"
   }.freeze
 
   FRONTEND_KEYSTROKES = {
