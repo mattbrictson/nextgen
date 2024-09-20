@@ -198,7 +198,7 @@ module Nextgen
         args << "--skip-javascript" if skip_javascript?
         args << "--skip-test" if skip_test?
         args << "--skip-system-test" if skip_system_test?
-        args << "--asset-pipeline=#{asset_pipeline}" if asset_pipeline
+        args << "--asset-pipeline=#{asset_pipeline}" if asset_pipeline && asset_pipeline != asset_pipelines.keys.first
         args << "--database=#{database}" if database
         args << "--css=#{css}" if css
         args << "--javascript=#{javascript}" if javascript

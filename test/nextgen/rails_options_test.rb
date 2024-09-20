@@ -86,9 +86,6 @@ class Nextgen::RailsOptionsTest < Minitest::Test
   def test_asset_pipeline_can_be_specified
     opts = build_rails_options
 
-    opts.asset_pipeline = :sprockets
-    assert_equal(["--asset-pipeline=sprockets"], opts.to_args)
-
     opts.asset_pipeline = :propshaft
     assert_equal(["--asset-pipeline=propshaft"], opts.to_args)
   end
@@ -248,6 +245,16 @@ class Nextgen::RailsOptionsTest < Minitest::Test
     opts = Nextgen::RailsOptions.new(version: Nextgen::RailsVersion.edge)
 
     assert_includes opts.to_args, "--edge"
+  end
+
+  def test_does_not_use_asset_pipeline_arg_when_propshaft_is_the_only_supported_option
+    version = Nextgen::RailsVersion.current.dup
+    version.asset_pipelines = {propshaft: "Propshaft (default)"}
+    opts = Nextgen::RailsOptions.new(version:)
+
+    opts.asset_pipeline = :propshaft
+
+    refute_includes opts.to_args, "--asset-pipeline=propshaft"
   end
 
   private
