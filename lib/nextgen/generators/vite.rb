@@ -113,13 +113,12 @@ RUBY
 say_git "Remove jsbundling-rails"
 remove_gem "jsbundling-rails"
 
-say_git "Remove sprockets"
+say_git "Remove asset pipeline"
 remove_file "config/initializers/assets.rb"
 comment_lines "config/environments/development.rb", /^\s*config\.assets\./
 comment_lines "config/environments/production.rb", /^\s*config\.assets\./
 gsub_file "app/views/layouts/application.html.erb", /^.*<%= javascript_include_tag.*\n/, ""
 gsub_file "app/views/layouts/application.html.erb", /^.*<%= stylesheet_link_tag.*\n/, ""
-remove_gem "sprockets-rails"
 
 if File.exist?(".github/workflows/ci.yml")
   say_git "Add Node steps to CI workflow"

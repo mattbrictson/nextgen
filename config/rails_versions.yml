@@ -32,7 +32,6 @@ main:
   label: "main (%%MAIN_VERSION%%)"
   asset_pipelines:
     propshaft: Propshaft (default)
-    sprockets: Sprockets
   databases:
     sqlite3: SQLite3 (default)
     postgresql: PostgreSQL (recommended)
