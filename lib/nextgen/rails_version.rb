@@ -46,9 +46,7 @@ module Nextgen
 
     def main_version
       @main_version ||= begin
-        version_rb = URI.open("https://raw.githubusercontent.com/rails/rails/main/version.rb").read
-        version_pattern = /\s+MAJOR\s+= (\d+)\n\s*MINOR\s+= (\d+)\n\s*TINY\s+= (\d+)\n\s*PRE\s+= "(\w+)"/
-        version_rb.match(version_pattern)&.captures&.join(".")
+        URI.open("https://raw.githubusercontent.com/rails/rails/main/RAILS_VERSION").read.strip
       rescue OpenURI::HTTPError
         "unknown"
       end
