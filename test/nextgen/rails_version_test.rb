@@ -28,15 +28,8 @@ module Nextgen
     end
 
     def test_main_version_parses_version_number_from_rails_github_repo
-      stub_request(:get, "https://raw.githubusercontent.com/rails/rails/main/version.rb").to_return(body: <<~RUBY)
-        module Rails
-          module VERSION
-            MAJOR = 8
-            MINOR = 0
-            TINY  = 0
-            PRE   = "rc1"
-          end
-        end
+      stub_request(:get, "https://raw.githubusercontent.com/rails/rails/main/RAILS_VERSION").to_return(body: <<~RUBY)
+        8.0.0.rc1
       RUBY
 
       main = RailsVersion.main
