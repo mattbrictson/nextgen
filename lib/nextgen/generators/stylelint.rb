@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 say_git "Install stylelint"
-add_yarn_packages(
+add_js_packages(
   "stylelint",
   "stylelint-config-standard",
   "stylelint-declaration-strict-value",
@@ -19,7 +19,7 @@ add_package_json_scripts(
 copy_file ".stylelintrc.js"
 
 say_git "Add stylelint to default rake task"
-copy_file "lib/tasks/stylelint.rake"
+template "lib/tasks/stylelint.rake.tt"
 add_lint_task "stylelint"
 
 if File.exist?(".github/workflows/ci.yml")
@@ -37,16 +37,16 @@ if File.exist?(".github/workflows/ci.yml")
         uses: actions/setup-node@v4
         with:
           #{node_spec}
-          cache: yarn
+          cache: #{js_package_manager}
 
-      - name: Install Yarn packages
+      - name: Install #{js_package_manager} packages
         run: npx --yes ci
 
       - name: Lint CSS files with stylelint
-        run: yarn lint:css
+        run: #{js_package_manager} run lint:css
 
   YAML
 end
 
 say_git "Auto-correct any existing issues"
-run "yarn fix:css", capture: true
+run "#{js_package_manager} run fix:css", capture: true

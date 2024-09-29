@@ -25,9 +25,9 @@ class NextgenE2ETest < Minitest::Test
   def test_nextgen_generates_rails_app
     version_keys = VERSION_KEYSTROKES.fetch((ENV["NEXTGEN_VERSION"] || "current").to_sym)
     frontend_keys = FRONTEND_KEYSTROKES.fetch((ENV["NEXTGEN_FRONTEND"] || "default").to_sym)
-    test_framework_keys = TEST_FRAMEWORK_KEYSTROKES.fetch((ENV["NEXTGEN_TEST_FRAMEWORK"] || "minitest").to_sym)
+    test_keys = TEST_FRAMEWORK_KEYSTROKES.fetch((ENV["NEXTGEN_TEST_FRAMEWORK"] || "minitest").to_sym)
 
-    stdin_data = "\n" + version_keys + "\n\n\n" + frontend_keys + "\n\n\n\n\n" + test_framework_keys + "\n\n\u0001\n\n"
+    stdin_data = "\n" + version_keys + "\n\n\n" + frontend_keys + "\n\n\n\n\n" + test_keys + "\n\n\u0001\n\n\n"
 
     assert_bundle_exec_nextgen_create(stdin_data:)
   end

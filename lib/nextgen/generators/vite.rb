@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 say_git "Remove esbuild"
-remove_yarn_package "esbuild"
+remove_js_package "esbuild"
 remove_package_json_script(:build)
 
 say_git "Install the vite_rails gem"
@@ -22,15 +22,14 @@ inject_into_class "config/application.rb", "Application", <<-RUBY
 RUBY
 
 say_git "Run the vite installer"
-FileUtils.touch "yarn.lock"
 bundle_command "exec vite install"
 gsub_file "app/views/layouts/application.html.erb",
   /vite_javascript_tag 'application' %>/,
   'vite_javascript_tag "application", "data-turbo-track": "reload" %>'
 
 say_git "Replace vite-plugin-ruby with vite-plugin-rails"
-add_yarn_packages "rollup@^4.2.0", "vite-plugin-rails"
-remove_yarn_package "vite-plugin-ruby"
+add_js_packages "rollup@^4.2.0", "vite-plugin-rails"
+remove_js_package "vite-plugin-ruby"
 gsub_file "vite.config.ts", "import RubyPlugin from 'vite-plugin-ruby'", 'import ViteRails from "vite-plugin-rails"'
 gsub_file "vite.config.ts", /^\s*?RubyPlugin\(\)/, <<~TYPESCRIPT.gsub(/^/, "    ").rstrip
   ViteRails({
@@ -44,12 +43,12 @@ TYPESCRIPT
 
 say_git "Move vite package from devDependencies to dependencies"
 if (vite_version = File.read("package.json")[/"vite":\s*"(.+?)"/, 1])
-  remove_yarn_package "vite", capture: true
-  add_yarn_package "vite@#{vite_version}"
+  remove_js_package "vite", capture: true
+  add_js_packages "vite@#{vite_version}"
 end
 
 say_git "Install autoprefixer"
-add_yarn_packages "postcss@^8.4.24", "autoprefixer@^10.4.14"
+add_js_packages "postcss@^8.4.24", "autoprefixer@^10.4.14"
 copy_file "postcss.config.cjs"
 
 # TODO: rspec support
@@ -61,7 +60,7 @@ if File.exist?("test/application_system_test_case.rb")
 end
 
 say_git "Install modern-normalize and base stylesheets"
-add_yarn_package "modern-normalize@^3.0.0"
+add_js_packages "modern-normalize@^3.0.0"
 copy_file "app/frontend/stylesheets/index.css"
 copy_file "app/frontend/stylesheets/base.css"
 copy_file "app/frontend/stylesheets/reset.css"
@@ -74,7 +73,7 @@ if package_json.match?(%r{@hotwired/turbo-rails})
   JS
 end
 if package_json.match?(%r{@hotwired/stimulus})
-  add_yarn_package "stimulus-vite-helpers"
+  add_js_package "stimulus-vite-helpers"
   copy_file "app/frontend/controllers/index.js", force: true
   prepend_to_file "app/frontend/entrypoints/application.js", <<~JS
     import "~/controllers";
@@ -97,7 +96,7 @@ copy_file "app/frontend/images/example.svg"
 copy_file "test/helpers/inline_svg_helper_test.rb" if File.exist?("test/vite_helper.rb")
 
 say_git "Add a `bin/dev` script that uses run-pty"
-add_yarn_package "run-pty@^5", dev: true
+add_js_packages "run-pty@^5", dev: true
 copy_file "bin/dev-node", "bin/dev", mode: :preserve, force: true
 copy_file "run-pty.json"
 remove_file "Procfile.dev"
@@ -129,9 +128,9 @@ if File.exist?(".github/workflows/ci.yml")
         uses: actions/setup-node@v4
         with:
           #{node_spec}
-          cache: yarn
+          cache: #{js_package_manager}
 
-      - name: Install Yarn packages
+      - name: Install #{js_package_manager} packages
         run: npx --yes ci
   YAML
 end

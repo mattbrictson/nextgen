@@ -82,7 +82,7 @@ PreCommit:
     exclude:
       - "**/db/structure.sql"
 
-<% if File.exist?("yarn.lock") -%>
+<% if yarn? -%>
   YarnCheck:
     enabled: true
 <% end -%>

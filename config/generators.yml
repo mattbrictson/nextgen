@@ -21,7 +21,11 @@ rspec_github_actions:
   requires: rspec
 
 node:
-  description: "Set up Node and Yarn"
+  description: "Set up Node"
+
+npm:
+  description: "Use npm as JavaScript package manager"
+  requires: npm
 
 vite:
   description: "Replace the asset pipeline with Vite in app/frontend"

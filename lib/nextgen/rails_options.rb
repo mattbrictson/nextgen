@@ -19,7 +19,9 @@ module Nextgen
       jbuilder
     ].freeze
 
-    attr_reader :asset_pipeline, :css, :javascript, :database, :test_framework
+    JS_PACKAGE_MANAGERS = %i[npm yarn].freeze
+
+    attr_reader :asset_pipeline, :css, :javascript, :js_package_manager, :database, :test_framework
 
     def_delegators :version, :asset_pipelines, :databases, :default_features, :optional_features
 
@@ -31,6 +33,7 @@ module Nextgen
       @skip_features = []
       @skip_system_test = false
       @test_framework = :minitest
+      @js_package_manager = :yarn
     end
 
     def version_label
@@ -55,6 +58,16 @@ module Nextgen
       raise ArgumentError, "Can't specify javascript when asset pipeline is disabled" if skip_asset_pipeline?
 
       @javascript = framework
+    end
+
+    def js_package_manager=(tool)
+      raise ArgumentError, "Unknown package manager: #{tool}" unless JS_PACKAGE_MANAGERS.include?(tool)
+
+      @js_package_manager = tool
+    end
+
+    def npm?
+      js_package_manager == :npm
     end
 
     def vite!
