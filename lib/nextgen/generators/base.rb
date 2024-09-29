@@ -49,6 +49,7 @@ if missing_ruby_decl && File.exist?(".ruby-version") && File.read(".ruby-version
                 'ruby Pathname.new(__dir__).join(".ruby-version").read.strip'
               end
   gsub_file "Gemfile", /^source .*$/, '\0' + "\n#{ruby_decl}"
+  bundle_command! "lock"
 end
 
 if File.exist?("app/views/layouts/application.html.erb")
