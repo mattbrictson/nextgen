@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 say_git "Install eslint"
-add_yarn_packages(
+add_js_packages(
   "@eslint/js",
   "eslint@^9",
   "eslint-config-prettier",
@@ -21,7 +21,7 @@ add_package_json_scripts(
 copy_file "eslint.config.js"
 
 say_git "Add eslint to default rake task"
-copy_file "lib/tasks/eslint.rake"
+template "lib/tasks/eslint.rake.tt"
 add_lint_task "eslint"
 
 if File.exist?(".github/workflows/ci.yml")
@@ -39,16 +39,16 @@ if File.exist?(".github/workflows/ci.yml")
         uses: actions/setup-node@v4
         with:
           #{node_spec}
-          cache: yarn
+          cache: #{js_package_manager}
 
-      - name: Install Yarn packages
+      - name: Install #{js_package_manager} packages
         run: npx --yes ci
 
       - name: Lint JavaScript files with eslint
-        run: yarn lint:js
+        run: #{js_package_manager} run lint:js
 
   YAML
 end
 
 say_git "Auto-correct any existing issues"
-run "yarn fix:js", capture: true
+run "#{js_package_manager} run fix:js", capture: true

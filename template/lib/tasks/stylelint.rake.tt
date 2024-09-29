@@ -2,12 +2,12 @@
 
 desc "Run Stylelint"
 task :stylelint do
-  sh "yarn lint:css"
+  sh "<%= js_package_manager %> run lint:css"
 end
 
 namespace :stylelint do
   desc "Autocorrect Stylelint offenses"
   task :autocorrect do
-    sh "yarn fix:css"
+    sh "<%= js_package_manager %> run fix:css"
   end
 end

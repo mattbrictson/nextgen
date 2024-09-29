@@ -4,7 +4,7 @@ module Nextgen
   module Actions
     include Bundler
     include Git
-    include Yarn
+    include Javascript
 
     def with_nextgen_source_path
       path = Nextgen.template_path.to_s
