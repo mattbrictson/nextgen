@@ -83,6 +83,16 @@ class Nextgen::RailsOptionsTest < Minitest::Test
     assert_equal(["--skip-javascript"], opts.to_args)
   end
 
+  def test_js_package_manager_can_be_specified
+    opts = build_rails_options
+
+    opts.js_package_manager = :npm
+    assert(opts.npm?)
+
+    opts.js_package_manager = :yarn
+    refute(opts.npm?)
+  end
+
   def test_asset_pipeline_can_be_specified
     opts = build_rails_options
 
@@ -226,6 +236,7 @@ class Nextgen::RailsOptionsTest < Minitest::Test
     refute(opts.skip_asset_pipeline?)
     refute(opts.skip_javascript?)
     refute(opts.skip_system_test?)
+    refute(opts.npm?)
 
     assert_empty(opts.to_args)
   end

@@ -30,7 +30,7 @@ Nextgen generates apps using **Rails 7.2**.
 
 - **Ruby 3.1+** is required (Ruby 3.2 if you choose a Rails 8 pre-release)
 - **Rubygems 3.4.8+** is required (run `gem update --system` to get it)
-- **Node 20.9+ and Yarn** are required if you choose Vite or other Node-based options
+- **Node 20.9+ and Yarn** are required if you choose Vite or other Node-based options (see the [npm note](#yarn-or-npm) below)
 - Additional tools may be required depending on the options you select (e.g. PostgreSQL)
 
 Going forward, my goal is that Nextgen will always target the latest stable version of Rails and the next pre-release version. Support for Node LTS and Ruby versions will be dropped as soon as they reach EOL (see [Ruby](https://endoflife.date/ruby) and [Node](https://endoflife.date/nodejs) EOL schedules).
@@ -70,6 +70,13 @@ If you've opted into GitHub Actions, Nextgen will automatically add jobs to your
 ### Minitest or RSpec
 
 Prefer RSpec? Nextgen can set you up with RSpec, plus the gems and configuration you need for system specs (browser testing). Or stick with the Rails Minitest defaults. In either case, Nextgen will set up a good default Rake task and appropriate CI job.
+
+### Yarn or npm
+
+Prefer npm? Nextgen allows you to choose Yarn or npm to manage your app's JavaScript dependencies. Your Dockerfile, CI jobs, `bin/setup` script, etc. will be adjusted appropriately.
+
+> [!NOTE]
+> As of Rails 8.0, `rails new` is still hard-coded to use Yarn in some places. Therefore you may still need Yarn installed on your system in order to generate a new app. Nextgen will remove these Yarn references from your generated project if you select the npm option.
 
 ### Opinionated RuboCop Config
 

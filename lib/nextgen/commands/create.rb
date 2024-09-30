@@ -50,7 +50,10 @@ module Nextgen
       ask_rails_frameworks
       ask_test_framework
       ask_system_testing if rails_opts.frontend? && rails_opts.test_framework?
+      reload_generators
       ask_optional_enhancements
+      ask_js_package_manager if node?
+      reload_generators
 
       say <<~SUMMARY
 
@@ -67,10 +70,11 @@ module Nextgen
 
       if node?
         say <<~NODE
-          Based on the options you selected, your app will require Node and Yarn. For reference, you are using these versions:
+          Based on the options you selected, your app will require a JavaScript runtime. For reference, you are using:
 
-            Node: #{capture_version("node")}
-            Yarn: #{capture_version("yarn")}
+            node: #{capture_version("node")}
+            yarn: #{capture_version("yarn")}
+            npm:  #{capture_version("npm")}
 
         NODE
       end
@@ -78,7 +82,7 @@ module Nextgen
       continue_if "Continue?"
 
       create_initial_commit_message
-      copy_package_json if node?
+      create_package_json if node?
       Nextgen::RailsCommand.run "new", *rails_new_args
       Dir.chdir(app_path) do
         Nextgen::RailsCommand.run "app:template", "LOCATION=#{write_generators_script}"
@@ -111,12 +115,13 @@ module Nextgen
       end
     end
 
-    def copy_package_json
+    def create_package_json
       FileUtils.mkdir_p(app_path)
       FileUtils.cp(
         Nextgen.template_path.join("package.json"),
         File.join(app_path, "package.json")
       )
+      FileUtils.touch(File.join(app_path, rails_opts.npm? ? "package-lock.json" : "yarn.lock"))
     end
 
     def ask_rails_version
@@ -240,14 +245,26 @@ module Nextgen
       rails_opts.skip_system_test! unless system_testing
     end
 
-    def ask_optional_enhancements
+    def reload_generators
+      selected = generators ? (generators.all_active & generators.optional.values) : []
       @generators = Generators.compatible_with(rails_opts:)
+      generators.activate(*(selected & generators.optional.values))
+    end
 
+    def ask_optional_enhancements
       answers = prompt.multi_select(
         "Which optional enhancements would you like to add?",
         generators.optional.sort_by { |label, _| label.downcase }.to_h
       )
       generators.activate(*answers)
+    end
+
+    def ask_js_package_manager
+      options = {
+        "yarn (default)" => :yarn,
+        "npm" => :npm
+      }
+      rails_opts.js_package_manager = prompt_select("Which JavaScript package manager will you use?", options)
     end
 
     def create_initial_commit_message
