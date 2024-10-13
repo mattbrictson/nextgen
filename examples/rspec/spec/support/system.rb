@@ -8,6 +8,9 @@ RSpec.configure do |config|
         # Allows running in Docker
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--no-sandbox")
+
+        # Fixes slowdowns on macOS
+        options.add_argument("--disable-gpu")
       end
   end
 end
