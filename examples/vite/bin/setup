@@ -9,9 +9,9 @@ def setup!
   run "bundle install" if bundle_needed?
   run "overcommit --install" if overcommit_installable?
   run "bin/rails db:prepare" if database_present?
-  run "yarn install --check-files" if yarn_needed?
+  run install_node_packages_command if node_present?
   run "bin/rails tmp:create" if tmp_missing?
-  run "bin/rails restart"
+  run "bin/rails restart" if pid_present?
 
   if git_safe_needed?
     say_status :notice,
@@ -20,7 +20,7 @@ def setup!
   end
 
   say_status :Ready!,
-    "Use #{colorize("yarn start", :yellow)} to start the app, " \
+    "Use #{colorize("bin/dev", :yellow)} to start the app, " \
     "or #{colorize("bin/rake", :yellow)} to run tests"
 end
 
@@ -48,12 +48,24 @@ def database_present?
   File.exist?("config/database.yml")
 end
 
-def yarn_needed?
-  File.exist?("yarn.lock")
+def node_present?
+  File.exist?("package.json")
+end
+
+def install_node_packages_command
+  if File.exist?("yarn.lock")
+    "yarn install --check-files"
+  else
+    "npm install"
+  end
 end
 
 def tmp_missing?
   !Dir.exist?("tmp/pids")
+end
+
+def pid_present?
+  Dir["tmp/pids/*.pid"].any?
 end
 
 def git_safe_needed?

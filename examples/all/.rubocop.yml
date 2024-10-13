@@ -180,6 +180,9 @@ Rails/I18nLocaleTexts:
 Rails/Inquiry:
   Enabled: false
 
+Rails/LinkToBlank:
+  Enabled: false
+
 Rails/NotNullColumn:
   Enabled: false
 

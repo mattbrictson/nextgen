@@ -1,6 +1,6 @@
 # all_example
 
-This is a Rails 7.1 app.
+This is a Rails 7.2 app.
 
 ## Prerequisites
 
@@ -36,7 +36,7 @@ bin/setup
 Start the Rails server with this command:
 
 ```
-bin/rails s
+bin/dev
 ```
 
 The app will be located at <http://localhost:3000/>.
