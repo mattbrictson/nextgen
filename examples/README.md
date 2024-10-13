@@ -123,28 +123,27 @@ Which JavaScript package manager will you use?
 
 ## all
 
-[`examples/all`](./all) shows what is generated when all optional Nextgen enhancements are selected, including Sidekiq, Factory Bot, GitHub Actions, RuboCop, and more than a dozen others.
+[`examples/all`](./all) shows what is generated when all optional Nextgen enhancements are selected, including Sidekiq, Factory Bot, Bundler Audit, ESLint, and more than a dozen others.
 
 ```
 Which optional enhancements would you like to add?
 ‣ ⬢ Annotate Models
   ⬢ BasicAuth controller concern
-  ⬢ Brakeman
   ⬢ Bundler Audit
   ⬢ capybara-lockstep
   ⬢ dotenv
   ⬢ ERB Lint
   ⬢ ESLint
   ⬢ Factory Bot
-  ⬢ GitHub Actions
   ⬢ GitHub PR template
   ⬢ good_migrations
   ⬢ letter_opener
+  ⬢ mocha
   ⬢ Open browser on startup
   ⬢ Overcommit
   ⬢ rack-canonical-host
   ⬢ rack-mini-profiler
-  ⬢ RuboCop
+  ⬢ RuboCop (nextgen custom config)
   ⬢ shoulda
   ⬢ Sidekiq
   ⬢ Staging environment
@@ -152,4 +151,8 @@ Which optional enhancements would you like to add?
   ⬢ Thor
   ⬢ Tomo
   ⬢ VCR
+
+Which JavaScript package manager will you use?
+‣ yarn (default)
+  npm
 ```
