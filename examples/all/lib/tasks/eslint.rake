@@ -2,12 +2,12 @@
 
 desc "Run ESLint"
 task :eslint do
-  sh "yarn lint:js"
+  sh "yarn run lint:js"
 end
 
 namespace :eslint do
   desc "Autocorrect ESLint offenses"
   task :autocorrect do
-    sh "yarn fix:js"
+    sh "yarn run fix:js"
   end
 end
