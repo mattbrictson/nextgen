@@ -115,6 +115,10 @@ How will you manage frontend assets?
   Sprockets (default)
   Propshaft
 ‣ Vite
+
+Which JavaScript package manager will you use?
+‣ yarn (default)
+  npm
 ```
 
 ## all
