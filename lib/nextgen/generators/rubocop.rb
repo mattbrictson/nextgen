@@ -16,9 +16,9 @@ binstub "rubocop" unless File.exist?("bin/rubocop")
 say_git "Replace .rubocop.yml"
 template ".rubocop.yml", context: binding, force: true
 
-if File.exist?(".erb-lint.yml")
-  say_git "Regenerate .erb-lint.yml with rubocop support"
-  template ".erb-lint.yml", force: true
+if File.exist?(".erb_lint.yml")
+  say_git "Regenerate .erb_lint.yml with rubocop support"
+  template ".erb_lint.yml", force: true
 end
 
 say_git "Add rubocop to default rake task"

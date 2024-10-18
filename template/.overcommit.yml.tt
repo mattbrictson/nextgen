@@ -5,11 +5,11 @@ PreCommit:
   BundleCheck:
     enabled: true
 
-<% if File.exist?(".erb-lint.yml") -%>
+<% if File.exist?(".erb_lint.yml") -%>
   ErbLint:
     enabled: true
     required_executable: bundle
-    command: ["bundle", "exec", "erblint"]
+    command: ["bundle", "exec", "erb_lint"]
     include: "**/*.html.erb"
 <% end -%>
 
