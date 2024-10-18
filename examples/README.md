@@ -74,7 +74,7 @@ Which optional enhancements would you like to add?
   ⬡ Bundler Audit
   ⬡ capybara-lockstep
   ⬡ dotenv
-  ⬡ ERB Lint
+  ⬡ erb_lint
   ⬡ ESLint
   ⬡ Factory Bot
   ⬡ GitHub PR template
@@ -132,7 +132,7 @@ Which optional enhancements would you like to add?
   ⬢ Bundler Audit
   ⬢ capybara-lockstep
   ⬢ dotenv
-  ⬢ ERB Lint
+  ⬢ erb_lint
   ⬢ ESLint
   ⬢ Factory Bot
   ⬢ GitHub PR template

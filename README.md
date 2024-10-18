@@ -90,7 +90,7 @@ Nextgen can install and configure your choice of these recommended gems:
 - [bundler-audit](https://github.com/rubysec/bundler-audit)
 - [capybara-lockstep](https://github.com/makandra/capybara-lockstep)
 - [dotenv](https://github.com/bkeepers/dotenv)
-- [erb_lint](https://github.com/Shopify/erb-lint)
+- [erb_lint](https://github.com/Shopify/erb_lint)
 - [factory_bot_rails](https://github.com/thoughtbot/factory_bot_rails)
 - [good_migrations](https://github.com/testdouble/good-migrations)
 - [letter_opener](https://github.com/ryanb/letter_opener)
