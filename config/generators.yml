@@ -59,7 +59,7 @@ dotenv:
   description: "Install dotenv gem and add .env.sample"
 
 erb_lint:
-  prompt: "ERB Lint"
+  prompt: "erb_lint"
   description: "Install erb_lint gem and correct existing issues"
   requires: frontend
 
