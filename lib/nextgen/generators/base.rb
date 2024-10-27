@@ -80,3 +80,8 @@ if (time_zone = read_system_time_zone_name)
   uncomment_lines "config/application.rb", /config\.time_zone/
   gsub_file "config/application.rb", /(config\.time_zone = ).*$/, "\\1#{time_zone.inspect}"
 end
+
+if File.exist?(".github/workflows/ci.yml")
+  say_git "Opt into ubuntu-24.04 GitHub Actions runner"
+  gsub_file ".github/workflows/ci.yml", /\bubuntu-latest\b/, "ubuntu-24.04"
+end
