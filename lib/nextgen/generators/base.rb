@@ -49,6 +49,7 @@ if missing_ruby_decl && File.exist?(".ruby-version") && File.read(".ruby-version
                 'ruby Pathname.new(__dir__).join(".ruby-version").read.strip'
               end
   gsub_file "Gemfile", /^source .*$/, '\0' + "\n#{ruby_decl}"
+  gsub_file "Dockerfile", "COPY Gemfile", "COPY .ruby-version Gemfile" if File.exist?("Dockerfile")
   bundle_command! "lock"
 end
 
