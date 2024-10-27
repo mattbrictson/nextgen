@@ -13,7 +13,7 @@ if File.exist?(".github/workflows/ci.yml")
   say_git "Add erb_lint job to CI workflow"
   inject_into_file ".github/workflows/ci.yml", <<-YAML, after: /^jobs:\n/
   erb_lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
