@@ -4,7 +4,7 @@ return unless File.exist?(".github/workflows/ci.yml")
 
 erb = <<~YAML
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     <%- if gems.include?("pg") -%>
     services:
