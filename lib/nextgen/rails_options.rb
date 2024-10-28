@@ -91,7 +91,7 @@ module Nextgen
     end
 
     def postgresql?
-      database == "postgresql"
+      database == :postgresql
     end
 
     def test_framework=(framework)

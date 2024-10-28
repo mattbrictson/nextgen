@@ -137,6 +137,7 @@ class Nextgen::RailsOptionsTest < Minitest::Test
     opts.database = :postgresql
 
     assert_equal(["--database=postgresql"], opts.to_args)
+    assert_predicate opts, :postgresql?
   end
 
   def test_invalid_database_raises
