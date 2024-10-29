@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
+require "rails/version"
+
 module Nextgen
   module RailsCommand
     class << self
       def run(*args, raise_on_error: true)
-        command = "rails", *args
+        command = "rails", "_#{::Rails.version}_", *args
         say_status :run, *command.join(" ")
         with_original_bundler_env do
           system(*command, exception: raise_on_error)
