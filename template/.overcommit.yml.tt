@@ -68,8 +68,6 @@ PreCommit:
     enabled: true
     required_executable: npx
     command: ["npx", "--no-install", "stylelint"]
-    env:
-      NODE_OPTIONS: --no-deprecation
     include:
       - app/assets/**/*.css
       - app/components/**/*.css

@@ -4,7 +4,6 @@ say_git "Install stylelint"
 add_js_packages(
   "stylelint",
   "stylelint-config-standard",
-  "stylelint-declaration-strict-value",
   "stylelint-prettier",
   "prettier",
   "npm-run-all",
