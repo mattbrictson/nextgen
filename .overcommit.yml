@@ -8,7 +8,7 @@ verify_signatures: false
 PreCommit:
   ALL:
     exclude:
-    - "examples/**/*"
+      - "examples/**/*"
 
   BundleCheck:
     enabled: true
