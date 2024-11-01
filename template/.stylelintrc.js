@@ -1,7 +1,4 @@
-import strictValuePlugin from "stylelint-declaration-strict-value";
-
 export default {
-  plugins: [strictValuePlugin],
   extends: ["stylelint-config-standard", "stylelint-prettier/recommended"],
   rules: {
     "color-hex-length": null,
@@ -18,17 +15,19 @@ export default {
         ignoreProperties: ["font-named-instance"],
       },
     ],
-    "scale-unlimited/declaration-strict-value": [
-      "/color/",
+    "declaration-property-value-allowed-list": [
       {
-        disableFix: true,
-        ignoreValues: [
+        "/color/": [
+          /^var\(--/,
           "currentcolor",
           "inherit",
           "initial",
           "transparent",
           "unset",
         ],
+      },
+      {
+        message: "Found hard-coded color value; expected var(--...)",
       },
     ],
     "selector-class-pattern": [
