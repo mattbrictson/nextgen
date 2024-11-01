@@ -59,7 +59,7 @@ PreCommit:
   RuboCop:
     enabled: true
     required_executable: bundle
-    command: ["bundle", "exec", "rubocop"]
+    command: ["bundle", "exec", "rubocop", "-c", ".rubocop.yml"]
     on_warn: fail
 <% end -%>
 
