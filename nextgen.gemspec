@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
                      "that includes opt-in support for modern frontend development with Vite."
   spec.homepage = "https://github.com/mattbrictson/nextgen"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 3.1"
+  spec.required_ruby_version = ">= 3.2"
 
   spec.metadata = {
     "bug_tracker_uri" => "https://github.com/mattbrictson/nextgen/issues",
