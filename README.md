@@ -28,7 +28,7 @@ Nextgen is an **interactive** and flexible alternative to `rails new` that inclu
 
 Nextgen generates apps using **Rails 7.2**.
 
-- **Ruby 3.1+** is required (Ruby 3.2 if you choose a Rails 8 pre-release)
+- **Ruby 3.2+** is required
 - **Rubygems 3.4.8+** is required (run `gem update --system` to get it)
 - **Node 20.9+ and Yarn** are required if you choose Vite or other Node-based options (see the [npm note](#yarn-or-npm) below)
 - Additional tools may be required depending on the options you select (e.g. PostgreSQL)

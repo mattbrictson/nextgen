@@ -104,6 +104,7 @@ module RubyVersions
     def all
       patches = versions.values_at(:stable, :security_maintenance).compact.flatten
       sorted_minor_versions = patches.map { |p| p[/\d+\.\d+/] }.sort_by(&:to_f)
+      sorted_minor_versions.delete("3.1") # Rails no longer supports 3.1
       [*sorted_minor_versions, "head"]
     end
 
