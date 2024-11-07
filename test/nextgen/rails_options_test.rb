@@ -93,11 +93,11 @@ class Nextgen::RailsOptionsTest < Minitest::Test
     refute(opts.npm?)
   end
 
-  def test_asset_pipeline_can_be_specified
+  def test_asset_pipeline_assumes_propshaft_by_default
     opts = build_rails_options
 
     opts.asset_pipeline = :propshaft
-    assert_equal(["--asset-pipeline=propshaft"], opts.to_args)
+    assert_empty([], opts.to_args)
   end
 
   def test_invalid_asset_pipeline_raises
