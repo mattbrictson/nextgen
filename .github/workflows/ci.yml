@@ -70,7 +70,7 @@ jobs:
           bundler-cache: true
       - run: git config --global user.name 'github-actions[bot]'
       - run: git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-      - run: gem install --no-document railties --version "~> 7.2.0"
+      - run: gem install --no-document railties --version "~> 8.0.0"
       - name: rake test:e2e
         env:
           NEXTGEN_VERSION: ${{ matrix.version }}
