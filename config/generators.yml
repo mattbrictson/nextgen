@@ -36,9 +36,9 @@ action_mailer:
   description: "Configure Action Mailer for testing"
   requires: action_mailer
 
-annotate:
-  prompt: "Annotate Models"
-  description: "Install annotate gem to auto-generate schema annotations"
+annotaterb:
+  prompt: "AnnotateRb"
+  description: "Install annotaterb gem to auto-generate schema annotations"
   requires: active_record
 
 basic_auth:
