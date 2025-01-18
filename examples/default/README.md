@@ -1,6 +1,6 @@
 # default_example
 
-This is a Rails 7.2 app.
+This is a Rails 8.0 app.
 
 ## Prerequisites
 
