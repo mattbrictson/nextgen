@@ -112,8 +112,7 @@ Which test framework will you use?
 
 ```
 How will you manage frontend assets?
-  Sprockets (default)
-  Propshaft
+  Propshaft (default)
 ‣ Vite
 
 Which JavaScript package manager will you use?

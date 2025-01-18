@@ -1,13 +1,13 @@
 # vite_example
 
-This is a Rails 7.2 app.
+This is a Rails 8.0 app.
 
 ## Prerequisites
 
 This project requires:
 
 - Ruby (see [.ruby-version](./.ruby-version)), preferably managed using [rbenv](https://github.com/rbenv/rbenv)
-- Node 18 (LTS) or newer
+- Node 20 (LTS) or newer
 - Yarn 1.x (classic)
 
 On macOS, these [Homebrew](http://brew.sh) packages are recommended:
