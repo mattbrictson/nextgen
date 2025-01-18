@@ -8,7 +8,7 @@ PreCommit:
   ErbLint:
     enabled: true
     required_executable: bundle
-    command: ["bundle", "exec", "erblint"]
+    command: ["bundle", "exec", "erb_lint"]
     include: "**/*.html.erb"
 
   EsLint:
@@ -52,15 +52,13 @@ PreCommit:
   RuboCop:
     enabled: true
     required_executable: bundle
-    command: ["bundle", "exec", "rubocop"]
+    command: ["bundle", "exec", "rubocop", "-c", ".rubocop.yml"]
     on_warn: fail
 
   Stylelint:
     enabled: true
     required_executable: npx
     command: ["npx", "--no-install", "stylelint"]
-    env:
-      NODE_OPTIONS: --no-deprecation
     include:
       - app/assets/**/*.css
       - app/components/**/*.css

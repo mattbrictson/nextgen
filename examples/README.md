@@ -122,11 +122,20 @@ Which JavaScript package manager will you use?
 
 ## all
 
-[`examples/all`](./all) shows what is generated when all optional Nextgen enhancements are selected, including Sidekiq, Factory Bot, Bundler Audit, ESLint, and more than a dozen others.
+[`examples/all`](./all) shows what is generated when all optional Nextgen enhancements are selected, including Sidekiq, Factory Bot, Bundler Audit, ESLint, and more than a dozen others. In this example, the default Kamal and Solid Cache+Queue choices have been deselected so that Tomo and Sidekiq can be installed in their place.
 
 ```
+Rails can preinstall the following. Which do you need?
+  ⬢ Brakeman
+  ⬢ GitHub Actions CI
+  ⬡ Kamal
+  ⬢ RuboCop
+‣ ⬡ Solid Cache+Queue
+  ⬢ Thruster
+  ⬡ devcontainer files
+
 Which optional enhancements would you like to add?
-‣ ⬢ Annotate Models
+‣ ⬢ AnnotateRb
   ⬢ BasicAuth controller concern
   ⬢ Bundler Audit
   ⬢ capybara-lockstep

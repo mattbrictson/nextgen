@@ -13,7 +13,7 @@ host "user@hostname.or.ip.address"
 
 set application: "all_example"
 set deploy_to: "/var/www/%{application}"
-set nodenv_node_version: "20.18.0"
+set nodenv_node_version: "22.13.0"
 set nodenv_install_yarn: true
 set git_url: nil # FIXME
 set git_branch: "main"
