@@ -7,7 +7,7 @@ if File.exist?(".github/workflows/ci.yml")
   say_git "Add bundle-audit job to CI workflow"
   inject_into_file ".github/workflows/ci.yml", <<-YAML, after: /^jobs:\n/
   scan_gems:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code

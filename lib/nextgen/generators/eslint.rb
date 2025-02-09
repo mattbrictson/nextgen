@@ -29,7 +29,7 @@ if File.exist?(".github/workflows/ci.yml")
   node_spec = File.exist?(".node-version") ? 'node-version-file: ".node-version"' : 'node-version: "lts/*"'
   inject_into_file ".github/workflows/ci.yml", <<-YAML, after: /^jobs:\n/
   eslint:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
