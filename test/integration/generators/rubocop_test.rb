@@ -16,14 +16,14 @@ class Nextgen::Generators::RubocopTest < Nextgen::Generators::TestCase
     GEMFILE
   end
 
-  test "adds rubocop gems in development group, with version spec for rubocop-rails" do
+  test "adds rubocop gems in development group" do
     apply_generator
 
     assert_file "Gemfile", /#{Regexp.quote(<<~GEMFILE)}/
       group :development do
         gem "rubocop", require: false
         gem "rubocop-performance", require: false
-        gem "rubocop-rails", ">= 2.22.0", require: false
+        gem "rubocop-rails", require: false
       end
     GEMFILE
   end
@@ -32,7 +32,7 @@ class Nextgen::Generators::RubocopTest < Nextgen::Generators::TestCase
     apply_generator
 
     assert_file ".rubocop.yml", /#{Regexp.quote(<<~YML)}/
-      require:
+      plugins:
         - rubocop-performance
         - rubocop-rails
     YML
