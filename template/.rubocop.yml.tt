@@ -1,5 +1,11 @@
-require:
+<% if plugins.any? -%>
+plugins:
+<% end -%>
 <%= plugins.map { "  - rubocop-#{_1}" }.join("\n") %>
+<% if requires.any? -%>
+require:
+<%= requires.map { "  - rubocop-#{_1}" }.join("\n") %>
+<% end -%>
 
 inherit_mode:
   merge:
