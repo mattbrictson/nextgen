@@ -4,15 +4,14 @@ say_git "Install rubocop gems"
 remove_gem "rubocop-rails-omakase"
 gemfile = File.read("Gemfile")
 plugins = []
-requires = []
-requires << "capybara" if gemfile.match?(/^\s*gem ['"]capybara['"]/)
-requires << "factory_bot" if gemfile.match?(/^\s*gem ['"]factory_bot/)
+plugins << "capybara" if gemfile.match?(/^\s*gem ['"]capybara['"]/)
+plugins << "factory_bot" if gemfile.match?(/^\s*gem ['"]factory_bot/)
 plugins << "minitest" if minitest?
 plugins << "performance"
 plugins << "rails"
 rubocop_gems = [
   "rubocop",
-  *[*plugins, *requires].sort.map { "rubocop-#{_1}" }
+  *plugins.sort.map { "rubocop-#{_1}" }
 ]
 install_gems(*rubocop_gems.reverse, group: :development, require: false)
 binstub "rubocop" unless File.exist?("bin/rubocop")
