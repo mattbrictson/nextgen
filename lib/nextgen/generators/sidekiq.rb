@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 say_git "Install the sidekiq gem in the :production group, with a binstub"
-install_gem "sidekiq", version: "~> 7.0", group: :production
+install_gem "sidekiq", version: "~> 8.0", group: :production
 binstub "sidekiq"
 
 say_git "Add a sidekiq entry to the Procfile"
