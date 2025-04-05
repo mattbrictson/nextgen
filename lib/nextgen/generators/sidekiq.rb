@@ -12,10 +12,6 @@ uncomment_lines "config/environments/production.rb", /config\.active_job/
 gsub_file "config/environments/production.rb",
   /active_job\.queue_adapter\s*=\s*:.+/,
   "active_job.queue_adapter = :sidekiq"
-gsub_file "config/environments/production.rb", " (and separate queues per environment)", ""
-gsub_file "config/environments/production.rb",
-  /queue_name_prefix = .*$/,
-  "queue_name_prefix = nil # Not supported by sidekiq"
 
 say_git "Mount the Sidekiq web console at /sidekiq, secured with basic auth"
 copy_file "config/initializers/sidekiq.rb"
