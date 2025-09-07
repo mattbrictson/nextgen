@@ -3,7 +3,6 @@
 [![Gem Version](https://img.shields.io/gem/v/nextgen)](https://rubygems.org/gems/nextgen)
 [![Gem Downloads](https://img.shields.io/gem/dt/nextgen)](https://www.ruby-toolbox.com/projects/nextgen)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/mattbrictson/nextgen/ci.yml)](https://github.com/mattbrictson/nextgen/actions/workflows/ci.yml)
-[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/mattbrictson/nextgen)](https://codeclimate.com/github/mattbrictson/nextgen)
 
 Nextgen is an **interactive** and flexible alternative to `rails new` that includes opt-in support for modern frontend development with ⚡️**Vite.**
 
