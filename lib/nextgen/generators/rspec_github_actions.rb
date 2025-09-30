@@ -25,7 +25,7 @@ erb = <<~YAML
 
       <%- end -%>
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1

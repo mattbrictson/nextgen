@@ -11,7 +11,7 @@ if File.exist?(".github/workflows/ci.yml")
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
