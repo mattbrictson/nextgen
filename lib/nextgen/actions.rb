@@ -143,9 +143,9 @@ module Nextgen
 
       paths.reverse_each do |path|
         gsub_file("config/application.rb", /autoload_lib\(ignore: %w.*$/) do |match|
-          next match if match.match?(/%w.*[\(\[ ]#{Regexp.quote(path)}[ \)\]]/)
+          next match if match.match?(/%w.*[(\[ ]#{Regexp.quote(path)}[ )\]]/)
 
-          match.sub(/%w[\(\[]/, '\0' + path + " ")
+          match.sub(/%w[(\[]/, '\0' + path + " ")
         end
       end
     end
