@@ -2,7 +2,7 @@
 
 desc "Run erb_lint"
 task :erb_lint do
-  sh "bin/erb_lint --lint-all"
+  sh "bin/erb_lint --lint-all --cache"
 end
 
 namespace :erb_lint do

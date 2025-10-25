@@ -32,5 +32,9 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore erb_lint cache
+/.erb_lint_cache
+
 node_modules/
 !/.env.sample

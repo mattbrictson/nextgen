@@ -4,6 +4,7 @@ say_git "Install erb_lint"
 install_gem "erb_lint", group: :development, require: false
 binstub "erb_lint"
 template ".erb_lint.yml.tt"
+gitignore "/.erb_lint_cache"
 
 say_git "Add erb_lint to default rake task"
 copy_file "lib/tasks/erb_lint.rake"
@@ -25,7 +26,7 @@ if File.exist?(".github/workflows/ci.yml")
           bundler-cache: true
 
       - name: Lint ERB with erb_lint
-        run: bin/erb_lint --lint-all
+        run: bin/erb_lint --lint-all --cache
 
   YAML
 end
