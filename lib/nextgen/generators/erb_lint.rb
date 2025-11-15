@@ -26,7 +26,7 @@ if File.exist?(".github/workflows/ci.yml")
           bundler-cache: true
 
       - name: Lint ERB with erb_lint
-        run: bin/erb_lint --lint-all --cache
+        run: bin/erb_lint --lint-all
 
   YAML
 end

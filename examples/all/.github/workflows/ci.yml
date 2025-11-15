@@ -57,7 +57,7 @@ jobs:
           bundler-cache: true
 
       - name: Lint ERB with erb_lint
-        run: bin/erb_lint --lint-all --cache
+        run: bin/erb_lint --lint-all
 
   scan_gems:
     runs-on: ubuntu-24.04
