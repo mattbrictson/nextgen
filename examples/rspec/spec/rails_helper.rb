@@ -25,7 +25,9 @@ require 'rspec/rails'
 #
 # Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
 
-# Checks for pending migrations and applies them before tests are run.
+# Ensures that the test database schema matches the current schema file.
+# If there are pending migrations it will invoke `db:test:prepare` to
+# recreate the test database by loading the schema.
 # If you are not using ActiveRecord, you can remove these lines.
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -54,7 +56,7 @@ RSpec.configure do |config|
   #     end
   #
   # The different available types are documented in the features, such as in
-  # https://rspec.info/features/7-0/rspec-rails
+  # https://rspec.info/features/8-0/rspec-rails
   #
   # You can also this infer these behaviours automatically by location, e.g.
   # /spec/models would pull in the same behaviour as `type: :model` but this
