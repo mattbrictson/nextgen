@@ -45,10 +45,6 @@ basic_auth:
   prompt: "BasicAuth controller concern"
   description: "Allow app to be secured with ENV-based basic auth credentials"
 
-bundler_audit:
-  prompt: "Bundler Audit"
-  description: "Install bundler-audit gem to detect CVEs in Ruby dependencies"
-
 capybara_lockstep:
   prompt: "capybara-lockstep"
   description: "Install capybara-lockstep gem for less-flaky browser testing"

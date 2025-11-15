@@ -58,7 +58,6 @@ if File.exist?("app/views/layouts/application.html.erb")
   gsub_file "app/views/layouts/application.html.erb", "<html>", '<html lang="en">'
   gsub_file "app/views/layouts/application.html.erb", %r{^\s*<title>.*</title>}, <<~ERB.gsub(/^/, "    ").rstrip
     <title><%= content_for?(:title) ? strip_tags(yield(:title)) : #{app_const_base.titleize.inspect} %></title>
-    <meta name="apple-mobile-web-app-title" content="#{app_const_base.titleize}">
   ERB
 end
 

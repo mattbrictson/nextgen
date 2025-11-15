@@ -18,6 +18,7 @@ current: &current
     mariadb-trilogy: MariaDB-Trilogy
   default_features:
     brakeman: Brakeman
+    bundler-audit: bundler-audit
     ci: GitHub Actions CI
     kamal: Kamal
     rubocop: RuboCop
@@ -29,7 +30,7 @@ current: &current
 edge:
   <<: *current
   args: ["--edge"]
-  label: "edge (8-0-stable)"
+  label: "edge (8-1-stable)"
 
 main:
   <<: *current
