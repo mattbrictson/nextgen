@@ -8,7 +8,7 @@ PreCommit:
   ErbLint:
     enabled: true
     required_executable: bundle
-    command: ["bundle", "exec", "erb_lint"]
+    command: ["bundle", "exec", "erb_lint", "--cache"]
     include: "**/*.html.erb"
 
   EsLint:
