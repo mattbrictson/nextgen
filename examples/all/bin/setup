@@ -9,6 +9,7 @@ def setup!
   run "bundle install" if bundle_needed?
   run "overcommit --install" if overcommit_installable?
   run "bin/rails db:prepare" if database_present?
+  run "bin/rails db:reset" if database_present? && ARGV.include?("--reset")
   run install_node_packages_command if node_present?
   run "bin/rails tmp:create" if tmp_missing?
   run "bin/rails restart" if pid_present?

@@ -127,6 +127,7 @@ Which JavaScript package manager will you use?
 ```
 Rails can preinstall the following. Which do you need?
   ⬢ Brakeman
+  ⬢ bundler-audit
   ⬢ GitHub Actions CI
   ⬡ Kamal
   ⬢ RuboCop
@@ -137,7 +138,6 @@ Rails can preinstall the following. Which do you need?
 Which optional enhancements would you like to add?
 ‣ ⬢ AnnotateRb
   ⬢ BasicAuth controller concern
-  ⬢ Bundler Audit
   ⬢ capybara-lockstep
   ⬢ dotenv
   ⬢ erb_lint
