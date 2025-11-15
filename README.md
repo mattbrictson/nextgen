@@ -86,7 +86,6 @@ By default, Rails apps include RuboCop with a config defined by the [rubocop-rai
 Nextgen can install and configure your choice of these recommended gems:
 
 - [annotaterb](https://github.com/drwl/annotaterb)
-- [bundler-audit](https://github.com/rubysec/bundler-audit)
 - [capybara-lockstep](https://github.com/makandra/capybara-lockstep)
 - [dotenv](https://github.com/bkeepers/dotenv)
 - [erb_lint](https://github.com/Shopify/erb_lint)
