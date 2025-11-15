@@ -41,7 +41,9 @@ if File.exist?("test/application_system_test_case.rb")
 end
 
 missing_ruby_decl = !File.read("Gemfile").match?(/^ruby /)
-if missing_ruby_decl && File.exist?(".ruby-version") && File.read(".ruby-version").match?(/\A\d+\.\d+.\d+.\s*\z/m)
+if missing_ruby_decl &&
+    File.exist?(".ruby-version") &&
+    File.read(".ruby-version").match?(/\A(ruby-)?\d+\.\d+.\d+.\s*\z/m)
   say_git "Add ruby declaration to Gemfile"
   ruby_decl = if bundler_ruby_file_supported?
                 'ruby file: ".ruby-version"'
