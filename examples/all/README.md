@@ -1,6 +1,6 @@
 # all_example
 
-This is a Rails 8.0 app.
+This is a Rails 8.1 app.
 
 ## Prerequisites
 
@@ -30,6 +30,9 @@ bin/setup
 
 > [!TIP]
 > The `bin/setup` script is idempotent and is designed to be run often. You should run it every time you pull code that introduces new dependencies or makes other significant changes to the project.
+
+> [!TIP]
+> To drop your existing database and start over with a clean local environment, use `bin/setup --reset`.
 
 ### Run the app!
 

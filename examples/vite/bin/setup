@@ -4,11 +4,12 @@
 # This script is a way to set up or update your development environment automatically.
 # This script is idempotent, so that you can run it at any time and get an expectable outcome.
 # Add necessary setup steps to this method.
-def setup!
+def setup! # rubocop:disable Metrics/PerceivedComplexity
   env ".env", from: ".env.sample"
   run "bundle install" if bundle_needed?
   run "overcommit --install" if overcommit_installable?
   run "bin/rails db:prepare" if database_present?
+  run "bin/rails db:reset" if database_present? && ARGV.include?("--reset")
   run install_node_packages_command if node_present?
   run "bin/rails tmp:create" if tmp_missing?
   run "bin/rails restart" if pid_present?

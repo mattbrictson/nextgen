@@ -7,7 +7,7 @@
   "scripts": {},
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
-    "@hotwired/turbo-rails": "^8.0.12",
+    "@hotwired/turbo-rails": "^8.0.20",
     "autoprefixer": "^10.4.14",
     "modern-normalize": "^3.0.0",
     "postcss": "^8.4.24",

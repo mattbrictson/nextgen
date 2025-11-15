@@ -6,12 +6,13 @@ ruby file: ".ruby-version"
 
 gem "bootsnap", require: false
 gem "good_migrations"
+gem "image_processing", "~> 1.2"
 gem "importmap-rails"
 gem "jbuilder"
 gem "propshaft"
 gem "puma", ">= 5.0"
 gem "rack-canonical-host"
-gem "rails", "~> 8.0.1"
+gem "rails", "~> 8.1.1"
 gem "sqlite3", ">= 2.1"
 gem "stimulus-rails"
 gem "thruster", require: false
@@ -20,6 +21,7 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 
 group :development, :test do
   gem "brakeman", require: false
+  gem "bundler-audit", require: false
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"
   gem "dotenv", ">= 3.0"
   gem "factory_bot_rails"
@@ -28,7 +30,6 @@ end
 
 group :development do
   gem "annotaterb"
-  gem "bundler-audit", require: false
   gem "erb_lint", require: false
   gem "letter_opener"
   gem "rack-mini-profiler"
@@ -37,7 +38,7 @@ group :development do
   gem "rubocop-factory_bot", require: false
   gem "rubocop-minitest", require: false
   gem "rubocop-performance", require: false
-  gem "rubocop-rails", ">= 2.22.0", require: false
+  gem "rubocop-rails", require: false
   gem "tomo", "~> 1.18", require: false
   gem "web-console"
 end
@@ -54,5 +55,5 @@ group :test do
 end
 
 group :production do
-  gem "sidekiq", "~> 7.0"
+  gem "sidekiq", "~> 8.0"
 end

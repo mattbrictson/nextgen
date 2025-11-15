@@ -5,17 +5,17 @@
     "node": "^20.9.0 || >= 22.0.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.18.0",
+    "@eslint/js": "^9.39.1",
     "@types/eslint": "^9.6.1",
     "eslint": "^9",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-formatter-compact": "^8.40.0",
-    "eslint-plugin-prettier": "^5.2.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-formatter-compact": "^9.0.1",
+    "eslint-plugin-prettier": "^5.5.4",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.4.2",
-    "stylelint": "^16.13.2",
-    "stylelint-config-standard": "^37.0.0",
-    "stylelint-prettier": "^5.0.2"
+    "prettier": "^3.6.2",
+    "stylelint": "^16.25.0",
+    "stylelint-config-standard": "^39.0.1",
+    "stylelint-prettier": "^5.0.3"
   },
   "scripts": {
     "lint:js": "eslint 'app/{assets,components,frontend,javascript}/**/*.{cjs,js,jsx,ts,tsx}'",

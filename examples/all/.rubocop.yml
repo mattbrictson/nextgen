@@ -1,4 +1,4 @@
-require:
+plugins:
   - rubocop-capybara
   - rubocop-factory_bot
   - rubocop-minitest
@@ -147,6 +147,9 @@ Naming/FileName:
     - .tomo/plugins/*.rb
 
 Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
+Naming/PredicateMethod:
   Enabled: false
 
 Naming/VariableNumber:

@@ -6,7 +6,7 @@
 #
 default: &default
   adapter: sqlite3
-  pool: <%= [5, *ENV.values_at("RAILS_MAX_THREADS", "SIDEKIQ_CONCURRENCY")].map(&:to_i).max %>
+  max_connections: <%= [5, *ENV.values_at("RAILS_MAX_THREADS", "SIDEKIQ_CONCURRENCY")].map(&:to_i).max %>
   timeout: 5000
 
 development:

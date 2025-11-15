@@ -30,11 +30,9 @@
 
 /public/assets
 
-# Ignore master key for decrypting credentials and more.
-/config/master.key
-
-# Ignore erb_lint cache
-/.erb_lint_cache
+# Ignore key files for decrypting credentials and more.
+/config/*.key
 
 node_modules/
 !/.env.sample
+/.erb_lint_cache
