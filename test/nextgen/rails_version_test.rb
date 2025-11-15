@@ -19,7 +19,7 @@ module Nextgen
       current = RailsVersion.current
       edge = RailsVersion.edge
 
-      assert_equal "edge (8-0-stable)", edge.label
+      assert_equal "edge (8-1-stable)", edge.label
       assert_equal ["--edge"], edge.args
 
       %i[asset_pipelines databases default_features optional_features].each do |attr|
