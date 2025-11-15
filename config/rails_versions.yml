@@ -30,7 +30,7 @@ current: &current
 edge:
   <<: *current
   args: ["--edge"]
-  label: "edge (8-0-stable)"
+  label: "edge (8-1-stable)"
 
 main:
   <<: *current

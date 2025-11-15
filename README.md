@@ -25,7 +25,7 @@ Nextgen is an **interactive** and flexible alternative to `rails new` that inclu
 
 ## Requirements
 
-Nextgen generates apps using **Rails 8.0**.
+Nextgen generates apps using **Rails 8.1**.
 
 - **Ruby 3.2+** is required
 - **Rubygems 3.4.8+** is required (run `gem update --system` to get it)
@@ -53,7 +53,7 @@ Check out the [examples directory](./examples) to see some Rails apps that were 
 
 ## What's included
 
-**Nextgen starts with the "omakase" default behavior of `rails new`,** so you get the great things included in Rails 8.0 like RuboCop, a GitHub Actions CI workflow, your choice of database platform, CSS framework, etc. You can also interactively disable parts of the default stack that you don't need, like JBuilder or Action Mailbox.
+**Nextgen starts with the "omakase" default behavior of `rails new`,** so you get the great things included in Rails 8.1 like RuboCop, a GitHub Actions CI workflow, your choice of database platform, CSS framework, etc. You can also interactively disable parts of the default stack that you don't need, like JBuilder or Action Mailbox.
 
 On top of that foundation, Nextgen offers dozens of useful enhancements to the vanilla Rails experience. You are free to pick and choose which (if any) of these to apply to your new project. Behind the scenes, **each enhancement is applied in a separate git commit,** so that you can later see what was applied and why, and revert the suggestions if necessary.
 
@@ -75,7 +75,7 @@ Prefer RSpec? Nextgen can set you up with RSpec, plus the gems and configuration
 Prefer npm? Nextgen allows you to choose Yarn or npm to manage your app's JavaScript dependencies. Your Dockerfile, CI jobs, `bin/setup` script, etc. will be adjusted appropriately.
 
 > [!NOTE]
-> As of Rails 8.0, `rails new` is still hard-coded to use Yarn in some places. Therefore you may still need Yarn installed on your system in order to generate a new app. Nextgen will remove these Yarn references from your generated project if you select the npm option.
+> As of Rails 8.1, `rails new` is still hard-coded to use Yarn in some places. Therefore you may still need Yarn installed on your system in order to generate a new app. Nextgen will remove these Yarn references from your generated project if you select the npm option.
 
 ### Opinionated RuboCop Config
 
