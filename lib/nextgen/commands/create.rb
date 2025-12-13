@@ -13,7 +13,8 @@ require "nextgen/ext/prompt/multilist"
 module Nextgen
   class Commands::Create # rubocop:disable Metrics/ClassLength
     extend Forwardable
-    RESERVED_NAMES = %w[application destroy plugin runner test]
+
+    RESERVED_NAMES = %w[application destroy plugin runner test].freeze
 
     def self.run(app_path, options)
       new(app_path, options).run
