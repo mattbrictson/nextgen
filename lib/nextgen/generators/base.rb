@@ -32,7 +32,7 @@ append_to_file "Rakefile", <<~RUBY
   end
 RUBY
 
-if File.exist?("test/application_system_test_case.rb")
+if File.read("Gemfile").match?(/^\s*gem ['"]capybara['"]/)
   say_git "Configure system tests"
   copy_test_support_file "capybara.rb.tt"
   copy_file "test/application_system_test_case.rb", force: true
