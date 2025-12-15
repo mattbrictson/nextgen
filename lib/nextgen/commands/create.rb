@@ -14,6 +14,8 @@ module Nextgen
   class Commands::Create # rubocop:disable Metrics/ClassLength
     extend Forwardable
 
+    RESERVED_NAMES = %w[application destroy plugin runner test].freeze
+
     def self.run(app_path, options)
       new(app_path, options).run
     end
@@ -24,6 +26,8 @@ module Nextgen
     end
 
     def run # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
+      reserved_word_message if app_name_is_reserved_word?
+
       say <<~BANNER
         Welcome to nextgen, the interactive Rails app generator!
 
@@ -105,6 +109,17 @@ module Nextgen
     attr_accessor :app_path, :app_name, :rails_opts, :generators
 
     def_delegators :shell, :say
+
+    def app_name_is_reserved_word?
+      RESERVED_NAMES.include?(app_name.downcase)
+    end
+
+    def reserved_word_message
+      say <<~APP_NAME
+        Your Rails app name: "#{cyan(app_name)}", is a reserved word. Please rerun the initial command with an unreserved word instead.
+      APP_NAME
+      exit(false)
+    end
 
     def continue_if(question)
       if prompt.yes?(question)
