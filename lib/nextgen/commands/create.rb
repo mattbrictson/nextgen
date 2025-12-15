@@ -118,7 +118,7 @@ module Nextgen
       say <<~APP_NAME
         Your Rails app name: "#{cyan(app_name)}", is a reserved word. Please rerun the initial command with an unreserved word instead.
       APP_NAME
-      exit
+      exit(false)
     end
 
     def continue_if(question)
