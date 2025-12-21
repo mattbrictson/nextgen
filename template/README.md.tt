@@ -16,7 +16,7 @@ On macOS, these [Homebrew](http://brew.sh) packages are recommended:
 ```
 brew install rbenv
 <% if postgres -%>
-brew install postgresql@17
+brew install postgresql@18
 <% end -%>
 ```
 
