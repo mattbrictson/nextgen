@@ -125,7 +125,7 @@ if File.exist?(".github/workflows/ci.yml")
   inject_into_file ".github/workflows/ci.yml", <<-YAML, before: /^\s+- name: Run tests/
 
       - name: Set up Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           #{node_spec}
           cache: #{js_package_manager}
