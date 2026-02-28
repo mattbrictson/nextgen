@@ -11,7 +11,7 @@ add_js_packages(
 )
 add_package_json_scripts(
   "lint:css": "stylelint 'app/{components,frontend,assets/stylesheets}/**/*.css'",
-  "fix:css": "npm run -- lint:css --fix",
+  "fix:css": "yarn run lint:css --fix",
   lint: "npm-run-all lint:**",
   fix: "npm-run-all fix:**"
 )
