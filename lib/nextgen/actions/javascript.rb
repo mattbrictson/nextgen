@@ -17,6 +17,7 @@ module Nextgen
 
     def add_package_json_scripts(scripts)
       scripts.each do |name, script|
+        script = script.sub(/^yarn run /, "npm run -- ") unless yarn?
         cmd = "npm pkg set scripts.#{name.to_s.shellescape}=#{script.shellescape}"
         say_status :run, cmd.truncate(60), :green
         run! cmd, verbose: false
