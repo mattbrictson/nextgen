@@ -2,7 +2,7 @@
 
 say_git "Install eslint"
 add_js_packages(
-  "@eslint/js",
+  "@eslint/js@^9",
   "eslint@^9",
   "eslint-config-prettier",
   "eslint-formatter-compact",
