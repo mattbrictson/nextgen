@@ -3,7 +3,7 @@
 module Nextgen
   module Actions::Javascript
     def add_js_packages(*packages, dev: false)
-      command = yarn? ? +"yarn add" : +"npm install --fund=false --audit-false"
+      command = yarn? ? +"yarn add" : +"npm install --fund=false"
       command << " -D" if dev
       run_js_command "#{command} #{packages.map(&:shellescape).join(" ")}"
     end
