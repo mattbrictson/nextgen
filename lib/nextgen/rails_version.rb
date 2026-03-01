@@ -11,8 +11,7 @@ module Nextgen
     :asset_pipelines,
     :databases,
     :default_features,
-    :optional_features,
-    keyword_init: true
+    :optional_features
   )
 
   class << RailsVersion
