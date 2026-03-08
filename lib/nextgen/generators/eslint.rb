@@ -2,11 +2,12 @@
 
 say_git "Install eslint"
 add_js_packages(
-  "@eslint/js@^9",
-  "eslint@^9",
+  "@eslint/js@^10",
+  "eslint@^10",
   "eslint-config-prettier",
   "eslint-formatter-compact",
   "eslint-plugin-prettier",
+  "globals",
   "prettier",
   "npm-run-all",
   "@types/eslint",
