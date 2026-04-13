@@ -3,6 +3,7 @@
 install_gems "capybara", "selenium-webdriver", group: :test, require: false
 copy_test_support_file "capybara.rb.tt"
 copy_test_support_file "system.rb"
+empty_directory_with_keep_file "spec/system"
 
 copy_file "lib/templates/rspec/system/system_spec.rb"
 prevent_autoload_lib "templates"
