@@ -36,6 +36,7 @@ if File.read("Gemfile").match?(/^\s*gem ['"]capybara['"]/)
   say_git "Configure system tests"
   copy_test_support_file "capybara.rb.tt"
   copy_file "test/application_system_test_case.rb", force: true
+  empty_directory_with_keep_file "test/system"
   gsub_file "Gemfile", /gem "capybara"$/, '\0, require: false'
   gsub_file "Gemfile", /gem "selenium-webdriver"$/, '\0, require: false'
 end
