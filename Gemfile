@@ -6,7 +6,7 @@ gemspec
 gem "mighty_test" unless RUBY_VERSION < "3.1"
 gem "minitest", "~> 5.11"
 gem "rake", "~> 13.0"
-gem "rubocop", "1.86.0"
+gem "rubocop", "1.86.1"
 gem "rubocop-minitest", "0.39.1"
 gem "rubocop-packaging", "0.6.0"
 gem "rubocop-performance", "1.26.1"
