@@ -30,7 +30,7 @@ if File.exist?(".github/workflows/ci.yml")
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up Node
         uses: actions/setup-node@v6
