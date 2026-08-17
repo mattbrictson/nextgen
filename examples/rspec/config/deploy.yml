@@ -76,7 +76,6 @@ volumes:
 # version inside the asset_path.
 asset_path: /rails/public/assets
 
-
 # Configure the image builder.
 builder:
   arch: amd64
@@ -86,7 +85,7 @@ builder:
   #
   # # Pass arguments and secrets to the Docker build process
   # args:
-  #   RUBY_VERSION: ruby-3.4.7
+  #   RUBY_VERSION: ruby-4.0.6
   # secrets:
   #   - GITHUB_TOKEN
   #   - RAILS_MASTER_KEY

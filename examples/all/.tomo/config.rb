@@ -13,8 +13,8 @@ host "user@hostname.or.ip.address"
 
 set application: "all_example"
 set deploy_to: "/var/www/%{application}"
-set rbenv_ruby_version: "3.4.7"
-set nodenv_node_version: "24.11.1"
+set rbenv_ruby_version: "4.0.6"
+set nodenv_node_version: "24.19.0"
 set nodenv_install_yarn: true
 set git_url: nil # FIXME
 set git_branch: "main"

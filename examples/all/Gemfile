@@ -12,7 +12,7 @@ gem "jbuilder"
 gem "propshaft"
 gem "puma", ">= 5.0"
 gem "rack-canonical-host"
-gem "rails", "~> 8.1.1"
+gem "rails", "~> 8.1.3", ">= 8.1.3.1"
 gem "sqlite3", ">= 2.1"
 gem "stimulus-rails"
 gem "thruster", require: false
@@ -48,7 +48,7 @@ group :test do
   gem "capybara-lockstep", require: false
   gem "mocha"
   gem "selenium-webdriver", require: false
-  gem "shoulda-context"
+  gem "shoulda-context", ">= 3.0.0.rc1"
   gem "shoulda-matchers"
   gem "vcr"
   gem "webmock"
