@@ -11,6 +11,9 @@ RSpec.configure do |config|
 
         # Fixes slowdowns on macOS
         options.add_argument("--disable-gpu")
+
+        # Fixes intermittent assertion failures
+        options.add_argument("--disable-features=DeferRendererTasksAfterInput")
       end
   end
 end
