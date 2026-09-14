@@ -83,3 +83,11 @@ if (time_zone = read_system_time_zone_name)
   uncomment_lines "config/application.rb", /config\.time_zone/
   gsub_file "config/application.rb", /(config\.time_zone = ).*$/, "\\1#{time_zone.inspect}"
 end
+
+say_git "Replace default action_view.field_error_proc"
+insert_into_file "config/application.rb", <<RUBY, before: /^  end/
+
+    # Remove the extra markup that Rails adds around invalid form fields.
+    # https://guides.rubyonrails.org/active_record_validations.html#config-action-view-field-error-proc
+    config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag }
+RUBY
