@@ -65,6 +65,10 @@ Layout/SpaceInsideHashLiteralBraces:
 Lint/AmbiguousBlockAssociation:
   Enabled: false
 
+Lint/CopDirectiveSyntax:
+  Exclude:
+    - template/app/helpers/inline_svg_helper.rb
+
 Lint/DuplicateBranch:
   Enabled: false
 
