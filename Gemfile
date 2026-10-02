@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 gemspec
 
-gem "minitest", "~> 5.11"
+gem "minitest", "~> 6.0"
 gem "minitest-rg", "~> 5.4"
 gem "rake", "~> 13.0"
 gem "rubocop", "1.91.0"
