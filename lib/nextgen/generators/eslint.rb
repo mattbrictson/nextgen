@@ -37,7 +37,7 @@ if File.exist?(".github/workflows/ci.yml")
         uses: actions/checkout@v7
 
       - name: Set up Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           #{node_spec}
           cache: #{js_package_manager}
